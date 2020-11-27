@@ -2429,7 +2429,8 @@
             "description" : "Indicated if this battle pass is active.",
             "example" : false
           }
-        }
+        },
+        "description" : "This object holds some basic info about lifetime of a battle pass and is used in expired notifications."
       },
       "BattlePassExpiredPayload" : {
         "type" : "object",
