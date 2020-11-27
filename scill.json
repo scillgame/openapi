@@ -1782,7 +1782,8 @@
           },
           "activated_at" : {
             "type" : "string",
-            "description" : "The date when this level has been activated or null if it's not activated."
+            "description" : "The date when this level has been activated or null if it's not activated.",
+            "example" : "2020-11-26T08:51:09Z"
           },
           "challenges" : {
             "type" : "array",
