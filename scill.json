@@ -1750,11 +1750,6 @@
             "description" : "The id of the battle pass this level belongs to",
             "example" : "603693723277918210"
           },
-          "user_id" : {
-            "type" : "string",
-            "description" : "The user id of the user who has unlocked this battle pass",
-            "example" : "1234"
-          },
           "reward_amount" : {
             "type" : "string",
             "description" : "In the Admin Panel you can set different types of rewards. You can also set an identifier of an in-game-item or anything you like. Use this to include the reward into your own business logic.",
@@ -1787,9 +1782,9 @@
           },
           "challenges" : {
             "type" : "array",
-            "description" : "An array of Challenge objects. Please note, not all values are available from the challenge object, as battle passes handle the lifecycle of challenges.",
+            "description" : "An array of BattlePassLevelChallenge objects. Please note, not all values are available from the challenge object, as battle passes handle the lifecycle of challenges.",
             "items" : {
-              "$ref" : "#/components/schemas/Challenge"
+              "$ref" : "#/components/schemas/BattlePassLevelChallenge"
             }
           }
         }
@@ -1797,30 +1792,40 @@
       "BattlePassLevelChallenge" : {
         "type" : "object",
         "properties" : {
+          "challenge_id" : {
+            "type" : "string",
+            "description" : "The unique id of this challenge. Every challenge is linked to a product.",
+            "example" : "505538946732425217"
+          },
+          "challenge_name" : {
+            "type" : "string",
+            "description" : "The name of the challenge in the language set by the language parameter.",
+            "example" : "Survive 5 battles"
+          },
           "challenge_goal" : {
             "type" : "integer",
-            "description" : "The number of things a user needs to achieve until this challenge is completed.",
-            "example" : 25
+            "description" : "Indicates how many “tasks” must be completed or done to complete this challenge.",
+            "example" : 5
           },
-          "name" : {
-            "type" : "string",
-            "description" : "The name in the local language indicated what to do.",
-            "example" : "Warm up time: Make 25 frags"
-          },
-          "current_challenge_amount" : {
+          "user_challenge_current_score" : {
             "type" : "integer",
-            "description" : "The current number of things the user already has achieved. Use this in combination with challenge_goal to calculate progress and to render a nice progress bar/indicator.",
+            "description" : "Indicates how many tasks the user already has completed. Use this in combination with challenge_goal to render a nice progress bar.",
             "example" : 0
           },
-          "completed" : {
-            "type" : "boolean",
-            "description" : "Indicates if this challenge is completed. Once all challenges in a BattlePassLevel object are completed, the current level reward can be claimed and the next level is unlocked.",
-            "example" : false
+          "challenge_icon" : {
+            "type" : "string",
+            "description" : "In the admin panel you can set a string representing an image. This can be a URL, but it can also be an image or texture that you have in your games asset database.",
+            "example" : "black-arrow"
           },
-          "active" : {
-            "type" : "boolean",
-            "description" : "Indicates if the challenge is active, thus tracking progress.",
-            "example" : true
+          "challenge_icon_hd" : {
+            "type" : "string",
+            "description" : "This is the HD variant of the challenge icon image. If you have a game, that runs on multiple platforms that could come in handy. Otherwise just leave blank.",
+            "example" : "black-arrow-hd"
+          },
+          "type" : {
+            "type" : "string",
+            "description" : "Indicates the status of the challenge. This can be one of the following unlock: Challenge does not track anything. in-progress: Challenge is active and tracking. overtime: User did not manage to finish the challenge in time. unclaimed: The challenge has been completed but the reward has not yet been claimed. finished: The challenge has been successfully be completed and the reward has been claimed",
+            "example" : "unlock"
           }
         }
       },
