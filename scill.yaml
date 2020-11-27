@@ -1057,7 +1057,7 @@ components:
           description: Indicates if this level has already be claimed.
         activated_at:
           type: string
-          example: null
+          example: "2020-11-26T08:51:09Z"
           description: The date when this level has been activated or null if it's not activated.
         challenges:
           type: array
