@@ -62,6 +62,76 @@ paths:
           $ref: '#/components/responses/NotFound'
         '500':
           description: "Failed on server side"
+  /api/v1/auth/user-challenge-topic-link:
+    servers:
+      - description: Production URL
+        url: https://pcs.scillgame.com
+      - description: Dev URL
+        url: https://pcs-dev.scillgame.com
+    description: "Request a topic for the MQTT server to receive real time updates if challenges change for the user. If you provide a challenge_id then only notifications will be posted for this specific challenge. Ommitting the challenge_id will send notifications for all challenges."
+    parameters:
+      - in: query
+        name: challenge_id
+        schema:
+          type: string
+        description: The challenge id you want to get notified  
+        required: false
+    get:
+      tags: [
+          "auth"
+      ]
+      summary: Get a topic to be used with an MQTT client to receive real time updates whenever a challenge changes.
+      operationId: getUserChallengeNotificationTopic
+      description: Get a topic to be used with an MQTT client to receive real time updates whenever a challenge changes.
+      security:
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      responses:
+        '200':
+          description: Returns the socket token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationTopic'
+        '403':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'               
+  /api/v1/auth/user-battle-pass-topic-link:
+    servers:
+      - description: Production URL
+        url: https://pcs.scillgame.com
+      - description: Dev URL
+        url: https://pcs-dev.scillgame.com
+    description: "Request a topic for the MQTT server to receive real time updates if battle passes change for the user."
+    parameters:
+      - in: query
+        name: battle_pass_id
+        schema:
+          type: string
+        description: The battle pass you want to get notified  
+        required: true
+    get:
+      tags: [
+          "auth"
+      ]
+      summary: Get a topic to be used with an MQTT client to receive real time updates whenever a battle pass or challenges and levels within the battle pass change
+      operationId: getUseBattlePassNotificationTopic
+      description: Get a topic to be used with an MQTT client to receive real time updates whenever a battle pass changes.
+      security:
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      responses:
+        '200':
+          description: Returns the socket token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationTopic'
+        '403':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'                  
   /api/v1/events:
     servers:
       - description: Production URL
@@ -1354,6 +1424,14 @@ components:
           example: 'eyJhbGciOiJIUzI1NiIsInR59....'
       required:
         - socket_token
+    NotificationTopic:
+      type: object
+      properties:
+        topic:
+          type: string
+          example: 'topic/challenges/3ea785c6d0ce23e67beff'
+      required:
+        - topic        
     AccessToken:
       type: object
       properties:
