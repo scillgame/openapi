@@ -100,6 +100,134 @@
         "description" : "Dev URL"
       } ]
     },
+    "/api/v1/auth/user-challenge-topic-link" : {
+      "description" : "Request a topic for the MQTT server to receive real time updates if challenges change for the user. If you provide a challenge_id then only notifications will be posted for this specific challenge. Ommitting the challenge_id will send notifications for all challenges.",
+      "get" : {
+        "tags" : [ "auth" ],
+        "summary" : "Get a topic to be used with an MQTT client to receive real time updates whenever a challenge changes.",
+        "description" : "Get a topic to be used with an MQTT client to receive real time updates whenever a challenge changes.",
+        "operationId" : "getUserChallengeNotificationTopic",
+        "parameters" : [ {
+          "name" : "challenge_id",
+          "in" : "query",
+          "description" : "The challenge id you want to get notified",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Returns the socket token",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/NotificationTopic"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "servers" : [ {
+        "url" : "https://pcs.scillgame.com",
+        "description" : "Production URL"
+      }, {
+        "url" : "https://pcs-dev.scillgame.com",
+        "description" : "Dev URL"
+      } ]
+    },
+    "/api/v1/auth/user-battle-pass-topic-link" : {
+      "description" : "Request a topic for the MQTT server to receive real time updates if battle passes change for the user.",
+      "get" : {
+        "tags" : [ "auth" ],
+        "summary" : "Get a topic to be used with an MQTT client to receive real time updates whenever a battle pass or challenges and levels within the battle pass change",
+        "description" : "Get a topic to be used with an MQTT client to receive real time updates whenever a battle pass changes.",
+        "operationId" : "getUseBattlePassNotificationTopic",
+        "parameters" : [ {
+          "name" : "battle_pass_id",
+          "in" : "query",
+          "description" : "The battle pass you want to get notified",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Returns the socket token",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/NotificationTopic"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "servers" : [ {
+        "url" : "https://pcs.scillgame.com",
+        "description" : "Production URL"
+      }, {
+        "url" : "https://pcs-dev.scillgame.com",
+        "description" : "Dev URL"
+      } ]
+    },
     "/api/v1/events" : {
       "description" : "Events are a piece of structured information that your application or application backend sends to SCILL. Those events are processed in real-time to drive challenges and battle passes that you setup in the Admin Panel and that you activate for your users. Events are also stored in the SCILL backend to drive game analytics. Using this API you can create events.",
       "post" : {
@@ -2174,6 +2302,16 @@
           "socket_token" : {
             "type" : "string",
             "example" : "eyJhbGciOiJIUzI1NiIsInR59...."
+          }
+        }
+      },
+      "NotificationTopic" : {
+        "required" : [ "topic" ],
+        "type" : "object",
+        "properties" : {
+          "topic" : {
+            "type" : "string",
+            "example" : "topic/challenges/3ea785c6d0ce23e67beff"
           }
         }
       },
