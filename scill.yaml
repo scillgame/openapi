@@ -68,21 +68,21 @@ paths:
         url: https://pcs.scillgame.com
       - description: Dev URL
         url: https://pcs-dev.scillgame.com
-    description: "Request a topic for the MQTT server to receive real time updates if challenges change for the user. If you provide a challenge_id then only notifications will be posted for this specific challenge. Ommitting the challenge_id will send notifications for all challenges."
+    description: "Request a topic for the MQTT server to receive real time updates if the specified challenge changes for the user. Use the getUserChallengesNotificationTopic operation if you want to get notifications for all challenges."
     parameters:
       - in: query
         name: challenge_id
         schema:
           type: string
         description: The challenge id you want to get notified  
-        required: false
+        required: true
     get:
       tags: [
           "auth"
       ]
-      summary: Get a topic to be used with an MQTT client to receive real time updates whenever a challenge changes.
+      summary: Get a topic to be used with an MQTT client to receive real time updates whenever the specified challenge changes.
       operationId: getUserChallengeNotificationTopic
-      description: Get a topic to be used with an MQTT client to receive real time updates whenever a challenge changes.
+      description: Get a topic to be used with an MQTT client to receive real time updates whenever the challenge changes.
       security:
         - BearerAuth: []
         - oAuthNoScopes: []
@@ -97,6 +97,34 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'               
+  /api/v1/auth/user-challenges-topic-link:
+    servers:
+      - description: Production URL
+        url: https://pcs.scillgame.com
+      - description: Dev URL
+        url: https://pcs-dev.scillgame.com
+    description: "Request a topic for the MQTT server to receive real time updates if challenges change for the user. This will return changes for all challenges. If you want to listen only for a specific challenge, use the getUserChallengeNotificationTopic."
+    get:
+      tags: [
+          "auth"
+      ]
+      summary: Get a topic to be used with an MQTT client to receive real time updates whenever challenges for the user provided by the access token changes.
+      operationId: getUserChallengesNotificationTopic
+      description: Get a topic to be used with an MQTT client to receive real time updates whenever challenges for the user provided by the access token change.
+      security:
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      responses:
+        '200':
+          description: Returns the socket token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationTopic'
+        '403':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'                        
   /api/v1/auth/user-battle-pass-topic-link:
     servers:
       - description: Production URL
@@ -116,7 +144,7 @@ paths:
           "auth"
       ]
       summary: Get a topic to be used with an MQTT client to receive real time updates whenever a battle pass or challenges and levels within the battle pass change
-      operationId: getUseBattlePassNotificationTopic
+      operationId: getUserBattlePassNotificationTopic
       description: Get a topic to be used with an MQTT client to receive real time updates whenever a battle pass changes.
       security:
         - BearerAuth: []
@@ -167,6 +195,34 @@ paths:
               $ref: '#/components/schemas/EventPayload'
         description: Event payload
         required: true
+  /api/v1/public/documentation:
+    servers:
+      - description: Production URL
+        url: https://ep.scillgame.com
+      - description: Dev URL
+        url: https://ep-dev.scillgame.com
+    description: Returns a list of available events in the platform with required and optional properties. Used internally for updating documentation and the Admin Panel inline help.
+    get:
+      tags: [
+          "events"
+      ]
+      summary: Get all available events and required and optional properties
+      operationId: getAvailableEvents
+      externalDocs:
+        description: SCILL API Reference
+        url: https://developers.scillgame.com/events.html
+      description: Get all available events and required and optional properties
+      responses:
+        '200':
+          description: An array of EventDescription objects
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EventDescription'
+        '500':
+          description: "Failed on server side"
   /api/v1/challenges/personal/get/{appId}:
     servers:
       - description: Production URL
@@ -1196,6 +1252,36 @@ components:
           description: This is either single or group. You can send multiple events in one request (group) or send events in sequence. Please note, that depending on your tier you might run into rate limits.
         meta_data:
           $ref: '#/components/schemas/EventMetaData'
+    EventProperty:
+      type: object
+      description: This object holds information about a proporty of an event. Events have required and optional properties.
+      properties:
+        property_name:
+          type: string
+          description: The name of the property. Is the field value in the event payloads meta_data.
+          example: "string"
+        property_type:
+          type: string
+          description: The type of the property. Can be number or string.
+          example: "number"
+    EventDescription:
+      type: object
+      description: Describes an available event structure
+      properties:
+        event_name:
+          type: string
+          description: The name of the event, i.e kill-enemy. This will be used in the EventPayload as event_name.
+          example: "kill-enemy"
+        required_properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventProperty'
+          description: A list of required properties - properties that must be set
+        optional_properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventProperty'
+          description: A list of optional properties
     EventMetaData:
       type: object
       description: This holds metadata and is specific to each event type. Please have a look at the documentation to learn which properties need to be set for the event-type you want to send.
