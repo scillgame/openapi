@@ -1731,10 +1731,19 @@
             "example" : 0
           },
           "challenge_reward" : {
+            "type" : "string",
+            "description" : "Set a reward for this challenge. This is a string value that you can map to anything in your code. Use in combination with challenge_reward_type.",
+            "example" : "weapon_a"
+          },
+          "challenge_reward_type" : {
+            "type" : "string",
+            "description" : "The reward type can be set to various different settings. Use it to implement different reward types on your side and use challenge_reward to set the value or amount of this reward.",
+            "example" : "item"
+          },
+          "challenge_goal_condition" : {
             "type" : "integer",
-            "description" : "Set a reward for this challenge. This is a numeric value that you can map to an enum in your code",
-            "example" : 1,
-            "deprecated" : true
+            "description" : "With this you can set the way how the SCILL system approaches the challenges state. 0 means, that the counter of the challenge must be brought above the goal. If this is 1, then the counter must be kept below the goal. This is often useful for challenges that include times, like: Manage the level in under 50 seconds.",
+            "example" : 0
           },
           "challenge_xp" : {
             "type" : "integer",
@@ -1867,15 +1876,30 @@
             "description" : "If you want to sell Battle Passes you can use this field to trigger in-app purchase products within your mobile app. You can set this value in the Admin Panel. Use this to set the package string for Android.",
             "example" : "com.example.bp.season1"
           },
-          "image" : {
+          "image_xs" : {
             "type" : "string",
-            "description" : "The mobile sized image name. For example you can use image and image_desktop to build a srcset in HTML or use them and size manually where you need them.",
-            "example" : "season1.png"
+            "description" : "The xs sized image name or url. You can determine the best size distribution yourself and depends on your application or UI",
+            "example" : "season1_xs.png"
           },
-          "image_desktop" : {
+          "image_s" : {
             "type" : "string",
-            "description" : "The desktop sized image name or URL",
-            "example" : "season1_hd.png"
+            "description" : "The s sized image name or url. You can determine the best size distribution yourself and depends on your application or UI",
+            "example" : "season1_s.png"
+          },
+          "image_m" : {
+            "type" : "string",
+            "description" : "The m sized image name or url. You can determine the best size distribution yourself and depends on your application or UI",
+            "example" : "season1_m.png"
+          },
+          "image_l" : {
+            "type" : "string",
+            "description" : "The l sized image name or url. You can determine the best size distribution yourself and depends on your application or UI",
+            "example" : "season1_l.png"
+          },
+          "image_xl" : {
+            "type" : "string",
+            "description" : "The xl sized image name or url. You can determine the best size distribution yourself and depends on your application or UI",
+            "example" : "season1_xl.png"
           },
           "start_date" : {
             "type" : "string",
