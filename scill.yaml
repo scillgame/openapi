@@ -970,10 +970,17 @@ components:
           example: 0
           description: If you purchase the challenge, you can set a price.
         challenge_reward: 
-          deprecated: true
+          type: string
+          example: "weapon_a"
+          description: Set a reward for this challenge. This is a string value that you can map to anything in your code. Use in combination with challenge_reward_type.
+        challenge_reward_type:
+          type: string
+          example: "item"
+          description: The reward type can be set to various different settings. Use it to implement different reward types on your side and use challenge_reward to set the value or amount of this reward.
+        challenge_goal_condition: 
           type: integer
-          example: 1
-          description: Set a reward for this challenge. This is a numeric value that you can map to an enum in your code
+          example: 0
+          description: "With this you can set the way how the SCILL system approaches the challenges state. 0 means, that the counter of the challenge must be brought above the goal. If this is 1, then the counter must be kept below the goal. This is often useful for challenges that include times, like: Manage the level in under 50 seconds."        
         challenge_xp: 
           type: integer
           example: 0
@@ -1077,14 +1084,26 @@ components:
           type: string
           example: "com.example.bp.season1"
           description: If you want to sell Battle Passes you can use this field to trigger in-app purchase products within your mobile app. You can set this value in the Admin Panel. Use this to set the package string for Android.
-        image:
+        image_xs:
           type: string
-          example: 'season1.png'
-          description: The mobile sized image name. For example you can use image and image_desktop to build a srcset in HTML or use them and size manually where you need them.
-        image_desktop:
+          example: 'season1_xs.png'
+          description: The xs sized image name or url. You can determine the best size distribution yourself and depends on your application or UI
+        image_s:
           type: string
-          example: 'season1_hd.png'
-          description: The desktop sized image name or URL
+          example: 'season1_s.png'
+          description: The s sized image name or url. You can determine the best size distribution yourself and depends on your application or UI          
+        image_m:
+          type: string
+          example: 'season1_m.png'
+          description: The m sized image name or url. You can determine the best size distribution yourself and depends on your application or UI   
+        image_l:
+          type: string
+          example: 'season1_l.png'
+          description: The l sized image name or url. You can determine the best size distribution yourself and depends on your application or UI
+        image_xl:
+          type: string
+          example: 'season1_xl.png'
+          description: The xl sized image name or url. You can determine the best size distribution yourself and depends on your application or UI       
         start_date:
           type: string
           format: RFC3339
