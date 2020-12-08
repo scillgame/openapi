@@ -1177,15 +1177,20 @@ components:
         battle_pass_id:
           type: string
           example: "603693723277918210"
-          description: The id of the battle pass this level belongs to       
+          description: The id of the battle pass this level belongs to    
         reward_amount:
           type: string
           example: "100"
           description: In the Admin Panel you can set different types of rewards. You can also set an identifier of an in-game-item or anything you like. Use this to include the reward into your own business logic.
         reward_type_name:
+          deprecated: true
           type: string
           example: "Coins"
-          description: There are different types of rewards available. Possible values are Coins, Voucher, Money and Experience. 
+          description: There are different types of rewards available. Possible values are Coins, Voucher, Money and Experience. This is deprecated in favor of level_reward_type which uses a slug instead of a human readable expression
+        level_reward_type:
+          type: string
+          example: "coins"
+          description: The reward type in a machine readable slug. Available values are nothing, coin, experience, item
         level_completed:
           type: boolean
           example: false
@@ -1222,6 +1227,10 @@ components:
           type: integer
           example: 5
           description: Indicates how many “tasks” must be completed or done to complete this challenge.
+        challenge_goal_condition: 
+          type: integer
+          example: 0
+          description: "With this you can set the way how the SCILL system approaches the challenges state. 0 means, that the counter of the challenge must be brought above the goal. If this is 1, then the counter must be kept below the goal. This is often useful for challenges that include times, like: Manage the level in under 50 seconds."                
         user_challenge_current_score:
           type: integer
           example: 0
