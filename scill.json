@@ -382,16 +382,158 @@
       } ]
     },
     "/api/v1/challenges/personal/get/{appId}" : {
-      "description" : "Use this endpoint to get all available challenges for your product. This will be personalized for the user encoded in the access token.",
+      "description" : "Use this endpoint to get all available challenges for your product. This will be personalized for the user encoded in the access token. It will not return completed challenges. Use getAllPersonalChallenges to get completed challenges.",
       "get" : {
         "tags" : [ "challenges" ],
-        "summary" : "Get personal challenges",
+        "summary" : "Get personal challenges that are not yet completed.",
         "description" : "Get personal challenges organized in categories",
         "externalDocs" : {
           "description" : "SCILL API Reference",
           "url" : "https://beta.developers.scillgame.com/api/challenges.html#request-challenges"
         },
         "operationId" : "getPersonalChallenges",
+        "parameters" : [ {
+          "name" : "appId",
+          "in" : "path",
+          "description" : "The app id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "An array of ChallengeCategory objects",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ChallengeCategory"
+                  }
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "servers" : [ {
+        "url" : "https://pcs.scillgame.com",
+        "description" : "Production URL"
+      }, {
+        "url" : "https://pcs-dev.scillgame.com",
+        "description" : "Dev URL"
+      } ]
+    },
+    "/api/v1/challenges/personal/unresolved/{appId}" : {
+      "description" : "Use this endpoint to get only active challenges. This returns a list of challenges grouped in categories that are not finished yet. Finished (i.e. completed) challenges will not be returned in this endpoint.",
+      "get" : {
+        "tags" : [ "challenges" ],
+        "summary" : "Get personal challenges that are not yet completed.",
+        "description" : "Get personal challenges organized in categories that are not yet finished",
+        "externalDocs" : {
+          "description" : "SCILL API Reference",
+          "url" : "https://beta.developers.scillgame.com/api/challenges.html#request-challenges"
+        },
+        "operationId" : "getUnresolvedPersonalChallenges",
+        "parameters" : [ {
+          "name" : "appId",
+          "in" : "path",
+          "description" : "The app id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "An array of ChallengeCategory objects",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ChallengeCategory"
+                  }
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "servers" : [ {
+        "url" : "https://pcs.scillgame.com",
+        "description" : "Production URL"
+      }, {
+        "url" : "https://pcs-dev.scillgame.com",
+        "description" : "Dev URL"
+      } ]
+    },
+    "/api/v1/challenges/personal/all/{appId}" : {
+      "description" : "Use this endpoint to get all challenges including completed challenges. This endpoint is best suited for apps that show a todo like list and want to keep showing completed challenges in the list. If you only want show challenges that the user can do something, use getUnresolvedPersonalChallenges instead.",
+      "get" : {
+        "tags" : [ "challenges" ],
+        "summary" : "Get all personal challenges available for your app. Also includes completed challenges.",
+        "description" : "Get personal challenges organized in categories that are not yet finished",
+        "externalDocs" : {
+          "description" : "SCILL API Reference",
+          "url" : "https://beta.developers.scillgame.com/api/challenges.html#request-challenges"
+        },
+        "operationId" : "getAllPersonalChallenges",
         "parameters" : [ {
           "name" : "appId",
           "in" : "path",
