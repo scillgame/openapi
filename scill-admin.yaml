@@ -1,0 +1,2299 @@
+openapi: 3.0.0
+info:
+  description: "SCILL gives you the tools to activate, retain and grow your user base in your app or game by bringing you features well known in the gaming industry: Gamification. We take care of the services and technology involved so you can focus on your game and content."
+  version: "1.0.0"
+  title: SCILL Admin API
+  contact:
+    email: support@scillgame.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+servers:
+  # Added by API Auto Mocking Plugin
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/4Players-GmbH/scill-gaas-admin/1.0.0
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/4Players-GmbH/scill-gaas/1.0.0
+tags:
+  - name: admin
+    description: Admin routes
+  - name: auth
+    description: Auth
+  - name: events
+    description: Events
+  - name: apps
+    description: Apps    
+  - name: api-key
+    description: API-Keys
+  - name: webhooks
+    description: Webhooks
+  - name: challenges
+    description: Challenges
+  - name: battle-passes
+    description: BattlePasses    
+  - name: users
+    description: Users
+paths:
+  /api/v1/languages:
+    servers:
+      - description: Production URL
+        url: https://us.scillgame.com
+      - description: Dev URL
+        url: https://us-dev.scillgame.com
+    description: Get a list of all available event types
+    get:
+      tags: [
+        "users"
+      ]
+      summary: Get a list of all available languages
+      operationId: getAvailableLanguages
+      externalDocs:
+        description: SCILL API Reference
+        url: https://developers.scillgame.com/api/challenges.html#realtime-updates
+      description: Returns a list of all available languages
+      security:
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      responses:
+        '200':
+          description: Returns available languages
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Language'
+        '403':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'   
+  /api/v1/admin/challenge-types:
+    servers:
+      - description: Production URL
+        url: https://ep.scillgame.com
+      - description: Dev URL
+        url: https://ep-dev.scillgame.com
+    description: Get a list of all available event types
+    get:
+      tags: [
+          "events"
+      ]
+      summary: Get a list of all available event types
+      operationId: getChallengeTypes
+      externalDocs:
+        description: SCILL API Reference
+        url: https://developers.scillgame.com/api/challenges.html#realtime-updates
+      description: Returns a list of all available event types.
+      security:
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      responses:
+        '200':
+          description: Returns available types
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ChallengeEventType'
+        '403':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'   
+  /api/v1/admin/event-rates:
+    servers:
+      - description: Production URL
+        url: https://ep.scillgame.com
+      - description: Dev URL
+        url: https://ep-dev.scillgame.com
+    description: Get info about the current (i.e. this months) event consumption
+    get:
+      tags: [
+          "events"
+      ]
+      summary: Get info about the current tariff and current event limit and event count
+      operationId: getEventRates
+      externalDocs:
+        description: SCILL API Reference
+        url: https://developers.scillgame.com/api/challenges.html#realtime-updates
+      description: Returns info about the current event limit and event count
+      security:
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      responses:
+        '200':
+          description: Get Event rates and limit
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventRate'
+        '403':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'     
+  /api/v1/admin/challenge-category-available-types:
+    servers:
+      - description: Production URL
+        url: https://pcs.scillgame.com
+      - description: Dev URL
+        url: https://pcs-dev.scillgame.com
+    description: "Challenge categories have a type. Available types can be requested with this endpoint"
+    get:
+      tags: [
+          "challenges"
+      ]
+      summary: Get an access token for the Websockets server notifying of updates in real time
+      operationId: getChallengeCategoryTypes
+      externalDocs:
+        description: SCILL API Reference
+        url: https://beta.developers.scillgame.com/api/challenges.html#realtime-updates
+      description: Get an access token for the Websockets server notifying of updates in real time
+      security:
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      responses:
+        '200':
+          description: Returns available types
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ChallengeCategoryType'
+        '403':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'          
+  /api/v1/admin/challenge-categories/{appId}:
+    servers:
+      - description: Production URL
+        url: https://pcs.scillgame.com
+      - description: Dev URL
+        url: https://pcs-dev.scillgame.com
+    description: Handle available challenge categories for your app
+    parameters:
+      - in: path
+        name: appId
+        description: The app id
+        required: true
+        schema:
+          type: string    
+    get:
+      tags: [
+          "challenges"
+      ]
+      summary: Get an array of AdminChallengeCategory objects available for your app
+      operationId: getChallengeCategories
+      description: Get challenge categories available for the app
+      security:
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      responses:
+        '200':
+          description: Returns available challenge categories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ChallengeCategory'
+        '403':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'            
+    post:
+      tags: [
+          "challenges"
+      ]
+      summary: Create a challenge category for the app
+      operationId: createChallengeCategory
+      description: Create a challenge category object for the app
+      security:
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChallengeCategoryPayload'
+        description: Payload for creating a challenge category
+        required: true        
+      responses:
+        '200':
+          description: Returns the created AdminChallengeCategory object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChallengeCategory'
+        '400':
+          $ref: '#/components/responses/BadRequest'                
+        '403':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'         
+  /api/v1/admin/challenge-categories/{appId}/{categoryId}:   
+    servers:
+      - description: Production URL
+        url: https://pcs.scillgame.com
+      - description: Dev URL
+        url: https://pcs-dev.scillgame.com
+    description: Update challenge category by app and id
+    parameters:
+      - in: path
+        name: appId
+        description: The app id
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: categoryId
+        description: The challenge category id
+        required: true
+        schema:
+          type: string    
+    put:
+      tags: [
+          "challenges"
+      ]
+      summary: Update a challenge category for the app
+      operationId: updateChallengeCategory
+      description: Update a challenge category object for the app
+      security:
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChallengeCategoryPayload'
+        description: Payload for updating a challenge category
+        required: true        
+      responses:
+        '200':
+          description: Returns the updated AdminChallengeCategory object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChallengeCategory'
+        '400':
+          $ref: '#/components/responses/BadRequest'                
+        '403':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'     
+    delete:
+      tags: [
+          "challenges"
+      ]
+      summary: Delete the challenge category
+      operationId: deleteChallengeCategory
+      description: Delete the challenge category
+      security:
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      responses:
+        '200':
+          $ref: '#/components/responses/ActionSuccessful'
+        '400':
+          $ref: '#/components/responses/BadRequest'               
+        '403':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'                 
+  /api/v1/admin/challenges/{appId}:
+    servers:
+      - description: Production URL
+        url: https://pcs.scillgame.com
+      - description: Dev URL
+        url: https://pcs-dev.scillgame.com
+    description: Handle challenges for your app
+    parameters:
+      - in: path
+        name: appId
+        description: The app id
+        required: true
+        schema:
+          type: string    
+    get:
+      tags: [
+          "challenges"
+      ]
+      summary: Get an array of AdminChallenge objects available for your app
+      operationId: getChallenges
+      description: Get challenges available for the app
+      security:
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      responses:
+        '200':
+          description: Returns available challenges
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Challenge'
+        '403':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'            
+    post:
+      tags: [
+          "challenges"
+      ]
+      summary: Create a challenge for the app
+      operationId: createChallenge
+      description: Create a challenge object for the app
+      security:
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChallengePayload'
+        description: Payload for creating a challenge
+        required: true        
+      responses:
+        '200':
+          description: Returns the created AdminChallenge object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Challenge'
+        '400':
+          $ref: '#/components/responses/BadRequest'                
+        '403':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'         
+  /api/v1/admin/challenges/{appId}/{challengeId}:   
+    servers:
+      - description: Production URL
+        url: https://pcs.scillgame.com
+      - description: Dev URL
+        url: https://pcs-dev.scillgame.com
+    description: Update challenge category by app and id
+    parameters:
+      - in: path
+        name: appId
+        description: The app id
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: challengeId
+        description: The challenge category id
+        required: true
+        schema:
+          type: string    
+    put:
+      tags: [
+          "challenges"
+      ]
+      summary: Update a challenge category for the app
+      operationId: updateChallenge
+      description: Update a challenge category object for the app
+      security:
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChallengeCategoryPayload'
+        description: Payload for updating a challenge category
+        required: true        
+      responses:
+        '200':
+          description: Returns the updated AdminChallengeCategory object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChallengeCategory'
+        '400':
+          $ref: '#/components/responses/BadRequest'                
+        '403':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'     
+    delete:
+      tags: [
+          "challenges"
+      ]
+      summary: Delete the challenge category
+      operationId: deleteChallenge
+      description: Delete the challenge category
+      security:
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      responses:
+        '200':
+          $ref: '#/components/responses/ActionSuccessful'
+        '400':
+          $ref: '#/components/responses/BadRequest'               
+        '403':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'          
+  /api/v1/admin/personal-challenge-rewards:
+    servers:
+      - description: Production URL
+        url: https://pcs.scillgame.com
+      - description: Dev URL
+        url: https://pcs-dev.scillgame.com
+    description: "Get a list of reward types available for personal challenges"
+    get:
+      tags: [
+          "challenges"
+      ]
+      summary: Returns a list of available personal challenges reward types
+      operationId: getAvailablePersonalChallengesRewards
+      description: "Get a list of available personal challenge reward types. Can be used when creating challenges."
+      security:
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      responses:
+        '200':
+          description: Returns the updated AdminChallengeCategory object
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ChallengeRewardType'
+        '400':
+          $ref: '#/components/responses/BadRequest'                
+        '403':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'     
+  /api/v1/admin/app:
+    servers:
+      - description: Production URL
+        url: https://gs.scillgame.com
+      - description: Dev URL
+        url: https://gs-dev.scillgame.com
+    description: "Everything in SCILL is linked to this app. Use these endpoints to handle your apps."
+    post:
+      tags: [
+          "apps"
+      ]
+      summary: Create a new app
+      operationId: createApp
+      description: Use this endpoint to create a new app linked to your account
+      security:
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppPayload'
+        description: Payload for creating an app
+        required: true            
+      responses:
+        '200':
+          description: Successfully created the app. App id is returned.
+          content:
+            application/json:
+              schema:
+                type: object
+                required: 
+                  - app_id
+                properties:
+                  api_key:
+                    type: string
+                    example: "593852628853587970"
+                    description: The app id of the app just created
+        '400':
+          $ref: '#/components/responses/BadRequest'               
+        '403':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'       
+    get:
+      tags: [
+          "apps"
+      ]
+      summary: Get all apps
+      operationId: getApps
+      description: Get all apps linked to the account provided in the Auth Bearer
+      security:
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      responses:
+        '200':
+          description: An array of App objects
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Apps'
+        '400':
+          $ref: '#/components/responses/BadRequest'               
+        '403':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'            
+  /api/v1/admin/app/{appId}:
+    servers:
+      - description: Production URL
+        url: https://gs.scillgame.com
+      - description: Dev URL
+        url: https://gs-dev.scillgame.com
+    description: "Endpoints to update and receive info for a specific app"
+    get:
+      tags: [
+          "apps"
+      ]
+      parameters:
+        - in: path
+          name: appId
+          description: The app id
+          required: true
+          schema:
+            type: string            
+      summary: Get app info
+      operationId: appInfo
+      description: Get basic information about the app
+      security:
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      responses:
+        '200':
+          description: App info
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/App'               
+        '400':
+          $ref: '#/components/responses/BadRequest'               
+        '403':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'   
+    put:
+      tags: [
+          "apps"
+      ]
+      parameters:
+        - in: path
+          name: appId
+          description: The app id
+          required: true
+          schema:
+            type: string      
+      summary: Update infos of an app
+      operationId: setAppInfo
+      description: Update basic app info
+      security:
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppPayload'
+        description: Payload for updating an app              
+        required: true           
+      responses:
+        '200':
+          $ref: '#/components/responses/ActionSuccessful'
+        '400':
+          $ref: '#/components/responses/BadRequest'               
+        '403':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'              
+    delete:
+      tags: [
+          "apps"
+      ]
+      parameters:
+        - in: path
+          name: appId
+          description: The app id
+          required: true
+          schema:
+            type: string            
+      summary: Delete app
+      operationId: deleteApp
+      description: The app will be set to inactive mode.
+      security:
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      responses:
+        '200':
+          $ref: '#/components/responses/ActionSuccessful'
+        '400':
+          $ref: '#/components/responses/BadRequest'               
+        '403':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'              
+  /api/v1/admin/api-key/{appId}:
+    servers:
+      - description: Production URL
+        url: https://gs.scillgame.com
+      - description: Dev URL
+        url: https://gs-dev.scillgame.com
+    description: "Handle API keys for a specified app"
+    post:
+      tags: [
+          "api-key"
+      ]
+      parameters:
+        - in: path
+          name: appId
+          description: The app id
+          required: true
+          schema:
+            type: string      
+      summary: Create a new api key for the app
+      operationId: createApiKey
+      description: Create an api key
+      security:
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LabelPayload'
+        description: Payload for the label to be used for this API key
+        required: true            
+      responses:
+        '200':
+          description: The API key
+          content:
+            application/json:
+              schema:
+                type: object
+                required: 
+                  - api_key
+                properties:
+                  api_key:
+                    type: string
+                    example: "3:8OZ=I6M~$((b..."
+                    description: The API key
+        '400':
+          $ref: '#/components/responses/BadRequest'               
+        '403':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'              
+    get:
+      tags: [
+          "api-key"
+      ]
+      parameters:
+        - in: path
+          name: appId
+          description: The app id
+          required: true
+          schema:
+            type: string            
+      summary: Get all api keys for this app
+      operationId: getApiKeys
+      description: Every app can have multiple API keys. With this endpoint you can get all api keys issued for the provided app id.
+      security:
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      responses:
+        '200':
+          description: An array with ApiKeyInfo objects
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  $ref: '#/components/schemas/ApiKeyInfo'        
+        '400':
+          $ref: '#/components/responses/BadRequest'               
+        '403':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'        
+  /api/v1/admin/api-key/{appId}/{apiKey}:
+    servers:
+      - description: Production URL
+        url: https://gs.scillgame.com
+      - description: Dev URL
+        url: https://gs-dev.scillgame.com
+    description: "Revoke or delete api keys for a specified game"
+    parameters:
+      - in: path
+        name: appId
+        description: The app id
+        required: true
+        schema:
+          type: string            
+      - in: path
+        name: apiKey
+        description: The API key (url encoded)
+        required: true
+        schema:
+          type: string           
+    get:
+      tags: [
+          "api-key"
+      ]
+      summary: Get info about an API key
+      operationId: getApiKeyInfo
+      description: Get info about your API key
+      security:
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      responses:
+        '200':
+          description: An array with ApiKeyInfo objects
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiKeyInfo'        
+        '400':
+          $ref: '#/components/responses/BadRequest'               
+        '403':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'            
+    put:
+      tags: [
+          "api-key"
+      ]
+      summary: Reset an api key
+      operationId: resetApiKey
+      description: Reset the api key
+      security:
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      responses:
+        '200':
+          $ref: '#/components/responses/ActionSuccessful'
+        '400':
+          $ref: '#/components/responses/BadRequest'               
+        '403':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'              
+    delete:
+      tags: [
+          "api-key"
+      ]
+      summary: Delete the API key. 
+      operationId: deleteApiKey
+      description: Delete the API key. All subsequent requests with this API key will be blocked.
+      security:
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      responses:
+        '200':
+          $ref: '#/components/responses/ActionSuccessful'
+        '400':
+          $ref: '#/components/responses/BadRequest'               
+        '403':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'        
+  /api/v1/admin/webhooks:
+    servers:
+      - description: Production URL
+        url: https://gs.scillgame.com
+      - description: Dev URL
+        url: https://gs-dev.scillgame.com
+    description: "Handle Webhooks"
+    post:
+      tags: [
+          "webhooks"
+      ]
+      summary: Create a new webhook
+      operationId: createWebhook
+      description: Creates a new webhook for a specified game and type
+      security:
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookPayload'
+        description: Payload to create a Webhook
+        required: true                
+      responses:
+        '200':
+          description: Webhook created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+        '400':
+          $ref: '#/components/responses/BadRequest'               
+        '403':
+          $ref: '#/components/responses/Unauthorized'
+  /api/v1/admin/webhooks/{appId}:
+    servers:
+      - description: Production URL
+        url: https://gs.scillgame.com
+      - description: Dev URL
+        url: https://gs-dev.scillgame.com
+    description: "Handle webhooks for the specified app id"
+    get:
+      tags: [
+          "webhooks"
+      ]
+      parameters:
+        - in: path
+          name: appId
+          description: The app id
+          required: true
+          schema:
+            type: string            
+      summary: Get an array with Webhook objects
+      operationId: getWebhooks
+      description: Get a list of Webhook objects for the specified app id
+      security:
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      responses:
+        '200':
+          description: An array of Webhook objects
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Webhook'
+        '400':
+          $ref: '#/components/responses/BadRequest'               
+        '403':
+          $ref: '#/components/responses/Unauthorized'       
+  /api/v1/admin/webhooks/{appId}/{webhookId}:
+    servers:
+      - description: Production URL
+        url: https://gs.scillgame.com
+      - description: Dev URL
+        url: https://gs-dev.scillgame.com
+    description: "Manage a specificied webhook for the specified app id"
+    parameters:
+      - in: path
+        name: appId
+        description: The app id
+        required: true
+        schema:
+          type: string          
+      - in: path
+        name: webhookId
+        description: The id of the webhook
+        required: true
+        schema:
+          type: string      
+    get:
+      tags: [
+        "webhooks"
+      ]    
+      summary: Returns info about the specified webhook id
+      operationId: getWebhookInfo
+      description: Get a Webhook object for the specified webhook id
+      security:
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      responses:
+        '200':
+          $ref: '#/components/schemas/Webhook'
+        '400':
+          $ref: '#/components/responses/BadRequest'               
+        '403':
+          $ref: '#/components/responses/Unauthorized'        
+    put:
+      tags: [
+        "webhooks"
+      ]     
+      summary: Update the specified webhook with new data
+      operationId: updateWebhook
+      description: Update a webhook data like the target_url or the type
+      security:
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookPayload'
+        description: Payload to update a Webhook
+        required: true                  
+      responses:
+        '200':
+          $ref: '#/components/responses/ActionSuccessful'
+        '400':
+          $ref: '#/components/responses/BadRequest'               
+        '403':
+          $ref: '#/components/responses/Unauthorized'    
+    delete:
+      tags: [
+        "webhooks"
+      ]     
+      summary: Delete the specified webhook
+      operationId: deleteWebhook
+      description: The webhook will be deleted
+      security:
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      responses:
+        '200':
+          $ref: '#/components/responses/ActionSuccessful'
+        '400':
+          $ref: '#/components/responses/BadRequest'               
+        '403':
+          $ref: '#/components/responses/Unauthorized'        
+  /api/v1/admin/battle-passes/{appId}:
+    servers:
+      - description: Production URL
+        url: https://es.scillgame.com
+      - description: Dev URL
+        url: https://es-dev.scillgame.com
+    description: Handle battke passes for your app
+    parameters:
+      - in: path
+        name: appId
+        description: The app id
+        required: true
+        schema:
+          type: string    
+    get:
+      tags: [
+          "battle-passes"
+      ]
+      summary: Get an array of BattlePass objects available for your app
+      operationId: getBattlePasses
+      description: Get available battle passes for your app
+      security:
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      responses:
+        '200':
+          description: Returns a list of BattlePass objects
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BattlePass'
+        '403':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'            
+    post:
+      tags: [
+          "battle-passes"
+      ]
+      summary: Create a battle pass for the app
+      operationId: createBattlePass
+      description: Create a battle pass for the app. Once you have created the battle pass you can create battle pass levels
+      security:
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BattlePass'
+        description: Payload for creating a battle pass
+        required: true        
+      responses:
+        '200':
+          description: Returns the created BattlePass object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BattlePass'
+        '400':
+          $ref: '#/components/responses/BadRequest'                
+        '403':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'                 
+  /api/v1/admin/battle-passes/{appId}/{battlePassId}:
+    servers:
+      - description: Production URL
+        url: https://es.scillgame.com
+      - description: Dev URL
+        url: https://es-dev.scillgame.com
+    description: Handle battke passes for your app
+    parameters:
+      - in: path
+        name: appId
+        description: The app id
+        required: true
+        schema:
+          type: string              
+      - in: path
+        name: battlePassId
+        description: The id of the battle pass
+        required: true
+        schema:
+          type: string      
+    get:
+      tags: [
+          "battle-passes"
+      ]
+      summary: Get a specific BattlePass object
+      operationId: getBattlePass
+      description: Get a specific battle pass by id
+      security:
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      responses:
+        '200':
+          description: Returns the requested BattlePass objects
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BattlePass'
+        '403':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'               
+    put:
+      tags: [
+          "battle-passes"
+      ]
+      summary: Update a battle pass for the app with new values
+      operationId: updateBattlePasss
+      description: Update the battle pass object for your app. You may change images, names, and descriptions
+      security:
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BattlePass'
+        description: Payload for creating a battle pass
+        required: true        
+      responses:
+        '200':
+          description: Returns the created BattlePass object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BattlePass'
+        '400':
+          $ref: '#/components/responses/BadRequest'                
+        '403':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'          
+  /api/v1/admin/challenges/{applicationId}:
+    servers:
+      - description: Production URL
+        url: https://es.scillgame.com
+      - description: Dev URL
+        url: https://es-dev.scillgame.com
+    description: Handle challenges that can be used within battle pass levels
+    parameters:
+      - in: path
+        name: applicationId
+        description: The app id
+        required: true
+        schema:
+          type: string    
+    get:
+      tags: [
+          "battle-passes"
+      ]
+      summary: Get an array of BattlePassChallenge objects available for your app
+      operationId: getBattlePassChallenges
+      description: Get available battle pass challenges for your app
+      security:
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      responses:
+        '200':
+          description: Returns a list of BattlePassChallenge objects
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BattlePassChallenge'
+        '403':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'            
+    post:
+      tags: [
+          "battle-passes"
+      ]
+      summary: Create a battle pass challenge for the app
+      operationId: createBattlePassChallenge
+      description: Create a battle pass challenge for the app which can then be attached to battle pass levels
+      security:
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BattlePassChallenge'
+        description: Payload for creating a battle pass challenge
+        required: true        
+      responses:
+        '200':
+          description: Returns the created BattlePassChallenge object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BattlePassChallenge'
+        '400':
+          $ref: '#/components/responses/BadRequest'                
+        '403':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'                 
+  /api/v1/admin/challenges/{applicationId}/{challengeId}:
+    servers:
+      - description: Production URL
+        url: https://es.scillgame.com
+      - description: Dev URL
+        url: https://es-dev.scillgame.com
+    description: Handle challenges that can be used within battle pass levels
+    parameters:
+      - in: path
+        name: applicationId
+        description: The app id
+        required: true
+        schema:
+          type: string    
+      - in: path
+        name: challengeId
+        description: The battle pass challenge id
+        required: true
+        schema:
+          type: string              
+    get:
+      tags: [
+          "battle-passes"
+      ]
+      summary: Get a specified BattlePassChallenge object
+      operationId: getBattlePassChallenge
+      description: Get a battle pass challenge by id
+      security:
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      responses:
+        '200':
+          description: Returns the specified BattlePassChallenge object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BattlePassChallenge'
+        '403':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'               
+    delete:
+      tags: [
+          "battle-passes"
+      ]
+      summary: Delete a specified BattlePassChallenge object
+      operationId: deleteBattlePassChallenge
+      description: Delete a battle pass challenge by id
+      security:
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      responses:
+        '200':
+          description: Status of operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActionResponse'
+        '403':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'                    
+    put:
+      tags: [
+          "battle-passes"
+      ]
+      summary: Update a battle pass challenge for the app
+      operationId: updateBattlePassChallenge
+      description: Update a battle pass challenge. Best approach is to load the challenge, then changing properties, then apply this object as payload to this function.
+      security:
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BattlePassChallenge'
+        description: Payload for creating a battle pass challenge
+        required: true        
+      responses:
+        '200':
+          description: Returns the created BattlePassChallenge object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BattlePassChallenge'
+        '400':
+          $ref: '#/components/responses/BadRequest'                
+        '403':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'                
+  /api/v1/admin/battle-pass-levels/{battlePassId}:
+    servers:
+      - description: Production URL
+        url: https://es.scillgame.com
+      - description: Dev URL
+        url: https://es-dev.scillgame.com
+    description: Handle battke passes for your app
+    parameters:
+      - in: path
+        name: battlePassId
+        description: The id of the battle pass
+        required: true
+        schema:
+          type: string    
+    get:
+      tags: [
+          "battle-passes"
+      ]
+      summary: Get an array of BattlePassLevel objects available for the battle pass
+      operationId: getBattlePassLevels
+      description: Get available battle pass levels
+      security:
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      responses:
+        '200':
+          description: Returns a list of BattlePassLevel objects
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BattlePassLevel'
+        '403':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'            
+    post:
+      tags: [
+          "battle-passes"
+      ]
+      summary: Create a battle pass level for the battle pass
+      operationId: createBattlePassLevel
+      description: Create a battle pass for the app. Once you have created the battle pass you can create battle pass levels
+      security:
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BattlePassLevel'
+        description: Payload for creating a battle pass
+        required: true        
+      responses:
+        '200':
+          description: Returns the action response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActionResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'                
+        '403':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'                 
+  /api/v1/admin/battle-pass-levels/{battlePassId}/{battlePassLevelId}:
+    servers:
+      - description: Production URL
+        url: https://es.scillgame.com
+      - description: Dev URL
+        url: https://es-dev.scillgame.com
+    description: Handle battke passes for your app
+    parameters:
+      - in: path
+        name: battlePassId
+        description: The id of the battle pass
+        required: true
+        schema:
+          type: string    
+      - in: path
+        name: battlePassLevelId
+        description: The id of the battle pass level
+        required: true
+        schema:
+          type: string              
+    get:
+      tags: [
+          "battle-passes"
+      ]
+      summary: Get the specified BattlePassLevel object
+      operationId: getBattlePassLevel
+      description: Get a battle pass level by id
+      security:
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      responses:
+        '200':
+          description: Returns a BattlePassLevel object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BattlePassLevel'
+        '403':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'            
+    put:
+      tags: [
+          "battle-passes"
+      ]
+      summary: Update a battle pass level
+      operationId: updateBattlePassLevel
+      description: Update the a battle pass level with new values
+      security:
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BattlePassLevel'
+        description: Payload for creating a battle pass
+        required: true        
+      responses:
+        '200':
+          description: Returns the action response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BattlePassLevel'
+        '400':
+          $ref: '#/components/responses/BadRequest'                
+        '403':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'           
+    delete:
+      tags: [
+          "battle-passes"
+      ]
+      summary: Delete a specified BattlePassLevel object
+      operationId: deleteBattlePassLevel
+      description: Delete a battle pass level by id
+      security:
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      responses:
+        '200':
+          description: Status of operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActionResponse'
+        '403':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'                    
+components:
+  schemas:
+    ActionResponse:
+      type: object
+      required:
+        - message
+      properties:
+        status:
+          type: integer
+          example: 200
+          description: "HTTP status code"
+        message:
+          type: string
+          example: "OK"
+    BattlePass:
+      type: object
+      required:
+        - battle_pass_name
+        - start_date
+        - end_date
+      properties:
+        battle_pass_id:
+          type: string
+          example: "603693723277918210"
+          description: The unique id of this battle pass.
+        app_id:
+          type: string
+          example: "597737952688570369"
+          description: The unique id of the app
+        battle_pass_name:
+          type: string
+          example: "My Battlepass"
+          description: The name of the battle bass. You can set that in the Admin Panel. The language is set with the query parameter language. See documentation for more info on that.
+        battle_pass_description:
+          nullable: true
+          type: string
+          example: "This battle pass gives you great fun and awesome rewards."
+          description: The description of the battle bass. You can set that in the Admin Panel and it can also be HTML. The language is set with the query parameter language. See documentation for more info on that.          
+        battle_pass_short_description:
+          type: string
+          example: "This battle pass gives you great fun and awesome rewards."
+          description: A short description of the battle bass. You can set that in the Admin Panel and it can also be HTML. The language is set with the query parameter language. See documentation for more info on that.      
+        battle_pass_disclaimer:
+          nullable: true
+          type: string
+          example: 'Use at your own risk'
+          description: Use this to provide some terms and conditions following along this battle passes purchase.          
+        battle_pass_priority:
+          type: integer
+          example: 1
+          description: The priority of the battle pass. I.e. if multiple are available you can use this field to sort them.
+        package_sku_ios:
+          nullable: true
+          type: string
+          example: "com.example.bp.season1"
+          description: If you want to sell Battle Passes you can use this field to trigger in-app purchase products within your mobile app. You can set this value in the Admin Panel. This one is for iOS.
+        package_sku_android:
+          nullable: true
+          type: string
+          example: "com.example.bp.season1"
+          description: If you want to sell Battle Passes you can use this field to trigger in-app purchase products within your mobile app. You can set this value in the Admin Panel. Use this to set the package string for Android.
+        image_xs:
+          nullable: true
+          type: string
+          example: 'season1_xs.png'
+          description: The xs sized image name or url. You can determine the best size distribution yourself and depends on your application or UI
+        image_s:
+          nullable: true
+          type: string
+          example: 'season1_s.png'
+          description: The s sized image name or url. You can determine the best size distribution yourself and depends on your application or UI
+        image_m:
+          type: string
+          example: 'season1_m.png'
+          description: The m sized image name or url. You can determine the best size distribution yourself and depends on your application or UI
+        image_l:
+          nullable: true        
+          type: string
+          example: 'season1_l.png'
+          description: The l sized image name or url. You can determine the best size distribution yourself and depends on your application or UI
+        image_xl:
+          nullable: true
+          type: string
+          example: 'season1_xl.png'
+          description: The xl sized image name or url. You can determine the best size distribution yourself and depends on your application or UI       
+        start_date:
+          type: string
+          format: RFC3339
+          example: '2020-08-17T00:00:00Z'
+          description: The date (in iso format) when the Battle Pass starts. Tracking begins once this date is passed.
+        end_date:
+          type: string
+          format: RFC3339
+          example: '2020-08-17T00:00:00Z'
+          description: The date (in iso format) when the Battle Pass ends. Tracking stops once the end is reached and users will not be able to progress further than what they have achieved up to that point.
+        read_more_link:
+          nullable: true
+          type: string
+          example: 'https://www.example.com/battle-passes/season1.html'
+          description: If the Battle Pass costs “money” you may want to route the user to a web site/page, where they can learn more about this battle pass. You can also use this field to route the user inside your application by providing a path or whatever works for you.
+        is_unlocked_incrementally:
+          type: boolean
+          example: true
+          description: "Indicates if one level after the other must be activated or if users can activate whichever level they want. Typically battle passes are unlocked level by level, but if battle passes are used for other applications (like user referal programs) it can be useful to set this to false."
+        is_active:
+          type: boolean
+          example: false
+          description: Indicated if this battle pass is active.
+        unlocked_at:
+          nullable: true
+          type: string
+          format: RFC3339
+          example: "2020-08-26T08:51:09Z"
+          description: The date in iso format when the user unlocked this Battle Pass.
+        can_purchase_with_money:
+          nullable: true
+          type: boolean
+          example: true
+          description: Indicates that this Battle Pass can be purchased via in-app purchase. This can be set in the Admin Panel.
+        can_purchase_with_coins:
+          nullable: true
+          type: boolean
+          example: false
+          description: Indicates that this Battle Pass can be purchased with SCILL Coins. This can be set in the Admin Panel.
+    BattlePassLevel:
+      type: object
+      required:
+        - app_id
+        - battle_pass_id
+        - is_active
+        - challenges
+        - reward_type_id
+      properties:
+        battle_pass_id:
+          type: string
+          example: "603693723277918210"
+          description: The unique id of this battle pass.
+        app_id:
+          type: string
+          example: "597737952688570369"
+          description: The unique id of the app      
+        is_active:
+          type: boolean
+          example: true
+          description: Set if this level is active or not
+        reward_type_id:
+          type: string
+          example: "563006391671062538"
+          description: The id of the reward type
+        reward_amount:
+          type: string
+          example: "item_xyz"
+          description: The reward amount as a string. Provide anything you like and that makes sense for your application
+        challenges:
+          type: array
+          items:
+            $ref: '#/components/schemas/BattlePassLevelChallenge'
+          description: An array of BattlePassLevelChallenge objects.         
+    BattlePassLevelChallenge:
+      type: object
+      properties:
+        challenge_id:
+          type: string
+          example: "627086215435059201"
+          description: The id of the challenge
+    BattlePassChallenge:
+      type: object
+      required:
+        - challenge_id
+        - challenge_name
+        - challenge_goal
+        - challenge_goal_condition
+        - challenge_type
+        - challenge_xp
+      properties:
+        app_id:
+          type: string
+          example: "597737952688570369"
+          description: The unique id of the app
+        challenge_id:
+          type: string
+          example: '505538946732425217'
+          description: The unique id of this challenge. Every challenge is linked to a product.
+        challenge_name:
+          type: string
+          example: 'Survive 5 battles'
+          description: The name of the challenge in the language set by the language parameter.
+        challenge_goal:
+          type: integer
+          example: 5
+          description: Indicates how many “tasks” must be completed or done to complete this challenge.
+        challenge_goal_condition: 
+          type: integer
+          example: 0
+          description: "With this you can set the way how the SCILL system approaches the challenges state. 0 means, that the counter of the challenge must be brought above the goal. If this is 1, then the counter must be kept below the goal. This is often useful for challenges that include times, like: Manage the level in under 50 seconds."                
+        challenge_icon:
+          nullable: true
+          type: string
+          example: 'black-arrow'
+          description: In the admin panel you can set a string representing an image. This can be a URL, but it can also be an image or texture that you have in your games asset database.
+        challenge_icon_hd:
+          nullable: true
+          type: string
+          example: 'black-arrow-hd'
+          description: This is the HD variant of the challenge icon image. If you have a game, that runs on multiple platforms that could come in handy. Otherwise just leave blank.
+        challenge_type:
+          type: string
+          example: 'unlock'
+          description: "Indicates the status of the challenge. This can be one of the following unlock: Challenge does not track anything. in-progress: Challenge is active and tracking. overtime: User did not manage to finish the challenge in time. unclaimed: The challenge has been completed but the reward has not yet been claimed. finished: The challenge has been successfully be completed and the reward has been claimed"    
+        challange_xp:
+          type: integer
+          example: 0
+          description: The experience points for this challenge. This is just a value you can set and make any use in your app
+        required_metadata_values:
+          nullable: true
+          type: string
+          example: "event_type:page_impression,"
+          description: An internal flag that will be used to decide when this challenge should be triggered
+        generic_metadata:
+          nullable: true
+          type: array
+          items:
+            $ref: '#/components/schemas/GenericMetaData'                
+    BattlePassLevelId:
+      type: object
+      properties:
+        battle_pass_level_id:
+          type: string
+          example: '563006391554179082'
+          description: The level id, i.e. battle_pass_level_id of the BattlePassLevel object
+      required:
+        - battle_pass_level_id           
+    EventRate:
+      type: object
+      properties:
+        event_count: 
+          type: integer
+          example: 12345
+          description: The number of events sent this month
+        event_limit:
+          type: integer
+          example: 120000
+          description: The number of events that can be sent each month in the current tariff
+        fusion_id:
+          type: integer
+          example: 1234567
+          description: Internal user id of the 4Players domain
+        paid_tariff:
+          type: boolean
+          example: true
+          description: Defines if this is a paid or free (explore) tariff.
+    EventPayload:
+      type: object
+      required:
+        - user_id
+        - session_id
+        - event_name
+      properties:
+        user_id:
+          type: string
+          example: 'd290f1ee-6c54-4b01-90e6-d701748f0851'
+          description: This is your user id. You can set this to whatever you like, either your real user id or an obfuscated user id. However you need to be consistent here. Events linked to this user id only track if challenges or battle passes are unlocked with the same user id.
+        session_id:
+          type: string
+          example: '12345'
+          description: This is required if event_type is single and identifies a session. This can be anything used to group events together. For example this can be a level or a match id.
+        event_name:
+          type: string
+          example: 'instant-death'
+          description: This is the event type as a string. These have predefined event names for many games and applications. It’s wise to use those as this allows us to analyse data and help you balancing your application or game.
+        event_type:
+          type: string
+          example: 'single'
+          default: 'single'
+          description: This is either single or group. You can send multiple events in one request (group) or send events in sequence. Please note, that depending on your tier you might run into rate limits.
+        meta_data:
+          type: object
+          example:
+            weapon: 'AK-47'
+            map: 'de_dust'
+          description: This holds metadata and is optional. However, you can use this to send additional info, like a weapon in a kill event. This way you can build more elaborate challenges like Kill 10 enemies with AK47 and with no armor protection.
+    Language:
+      type: object
+      properties:
+        language_id:
+          type: string
+          example: "594089057856618499"
+          description: The id of the language
+        language_name:
+          type: string
+          example: "English"
+          description: The language in english language (human readable)
+        language_shortcode:
+          type: string
+          example: "en"
+          description: International shortcode for the language (i.e. en, fr, de, es, it, ...)
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+      required:
+        - message
+    SocketToken:
+      type: object
+      properties:
+        socket_token:
+          type: string
+          example: 'eyJhbGciOiJIUzI1NiIsInR59....'
+      required:
+        - socket_token
+    AccessToken:
+      type: object
+      properties:
+        token:
+          type: string
+          example: 'eyJhbGciOiJIUzI1NiIsInR59....'
+      required:
+        - access_token
+    ForeignUserIdentifier:
+      type: object
+      properties:
+        user_id:
+          type: string
+          example: '123456789'
+          description: Any string allowed, this is the foreign user identifier that has no relation in the SCILL database and the user is unkown to SCILL.
+      required:
+        - user_id
+    App:
+      type: object
+      required: 
+        - app_id
+        - app_name
+        - app_tag
+        - app_image
+        - app_image_hd
+      properties:
+        app_id:
+          type: integer
+          example: 593853042226954241
+          description: The id of the app
+        app_name:
+          type: string
+          example: "My App"
+          description: The name of your app
+        app_tag:
+          type: string
+          example: "my_app"
+          description: A unique identifier for your game with only alphanumeric characters, dash and underscore
+        app_active:
+          type: boolean
+          example: true
+          description: Indicates if this app is active. Use the DELETE route to deactivate an app
+        app_image:
+          type: string
+          example: "my_app_logo.png"
+          description: A string identifying the apps logo image in your own application. Can also be a URL. 
+        app_image_hd:
+          type: string
+          example: "my_app_logo_hd.png"
+          description: A string identifying the apps logo image in high quality in your own application. Can also be a URL.   
+        has_battle_passes:
+          type: boolean
+          example: true
+          description: Indicates if this app has activated the battle pass system
+        has_battle_challenges:
+          type: boolean
+          example: true
+          description: Indicates if this app has activated the challenges system
+        request_count: 
+          type: integer
+          example: 0
+          description: Number of requests sent in the current month
+        rate_limit:
+          type: integer
+          example: 150000
+          description: The number of requests allowed per month
+        event_limit:
+          type: integer
+          example: 100000
+          description: The number of events allowed per month
+        fusion_id:
+          type: integer
+          example: 0
+          description: The 4Players User Id
+    AppPayload:
+      type: object
+      required: 
+        - app_name
+        - app_tag
+      properties:
+        app_name:
+          type: string
+          example: "My App"
+          description: The name of your app
+        app_tag:
+          type: string
+          example: "my_app"
+          description: A unique identifier for your game with only alphanumeric characters, dash and underscore
+        app_image:
+          type: string
+          example: "my_app_logo.png"
+          description: A string identifying the apps logo image in your own application. Can also be a URL. 
+        app_image_hd:
+          type: string
+          example: "my_app_logo_hd.png"
+          description: A string identifying the apps logo image in high quality in your own application. Can also be a URL.   
+        has_battle_passes:
+          type: boolean
+          example: true
+          description: Indicates if this app has activated the battle pass system
+        has_battle_challenges:
+          type: boolean
+          example: true
+          description: Indicates if this app has activated the challenges system
+    Apps:
+      type: object
+      properties:
+        event_count:
+          type: integer
+          example: 100000
+          description: The number of events sent so far this month
+        applications:
+          type: array
+          items:
+            $ref: '#/components/schemas/App'      
+    LabelPayload:
+      type: object
+      properties:
+        label:
+          type: string
+          example: "My API Key"
+          description: Label used for the API Key
+    Webhook:
+      type: object
+      required: 
+        - webhook_type
+        - app_id
+        - target_url
+        - secret_key
+      properties:
+        webhook_id:
+          type: string
+          example: "593848364826296323"
+          description: The id of the webhook
+        webhook_type:
+          type: string
+          example: "challenge-changed"
+          description: The type of the webhook. Many different areas within SCILL GaaS trigger webhooks. Refer to the documentation for all available types.
+        app_id:
+          type: string
+          example: "YOUR_APP_ID"
+          description: The id of your app that is linked to this webhook.
+        description:
+          type: string
+          example: "My new shiny webhook."
+          description: A string used to store some information about the webhook.
+        target_url:
+          type: string
+          example: "https://www.example.com/scill/webhooks/challenge_changed.php"
+          description: The URL to the webservices called by SCILL backends. This must be world open, i.e. reachable from the internet.
+        secret_key:
+          type: string
+          example: "FaJo@RnEJ&CY$..."
+          description: A secret that is sent with the webhook. Implement that secret on your side to make sure, that this is an authorized request. 
+    WebhookPayload:
+      type: object
+      required: 
+        - webhook_type
+        - app_id
+        - target_url
+        - secret_key
+      properties:
+        webhook_type:
+          type: string
+          example: "challenge-changed"
+          description: The type of the webhook. Many different areas within SCILL GaaS trigger webhooks. Refer to the documentation for all available types.
+        app_id:
+          type: string
+          example: "YOUR_APP_ID"
+          description: The id of your app that is linked to this webhook.
+        description:
+          type: string
+          example: "My new shiny webhook."
+          description: A string used to store some information about the webhook.
+        target_url:
+          type: string
+          example: "https://www.example.com/scill/webhooks/challenge_changed.php"
+          description: The URL to the webservices called by SCILL backends. This must be world open, i.e. reachable from the internet.
+        secret_key:
+          type: string
+          example: "FaJo@RnEJ&CY$..."
+          description: A secret that is sent with the webhook. Implement that secret on your side to make sure, that this is an authorized request.     
+    ApiKeyInfo:
+      type: object
+      properties:
+        key_id: 
+          type: integer
+          example: 593828735301517300
+          description: The id of the API key
+        fusion_id: 
+          type: integer
+          example: 0
+          description: The 4Players User Id
+        app_id: 
+          type: integer
+          example: 593776232582742000
+          description: The App Id. This is the id you need to use in most other endpoints
+        api_key: 
+          type: string
+          example: "3:8OZ=I6M~$((bzTB..."
+          description: The API Key. Use your API key in the Authorization header as the Bearer. Please don't expose the API Key! This should only be used in server to server communication, not in clients. Generate an access token using this API key to be used in clients
+        enabled: 
+          type: boolean
+          example: true
+          description: Indicates if this API key is active.
+    ChallengeCategoryType:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "594135162548027395"
+          description: The unique id of the category type
+        slug:
+          type: string
+          example: "tutorial"
+          description: A short name without special chars that can be used to hardcode things
+        name:
+          type: string
+          example: "Tutorial category"
+          description: The name of this category type
+    ChallengeRewardType:
+      type: object
+      properties:
+        reward_type_id:
+          type: string
+          example: "612265935279554561"
+          description: The id of the reward type
+        reward_type:
+          type: string
+          example: "money"
+          description: The type of the reward as a slug (machine readable format)
+        reward_name:
+         type: string
+         example: "Money"
+         description: The name of the reward in a human readable format
+    ChallengeCategory:
+      type: object
+      required:
+        - category_id
+        - app_id
+        - category_type
+        - position
+        - active
+        - category_name
+      properties:
+        category_id:
+          type: string
+          example: "594162860105957378"
+          description: The unique id of the category
+        app_id:
+          type: string
+          example: "593852628853587970"
+          description: The id of the app this challenge category is linked to
+        category_type:
+          type: string
+          example: "594135162548027395"
+          description: The id of the challenge category type (see /api/v1/admin/challenge-category-available-types)
+        position:
+          type: integer
+          example: 1
+          description: The position of the challenge category (use to change order in lists)
+        active:
+          type: boolean
+          example: true
+          description: Indicates if this challenge category is active
+        category_name:
+          type: string
+          example: "My Tutorial Category"
+          description: The name of the challenge category in the current language
+        category_slug:
+          type: string
+          example: "tutorial"
+          description: A short name you can use to hardcode stuff in your code
+    ChallengeCategoryPayload:
+      type: object
+      properties:
+        app_id:
+          type: string
+          example: "593852628853587970"
+          description: The id of the app this challenge category is linked to
+        category_type:
+          type: string
+          example: "594135162548027395"
+          description: The id of the challenge category type (see /api/v1/admin/challenge-category-available-types)
+        category_name:
+          type: string
+          example: "My Tutorial Category"
+          description: The name of the challenge category in the current language
+        active:
+          type: boolean
+          example: true
+          description: Indicates if this challenge category is active    
+    ChallengeEventType:
+      type: object
+      properties:
+        challenge_type_id:
+          type: string
+          example: "598624626157420545"
+          description: The type id
+        challenge_type_mandatory_metadata: 
+          type: string
+          example: "score,"
+          description: Mandatory meta data fields that need to be set in the event meta data payload
+        challenge_type_name: 
+          type: string
+          example: "achieve-score"
+          description: The name of the event type
+        challenge_type_name_humanized: 
+          type: string
+          example: "Achieve score (achieve-score)"
+          description: "The name of the event in a human readable format"
+        challenge_type_non_mandatory_metadata: 
+          type: string
+          example: "required_time,time_condition,"
+          description: Optional event meta data available for this event type
+    Challenge:
+      type: object
+      properties:
+        challenge_id:
+          type: string
+          example: '505538946732425217'
+          description: The unique id of this challenge. Every challenge is linked to a product.
+        app_id:
+          type: string
+          example: "593852628853587970"
+          description: The id of the app this challenge is linked to      
+        challenge_category_id:
+          type: string
+          example: "594162860105957378"
+          description: The id of the challenge category this challenge should be linked to
+        challenge_name:
+          type: string
+          example: 'Survive 3 battles'
+          description: The name of the challenge in the language set by the language parameter.
+        challenge_duration_time:
+          type: integer
+          example: 500
+          description: The duration of the challenge in seconds. Challenges auto lock after time-out and need to be unlocked again.
+        challenge_goal:
+          type: integer
+          example: 5
+          description: Indicates how many “tasks” must be completed or done to complete this challenge.
+        challenge_goal_condition:
+          type: integer
+          example: 0
+          description: "With this you can set the way how the SCILL system approaches the challenges state. 0 means, that the counter of the challenge must be brought above the goal. If this is 1, then the counter must be kept below the goal. This is often useful for challenges that include times, like: Manage the level in under 50 seconds."          
+        challange_price:
+          type: integer
+          example: 0
+          description: The price for this challenge. This is just a value you can set and make any use in your app
+        challange_xp:
+          type: integer
+          example: 0
+          description: The experience points for this challenge. This is just a value you can set and make any use in your app
+        challenge_icon:
+          type: string
+          example: 'black-arrow'
+          description: In the admin panel you can set a string representing an image. This can be a URL, but it can also be an image or texture that you have in your games asset database.
+        challenge_icon_hd:
+          type: string
+          example: 'black-arrow-hd'
+          description: This is the HD variant of the challenge icon image. If you have a game, that runs on multiple platforms that could come in handy. Otherwise just leave blank.
+        challenge_description:
+          nullable: true
+          type: string
+          example: 'Survive 3 battles and get 20 XP'
+          description: An optional description the challenge in detail    
+        repeatable:
+          type: boolean
+          example: false
+          description: If this challenge can be only activated once per user this will be false. Otherwise this challenge will always be added to list of available challenges (see personal or alliance challenges).
+        challenge_auto_activated:
+          type: boolean
+          example: true
+          description: Wether this challenge will be activated when requested by a user automatically or if users/clients need to activate challenges by hand or script.
+        period_range:
+          nullable: true
+          type: string
+          example: "m"
+          description: If challenge is auto activated it will be reset at specific points in time. Options are daily (d), weekly (w), monthly (m) or never.
+        period_range_reset_at_time:
+          nullable: true
+          type: string
+          example: "00:00:00"
+          description: The reset time this challenge will be set back. If period range is set to daily, then the challenge will be reset every day at this clock. If it's weekly, it will be set to 0 on Monday at this clock.
+        period_range_time_zone:
+          nullable: true
+          type: string
+          example: "Arctic/Longyearbyen"
+          description: The timezone used for reseting the challenge.
+        time_target:
+          type: integer
+          example: 0
+        time_condition:
+          type: integer
+          example: 0
+        live_date:
+          nullable: true
+          type: string
+          description: The date and time when this challenge should be activated. Use that to create challenges that will be visible in the future.
+        challenge_type:
+          type: string
+          example: "trigger-event"
+          description: The event type used to drive this challenge
+        required_metadata_values:
+          type: string
+          example: "event_type:page_impression,"
+          description: An internal flag that will be used to decide when this challenge should be triggered
+        is_battle_pass_challenge:
+          type: boolean
+          example: false
+          description: If this is a battle pass challenge. Should always be false!          
+        generic_metadata:
+          type: array
+          items:
+            $ref: '#/components/schemas/GenericMetaData'          
+    ChallengePayload:
+      type: object
+      required:
+        - app_id
+        - challenge_category_id
+        - challenge_name
+        - challenge_goal
+        - challenge_auto_activated
+        - challenge_goal_condition
+      properties:
+        app_id:
+          type: string
+          example: "593852628853587970"
+          description: The id of the app this challenge is linked to      
+        challenge_category_id:
+          type: string
+          example: "594162860105957378"
+          description: The id of the challenge category this challenge should be linked to
+        challenge_name:
+          type: string
+          example: 'Survive 3 battles'
+          description: The name of the challenge in the language set by the language parameter.
+        challenge_description:
+          nullable: true
+          type: string
+          example: 'Survive 3 battles and get 20 XP'
+          description: An optional description the challenge in detail         
+        challenge_type:
+          type: string
+          example: "trigger-event"
+          description: The event type used to drive this challenge
+        challenge_reward_type_id:
+          type: string
+          example: "612265935279554561"
+          description: The id of the reward type.
+        repeatable:
+          type: boolean
+          example: true
+          description: Wether the challenge will be available again after it has been won or lost. Otherwise it will not be delivered again.
+        is_battle_pass_challenge:
+          type: boolean
+          example: false
+          description: If this is a battle pass challenge. Should always be false!
+        challenge_icon:
+          nullable: true
+          type: string
+          example: 'black-arrow'
+          description: In the admin panel you can set a string representing an image. This can be a URL, but it can also be an image or texture that you have in your games asset database.
+        challenge_icon_hd:
+          nullable: true
+          type: string
+          example: 'black-arrow-hd'
+          description: This is the HD variant of the challenge icon image. If you have a game, that runs on multiple platforms that could come in handy. Otherwise just leave blank.               
+        challenge_duration_time:
+          nullable: true
+          type: integer
+          example: 500
+          description: The duration of the challenge in seconds. Challenges auto lock after time-out and need to be unlocked again.
+        challenge_goal:
+          type: integer
+          example: 5
+          description: Indicates how many “tasks” must be completed or done to complete this challenge.
+        challange_price:
+          type: integer
+          example: 0
+          description: The price for this challenge. This is just a value you can set and make any use in your app
+        challange_xp:
+          type: integer
+          example: 0
+          description: The experience points for this challenge. This is just a value you can set and make any use in your app
+        challange_reward:
+          type: string
+          example: "item_XYZ"
+          description: The reward for this challenge. This is just a value you can set and make any use in your app       
+        challenge_goal_condition:
+          type: integer
+          example: 0
+          description: "With this you can set the way how the SCILL system approaches the challenges state. 0 means, that the counter of the challenge must be brought above the goal. If this is 1, then the counter must be kept below the goal. This is often useful for challenges that include times, like: Manage the level in under 50 seconds."
+        live_date:
+          nullable: true
+          type: string
+          description: The date and time when this challenge should be activated. Use that to create challenges that will be visible in the future.
+        challenge_auto_activated:
+          type: boolean
+          example: true
+          description: Wether this challenge will be activated when requested by a user automatically or if users/clients need to activate challenges by hand or script.
+        period_range:
+          nullable: true
+          type: string
+          example: "m"
+          description: If challenge is auto activated it will be reset at specific points in time. Options are daily (d), weekly (w), monthly (m) or never.
+        period_range_reset_at_time:
+          nullable: true
+          type: string
+          example: "00:00:00"
+          description: The reset time this challenge will be set back. If period range is set to daily, then the challenge will be reset every day at this clock. If it's weekly, it will be set to 0 on Monday at this clock.
+        period_range_time_zone:
+          nullable: true
+          type: string
+          example: "Arctic/Longyearbyen"
+          description: The timezone used for reseting the challenge.
+        generic_metadata:
+          type: array
+          items:
+            $ref: '#/components/schemas/GenericMetaData'
+    GenericMetaData:
+      type: object
+      properties:
+        values:
+          type: array
+          items:
+            type: string
+            example: "page_impression"
+            description: The value that needs to be set in an event so that it triggers this challenge. Depends on the metadata event structure for the specific type.
+        metadata_key:
+          type: string
+          example: "trigger-event"
+          description: The event type that this challenge should listen to
+        conjunction: 
+          type: string
+          example: "OR"
+          description: Can be OR and AND and defines if all values need to match or just any of the provided values
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: Access Token or API-Key
+      description: You can either use the API-Key or an Access Token generated earlier with the auth/generate-access-token route. Only use API-Key on server side, never expose it on client side. Use Access Tokens where possible. More info
+        on this topic can be found here https://beta.developers.scillgame.com/api/authentication.html
+    oAuthNoScopes:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://api.example.com/oauth2/authorize
+          scopes: {}        
+  responses:
+    ActionSuccessful:
+      description: The action has been successful
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ActionResponse'
+    NotFound:
+      description: The specified resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Request could not complete as parameters were missing or were not set correctely.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'            
+    SocketToken:
+      description: Response with Socket Token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ActionResponse'
