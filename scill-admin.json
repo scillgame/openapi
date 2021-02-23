@@ -910,13 +910,13 @@
         "operationId" : "getAvailablePersonalChallengesRewards",
         "responses" : {
           "200" : {
-            "description" : "Returns the updated AdminChallengeCategory object",
+            "description" : "Returns the updated RewardType object",
             "content" : {
               "application/json" : {
                 "schema" : {
                   "type" : "array",
                   "items" : {
-                    "$ref" : "#/components/schemas/ChallengeRewardType"
+                    "$ref" : "#/components/schemas/RewardType"
                   }
                 }
               }
@@ -3058,6 +3058,72 @@
         "url" : "https://es-dev.scillgame.com",
         "description" : "Dev URL"
       } ]
+    },
+    "/api/v1/admin/battle-pass-rewards" : {
+      "description" : "Get a list of reward types available for battle pass levels",
+      "get" : {
+        "tags" : [ "battle-passes" ],
+        "summary" : "Returns a list of available battle pass level reward types",
+        "description" : "Get a list of available battle pass leve reward types. Can be used when creating levels.",
+        "operationId" : "getAvailableBattlePassLevelRewards",
+        "responses" : {
+          "200" : {
+            "description" : "Returns the updated RewardType object",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/RewardType"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Request could not complete as parameters were missing or were not set correctely.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "servers" : [ {
+        "url" : "https://es.scillgame.com",
+        "description" : "Production URL"
+      }, {
+        "url" : "https://es-dev.scillgame.com",
+        "description" : "Dev URL"
+      } ]
     }
   },
   "components" : {
@@ -3701,7 +3767,7 @@
           }
         }
       },
-      "ChallengeRewardType" : {
+      "RewardType" : {
         "type" : "object",
         "properties" : {
           "reward_type_id" : {
