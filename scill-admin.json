@@ -20,9 +20,6 @@
     "description" : "SwaggerHub API Auto Mocking"
   } ],
   "tags" : [ {
-    "name" : "admin",
-    "description" : "Admin routes"
-  }, {
     "name" : "events",
     "description" : "Events"
   }, {
