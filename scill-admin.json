@@ -1,0 +1,4194 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "SCILL Admin API",
+    "description" : "SCILL gives you the tools to activate, retain and grow your user base in your app or game by bringing you features well known in the gaming industry: Gamification. We take care of the services and technology involved so you can focus on your game and content.",
+    "contact" : {
+      "email" : "support@scillgame.com"
+    },
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version" : "1.0.0"
+  },
+  "servers" : [ {
+    "url" : "https://virtserver.swaggerhub.com/4Players-GmbH/scill-gaas-admin/1.0.0",
+    "description" : "SwaggerHub API Auto Mocking"
+  }, {
+    "url" : "https://virtserver.swaggerhub.com/4Players-GmbH/scill-gaas/1.0.0",
+    "description" : "SwaggerHub API Auto Mocking"
+  } ],
+  "tags" : [ {
+    "name" : "admin",
+    "description" : "Admin routes"
+  }, {
+    "name" : "auth",
+    "description" : "Auth"
+  }, {
+    "name" : "events",
+    "description" : "Events"
+  }, {
+    "name" : "apps",
+    "description" : "Apps"
+  }, {
+    "name" : "api-key",
+    "description" : "API-Keys"
+  }, {
+    "name" : "webhooks",
+    "description" : "Webhooks"
+  }, {
+    "name" : "challenges",
+    "description" : "Challenges"
+  }, {
+    "name" : "battle-passes",
+    "description" : "BattlePasses"
+  }, {
+    "name" : "users",
+    "description" : "Users"
+  } ],
+  "paths" : {
+    "/api/v1/languages" : {
+      "description" : "Get a list of all available event types",
+      "get" : {
+        "tags" : [ "users" ],
+        "summary" : "Get a list of all available languages",
+        "description" : "Returns a list of all available languages",
+        "externalDocs" : {
+          "description" : "SCILL API Reference",
+          "url" : "https://developers.scillgame.com/api/challenges.html#realtime-updates"
+        },
+        "operationId" : "getAvailableLanguages",
+        "responses" : {
+          "200" : {
+            "description" : "Returns available languages",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Language"
+                  }
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "servers" : [ {
+        "url" : "https://us.scillgame.com",
+        "description" : "Production URL"
+      }, {
+        "url" : "https://us-dev.scillgame.com",
+        "description" : "Dev URL"
+      } ]
+    },
+    "/api/v1/admin/challenge-types" : {
+      "description" : "Get a list of all available event types",
+      "get" : {
+        "tags" : [ "events" ],
+        "summary" : "Get a list of all available event types",
+        "description" : "Returns a list of all available event types.",
+        "externalDocs" : {
+          "description" : "SCILL API Reference",
+          "url" : "https://developers.scillgame.com/api/challenges.html#realtime-updates"
+        },
+        "operationId" : "getChallengeTypes",
+        "responses" : {
+          "200" : {
+            "description" : "Returns available types",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ChallengeEventType"
+                  }
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "servers" : [ {
+        "url" : "https://ep.scillgame.com",
+        "description" : "Production URL"
+      }, {
+        "url" : "https://ep-dev.scillgame.com",
+        "description" : "Dev URL"
+      } ]
+    },
+    "/api/v1/admin/event-rates" : {
+      "description" : "Get info about the current (i.e. this months) event consumption",
+      "get" : {
+        "tags" : [ "events" ],
+        "summary" : "Get info about the current tariff and current event limit and event count",
+        "description" : "Returns info about the current event limit and event count",
+        "externalDocs" : {
+          "description" : "SCILL API Reference",
+          "url" : "https://developers.scillgame.com/api/challenges.html#realtime-updates"
+        },
+        "operationId" : "getEventRates",
+        "responses" : {
+          "200" : {
+            "description" : "Get Event rates and limit",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/EventRate"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "servers" : [ {
+        "url" : "https://ep.scillgame.com",
+        "description" : "Production URL"
+      }, {
+        "url" : "https://ep-dev.scillgame.com",
+        "description" : "Dev URL"
+      } ]
+    },
+    "/api/v1/admin/challenge-category-available-types" : {
+      "description" : "Challenge categories have a type. Available types can be requested with this endpoint",
+      "get" : {
+        "tags" : [ "challenges" ],
+        "summary" : "Get an access token for the Websockets server notifying of updates in real time",
+        "description" : "Get an access token for the Websockets server notifying of updates in real time",
+        "externalDocs" : {
+          "description" : "SCILL API Reference",
+          "url" : "https://beta.developers.scillgame.com/api/challenges.html#realtime-updates"
+        },
+        "operationId" : "getChallengeCategoryTypes",
+        "responses" : {
+          "200" : {
+            "description" : "Returns available types",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ChallengeCategoryType"
+                  }
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "servers" : [ {
+        "url" : "https://pcs.scillgame.com",
+        "description" : "Production URL"
+      }, {
+        "url" : "https://pcs-dev.scillgame.com",
+        "description" : "Dev URL"
+      } ]
+    },
+    "/api/v1/admin/challenge-categories/{appId}" : {
+      "description" : "Handle available challenge categories for your app",
+      "get" : {
+        "tags" : [ "challenges" ],
+        "summary" : "Get an array of AdminChallengeCategory objects available for your app",
+        "description" : "Get challenge categories available for the app",
+        "operationId" : "getChallengeCategories",
+        "parameters" : [ {
+          "name" : "appId",
+          "in" : "path",
+          "description" : "The app id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Returns available challenge categories",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ChallengeCategory"
+                  }
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "challenges" ],
+        "summary" : "Create a challenge category for the app",
+        "description" : "Create a challenge category object for the app",
+        "operationId" : "createChallengeCategory",
+        "parameters" : [ {
+          "name" : "appId",
+          "in" : "path",
+          "description" : "The app id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "Payload for creating a challenge category",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ChallengeCategoryPayload"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Returns the created AdminChallengeCategory object",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ChallengeCategory"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Request could not complete as parameters were missing or were not set correctely.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "servers" : [ {
+        "url" : "https://pcs.scillgame.com",
+        "description" : "Production URL"
+      }, {
+        "url" : "https://pcs-dev.scillgame.com",
+        "description" : "Dev URL"
+      } ]
+    },
+    "/api/v1/admin/challenge-categories/{appId}/{categoryId}" : {
+      "description" : "Update challenge category by app and id",
+      "put" : {
+        "tags" : [ "challenges" ],
+        "summary" : "Update a challenge category for the app",
+        "description" : "Update a challenge category object for the app",
+        "operationId" : "updateChallengeCategory",
+        "parameters" : [ {
+          "name" : "appId",
+          "in" : "path",
+          "description" : "The app id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "categoryId",
+          "in" : "path",
+          "description" : "The challenge category id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "Payload for updating a challenge category",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ChallengeCategoryPayload"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Returns the updated AdminChallengeCategory object",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ChallengeCategory"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Request could not complete as parameters were missing or were not set correctely.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "challenges" ],
+        "summary" : "Delete the challenge category",
+        "description" : "Delete the challenge category",
+        "operationId" : "deleteChallengeCategory",
+        "parameters" : [ {
+          "name" : "appId",
+          "in" : "path",
+          "description" : "The app id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "categoryId",
+          "in" : "path",
+          "description" : "The challenge category id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The action has been successful",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ActionResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Request could not complete as parameters were missing or were not set correctely.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "servers" : [ {
+        "url" : "https://pcs.scillgame.com",
+        "description" : "Production URL"
+      }, {
+        "url" : "https://pcs-dev.scillgame.com",
+        "description" : "Dev URL"
+      } ]
+    },
+    "/api/v1/admin/challenges/{appId}" : {
+      "description" : "Handle challenges for your app",
+      "get" : {
+        "tags" : [ "challenges" ],
+        "summary" : "Get an array of AdminChallenge objects available for your app",
+        "description" : "Get challenges available for the app",
+        "operationId" : "getChallenges",
+        "parameters" : [ {
+          "name" : "appId",
+          "in" : "path",
+          "description" : "The app id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Returns available challenges",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Challenge"
+                  }
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "challenges" ],
+        "summary" : "Create a challenge for the app",
+        "description" : "Create a challenge object for the app",
+        "operationId" : "createChallenge",
+        "parameters" : [ {
+          "name" : "appId",
+          "in" : "path",
+          "description" : "The app id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "Payload for creating a challenge",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ChallengePayload"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Returns the created AdminChallenge object",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Challenge"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Request could not complete as parameters were missing or were not set correctely.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "servers" : [ {
+        "url" : "https://pcs.scillgame.com",
+        "description" : "Production URL"
+      }, {
+        "url" : "https://pcs-dev.scillgame.com",
+        "description" : "Dev URL"
+      } ]
+    },
+    "/api/v1/admin/challenges/{appId}/{challengeId}" : {
+      "description" : "Update challenge category by app and id",
+      "put" : {
+        "tags" : [ "challenges" ],
+        "summary" : "Update a challenge category for the app",
+        "description" : "Update a challenge category object for the app",
+        "operationId" : "updateChallenge",
+        "parameters" : [ {
+          "name" : "appId",
+          "in" : "path",
+          "description" : "The app id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "challengeId",
+          "in" : "path",
+          "description" : "The challenge category id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "Payload for updating a challenge category",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ChallengeCategoryPayload"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Returns the updated AdminChallengeCategory object",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ChallengeCategory"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Request could not complete as parameters were missing or were not set correctely.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "challenges" ],
+        "summary" : "Delete the challenge category",
+        "description" : "Delete the challenge category",
+        "operationId" : "deleteChallenge",
+        "parameters" : [ {
+          "name" : "appId",
+          "in" : "path",
+          "description" : "The app id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "challengeId",
+          "in" : "path",
+          "description" : "The challenge category id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The action has been successful",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ActionResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Request could not complete as parameters were missing or were not set correctely.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "servers" : [ {
+        "url" : "https://pcs.scillgame.com",
+        "description" : "Production URL"
+      }, {
+        "url" : "https://pcs-dev.scillgame.com",
+        "description" : "Dev URL"
+      } ]
+    },
+    "/api/v1/admin/personal-challenge-rewards" : {
+      "description" : "Get a list of reward types available for personal challenges",
+      "get" : {
+        "tags" : [ "challenges" ],
+        "summary" : "Returns a list of available personal challenges reward types",
+        "description" : "Get a list of available personal challenge reward types. Can be used when creating challenges.",
+        "operationId" : "getAvailablePersonalChallengesRewards",
+        "responses" : {
+          "200" : {
+            "description" : "Returns the updated AdminChallengeCategory object",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ChallengeRewardType"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Request could not complete as parameters were missing or were not set correctely.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "servers" : [ {
+        "url" : "https://pcs.scillgame.com",
+        "description" : "Production URL"
+      }, {
+        "url" : "https://pcs-dev.scillgame.com",
+        "description" : "Dev URL"
+      } ]
+    },
+    "/api/v1/admin/app" : {
+      "description" : "Everything in SCILL is linked to this app. Use these endpoints to handle your apps.",
+      "get" : {
+        "tags" : [ "apps" ],
+        "summary" : "Get all apps",
+        "description" : "Get all apps linked to the account provided in the Auth Bearer",
+        "operationId" : "getApps",
+        "responses" : {
+          "200" : {
+            "description" : "An array of App objects",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Apps"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Request could not complete as parameters were missing or were not set correctely.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "apps" ],
+        "summary" : "Create a new app",
+        "description" : "Use this endpoint to create a new app linked to your account",
+        "operationId" : "createApp",
+        "requestBody" : {
+          "description" : "Payload for creating an app",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/AppPayload"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Successfully created the app. App id is returned.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Request could not complete as parameters were missing or were not set correctely.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "servers" : [ {
+        "url" : "https://gs.scillgame.com",
+        "description" : "Production URL"
+      }, {
+        "url" : "https://gs-dev.scillgame.com",
+        "description" : "Dev URL"
+      } ]
+    },
+    "/api/v1/admin/app/{appId}" : {
+      "description" : "Endpoints to update and receive info for a specific app",
+      "get" : {
+        "tags" : [ "apps" ],
+        "summary" : "Get app info",
+        "description" : "Get basic information about the app",
+        "operationId" : "appInfo",
+        "parameters" : [ {
+          "name" : "appId",
+          "in" : "path",
+          "description" : "The app id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "App info",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/App"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Request could not complete as parameters were missing or were not set correctely.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "put" : {
+        "tags" : [ "apps" ],
+        "summary" : "Update infos of an app",
+        "description" : "Update basic app info",
+        "operationId" : "setAppInfo",
+        "parameters" : [ {
+          "name" : "appId",
+          "in" : "path",
+          "description" : "The app id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "Payload for updating an app",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/AppPayload"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "The action has been successful",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ActionResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Request could not complete as parameters were missing or were not set correctely.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "apps" ],
+        "summary" : "Delete app",
+        "description" : "The app will be set to inactive mode.",
+        "operationId" : "deleteApp",
+        "parameters" : [ {
+          "name" : "appId",
+          "in" : "path",
+          "description" : "The app id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The action has been successful",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ActionResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Request could not complete as parameters were missing or were not set correctely.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "servers" : [ {
+        "url" : "https://gs.scillgame.com",
+        "description" : "Production URL"
+      }, {
+        "url" : "https://gs-dev.scillgame.com",
+        "description" : "Dev URL"
+      } ]
+    },
+    "/api/v1/admin/api-key/{appId}" : {
+      "description" : "Handle API keys for a specified app",
+      "get" : {
+        "tags" : [ "api-key" ],
+        "summary" : "Get all api keys for this app",
+        "description" : "Every app can have multiple API keys. With this endpoint you can get all api keys issued for the provided app id.",
+        "operationId" : "getApiKeys",
+        "parameters" : [ {
+          "name" : "appId",
+          "in" : "path",
+          "description" : "The app id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "An array with ApiKeyInfo objects",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ApiKeyInfo"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Request could not complete as parameters were missing or were not set correctely.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "api-key" ],
+        "summary" : "Create a new api key for the app",
+        "description" : "Create an api key",
+        "operationId" : "createApiKey",
+        "parameters" : [ {
+          "name" : "appId",
+          "in" : "path",
+          "description" : "The app id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "Payload for the label to be used for this API key",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/LabelPayload"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "The API key",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_1"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Request could not complete as parameters were missing or were not set correctely.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "servers" : [ {
+        "url" : "https://gs.scillgame.com",
+        "description" : "Production URL"
+      }, {
+        "url" : "https://gs-dev.scillgame.com",
+        "description" : "Dev URL"
+      } ]
+    },
+    "/api/v1/admin/api-key/{appId}/{apiKey}" : {
+      "description" : "Revoke or delete api keys for a specified game",
+      "get" : {
+        "tags" : [ "api-key" ],
+        "summary" : "Get info about an API key",
+        "description" : "Get info about your API key",
+        "operationId" : "getApiKeyInfo",
+        "parameters" : [ {
+          "name" : "appId",
+          "in" : "path",
+          "description" : "The app id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "apiKey",
+          "in" : "path",
+          "description" : "The API key (url encoded)",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "An array with ApiKeyInfo objects",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ApiKeyInfo"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Request could not complete as parameters were missing or were not set correctely.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "put" : {
+        "tags" : [ "api-key" ],
+        "summary" : "Reset an api key",
+        "description" : "Reset the api key",
+        "operationId" : "resetApiKey",
+        "parameters" : [ {
+          "name" : "appId",
+          "in" : "path",
+          "description" : "The app id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "apiKey",
+          "in" : "path",
+          "description" : "The API key (url encoded)",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The action has been successful",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ActionResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Request could not complete as parameters were missing or were not set correctely.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "api-key" ],
+        "summary" : "Delete the API key.",
+        "description" : "Delete the API key. All subsequent requests with this API key will be blocked.",
+        "operationId" : "deleteApiKey",
+        "parameters" : [ {
+          "name" : "appId",
+          "in" : "path",
+          "description" : "The app id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "apiKey",
+          "in" : "path",
+          "description" : "The API key (url encoded)",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The action has been successful",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ActionResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Request could not complete as parameters were missing or were not set correctely.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "servers" : [ {
+        "url" : "https://gs.scillgame.com",
+        "description" : "Production URL"
+      }, {
+        "url" : "https://gs-dev.scillgame.com",
+        "description" : "Dev URL"
+      } ]
+    },
+    "/api/v1/admin/webhooks" : {
+      "description" : "Handle Webhooks",
+      "post" : {
+        "tags" : [ "webhooks" ],
+        "summary" : "Create a new webhook",
+        "description" : "Creates a new webhook for a specified game and type",
+        "operationId" : "createWebhook",
+        "requestBody" : {
+          "description" : "Payload to create a Webhook",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/WebhookPayload"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Webhook created successfully",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Webhook"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Request could not complete as parameters were missing or were not set correctely.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "servers" : [ {
+        "url" : "https://gs.scillgame.com",
+        "description" : "Production URL"
+      }, {
+        "url" : "https://gs-dev.scillgame.com",
+        "description" : "Dev URL"
+      } ]
+    },
+    "/api/v1/admin/webhooks/{appId}" : {
+      "description" : "Handle webhooks for the specified app id",
+      "get" : {
+        "tags" : [ "webhooks" ],
+        "summary" : "Get an array with Webhook objects",
+        "description" : "Get a list of Webhook objects for the specified app id",
+        "operationId" : "getWebhooks",
+        "parameters" : [ {
+          "name" : "appId",
+          "in" : "path",
+          "description" : "The app id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "An array of Webhook objects",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Webhook"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Request could not complete as parameters were missing or were not set correctely.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "servers" : [ {
+        "url" : "https://gs.scillgame.com",
+        "description" : "Production URL"
+      }, {
+        "url" : "https://gs-dev.scillgame.com",
+        "description" : "Dev URL"
+      } ]
+    },
+    "/api/v1/admin/webhooks/{appId}/{webhookId}" : {
+      "description" : "Manage a specificied webhook for the specified app id",
+      "get" : {
+        "tags" : [ "webhooks" ],
+        "summary" : "Returns info about the specified webhook id",
+        "description" : "Get a Webhook object for the specified webhook id",
+        "operationId" : "getWebhookInfo",
+        "parameters" : [ {
+          "name" : "appId",
+          "in" : "path",
+          "description" : "The app id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "webhookId",
+          "in" : "path",
+          "description" : "The id of the webhook",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "$ref" : "#/components/schemas/Webhook"
+          },
+          "400" : {
+            "description" : "Request could not complete as parameters were missing or were not set correctely.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "put" : {
+        "tags" : [ "webhooks" ],
+        "summary" : "Update the specified webhook with new data",
+        "description" : "Update a webhook data like the target_url or the type",
+        "operationId" : "updateWebhook",
+        "parameters" : [ {
+          "name" : "appId",
+          "in" : "path",
+          "description" : "The app id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "webhookId",
+          "in" : "path",
+          "description" : "The id of the webhook",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "Payload to update a Webhook",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/WebhookPayload"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "The action has been successful",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ActionResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Request could not complete as parameters were missing or were not set correctely.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "webhooks" ],
+        "summary" : "Delete the specified webhook",
+        "description" : "The webhook will be deleted",
+        "operationId" : "deleteWebhook",
+        "parameters" : [ {
+          "name" : "appId",
+          "in" : "path",
+          "description" : "The app id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "webhookId",
+          "in" : "path",
+          "description" : "The id of the webhook",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The action has been successful",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ActionResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Request could not complete as parameters were missing or were not set correctely.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "servers" : [ {
+        "url" : "https://gs.scillgame.com",
+        "description" : "Production URL"
+      }, {
+        "url" : "https://gs-dev.scillgame.com",
+        "description" : "Dev URL"
+      } ]
+    },
+    "/api/v1/admin/battle-passes/{appId}" : {
+      "description" : "Handle battke passes for your app",
+      "get" : {
+        "tags" : [ "battle-passes" ],
+        "summary" : "Get an array of BattlePass objects available for your app",
+        "description" : "Get available battle passes for your app",
+        "operationId" : "getBattlePasses",
+        "parameters" : [ {
+          "name" : "appId",
+          "in" : "path",
+          "description" : "The app id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Returns a list of BattlePass objects",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/BattlePass"
+                  }
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "battle-passes" ],
+        "summary" : "Create a battle pass for the app",
+        "description" : "Create a battle pass for the app. Once you have created the battle pass you can create battle pass levels",
+        "operationId" : "createBattlePass",
+        "parameters" : [ {
+          "name" : "appId",
+          "in" : "path",
+          "description" : "The app id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "Payload for creating a battle pass",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/BattlePass"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Returns the created BattlePass object",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BattlePass"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Request could not complete as parameters were missing or were not set correctely.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "servers" : [ {
+        "url" : "https://es.scillgame.com",
+        "description" : "Production URL"
+      }, {
+        "url" : "https://es-dev.scillgame.com",
+        "description" : "Dev URL"
+      } ]
+    },
+    "/api/v1/admin/battle-passes/{appId}/{battlePassId}" : {
+      "description" : "Handle battke passes for your app",
+      "get" : {
+        "tags" : [ "battle-passes" ],
+        "summary" : "Get a specific BattlePass object",
+        "description" : "Get a specific battle pass by id",
+        "operationId" : "getBattlePass",
+        "parameters" : [ {
+          "name" : "appId",
+          "in" : "path",
+          "description" : "The app id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "battlePassId",
+          "in" : "path",
+          "description" : "The id of the battle pass",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Returns the requested BattlePass objects",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BattlePass"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "put" : {
+        "tags" : [ "battle-passes" ],
+        "summary" : "Update a battle pass for the app with new values",
+        "description" : "Update the battle pass object for your app. You may change images, names, and descriptions",
+        "operationId" : "updateBattlePasss",
+        "parameters" : [ {
+          "name" : "appId",
+          "in" : "path",
+          "description" : "The app id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "battlePassId",
+          "in" : "path",
+          "description" : "The id of the battle pass",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "Payload for creating a battle pass",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/BattlePass"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Returns the created BattlePass object",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BattlePass"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Request could not complete as parameters were missing or were not set correctely.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "servers" : [ {
+        "url" : "https://es.scillgame.com",
+        "description" : "Production URL"
+      }, {
+        "url" : "https://es-dev.scillgame.com",
+        "description" : "Dev URL"
+      } ]
+    },
+    "/api/v1/admin/challenges/{applicationId}" : {
+      "description" : "Handle challenges that can be used within battle pass levels",
+      "get" : {
+        "tags" : [ "battle-passes" ],
+        "summary" : "Get an array of BattlePassChallenge objects available for your app",
+        "description" : "Get available battle pass challenges for your app",
+        "operationId" : "getBattlePassChallenges",
+        "parameters" : [ {
+          "name" : "applicationId",
+          "in" : "path",
+          "description" : "The app id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Returns a list of BattlePassChallenge objects",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/BattlePassChallenge"
+                  }
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "battle-passes" ],
+        "summary" : "Create a battle pass challenge for the app",
+        "description" : "Create a battle pass challenge for the app which can then be attached to battle pass levels",
+        "operationId" : "createBattlePassChallenge",
+        "parameters" : [ {
+          "name" : "applicationId",
+          "in" : "path",
+          "description" : "The app id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "Payload for creating a battle pass challenge",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/BattlePassChallenge"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Returns the created BattlePassChallenge object",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BattlePassChallenge"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Request could not complete as parameters were missing or were not set correctely.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "servers" : [ {
+        "url" : "https://es.scillgame.com",
+        "description" : "Production URL"
+      }, {
+        "url" : "https://es-dev.scillgame.com",
+        "description" : "Dev URL"
+      } ]
+    },
+    "/api/v1/admin/challenges/{applicationId}/{challengeId}" : {
+      "description" : "Handle challenges that can be used within battle pass levels",
+      "get" : {
+        "tags" : [ "battle-passes" ],
+        "summary" : "Get a specified BattlePassChallenge object",
+        "description" : "Get a battle pass challenge by id",
+        "operationId" : "getBattlePassChallenge",
+        "parameters" : [ {
+          "name" : "applicationId",
+          "in" : "path",
+          "description" : "The app id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "challengeId",
+          "in" : "path",
+          "description" : "The battle pass challenge id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Returns the specified BattlePassChallenge object",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BattlePassChallenge"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "put" : {
+        "tags" : [ "battle-passes" ],
+        "summary" : "Update a battle pass challenge for the app",
+        "description" : "Update a battle pass challenge. Best approach is to load the challenge, then changing properties, then apply this object as payload to this function.",
+        "operationId" : "updateBattlePassChallenge",
+        "parameters" : [ {
+          "name" : "applicationId",
+          "in" : "path",
+          "description" : "The app id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "challengeId",
+          "in" : "path",
+          "description" : "The battle pass challenge id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "Payload for creating a battle pass challenge",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/BattlePassChallenge"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Returns the created BattlePassChallenge object",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BattlePassChallenge"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Request could not complete as parameters were missing or were not set correctely.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "battle-passes" ],
+        "summary" : "Delete a specified BattlePassChallenge object",
+        "description" : "Delete a battle pass challenge by id",
+        "operationId" : "deleteBattlePassChallenge",
+        "parameters" : [ {
+          "name" : "applicationId",
+          "in" : "path",
+          "description" : "The app id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "challengeId",
+          "in" : "path",
+          "description" : "The battle pass challenge id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Status of operation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ActionResponse"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "servers" : [ {
+        "url" : "https://es.scillgame.com",
+        "description" : "Production URL"
+      }, {
+        "url" : "https://es-dev.scillgame.com",
+        "description" : "Dev URL"
+      } ]
+    },
+    "/api/v1/admin/battle-pass-levels/{battlePassId}" : {
+      "description" : "Handle battke passes for your app",
+      "get" : {
+        "tags" : [ "battle-passes" ],
+        "summary" : "Get an array of BattlePassLevel objects available for the battle pass",
+        "description" : "Get available battle pass levels",
+        "operationId" : "getBattlePassLevels",
+        "parameters" : [ {
+          "name" : "battlePassId",
+          "in" : "path",
+          "description" : "The id of the battle pass",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Returns a list of BattlePassLevel objects",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/BattlePassLevel"
+                  }
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "battle-passes" ],
+        "summary" : "Create a battle pass level for the battle pass",
+        "description" : "Create a battle pass for the app. Once you have created the battle pass you can create battle pass levels",
+        "operationId" : "createBattlePassLevel",
+        "parameters" : [ {
+          "name" : "battlePassId",
+          "in" : "path",
+          "description" : "The id of the battle pass",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "Payload for creating a battle pass",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/BattlePassLevel"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Returns the action response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ActionResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Request could not complete as parameters were missing or were not set correctely.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "servers" : [ {
+        "url" : "https://es.scillgame.com",
+        "description" : "Production URL"
+      }, {
+        "url" : "https://es-dev.scillgame.com",
+        "description" : "Dev URL"
+      } ]
+    },
+    "/api/v1/admin/battle-pass-levels/{battlePassId}/{battlePassLevelId}" : {
+      "description" : "Handle battke passes for your app",
+      "get" : {
+        "tags" : [ "battle-passes" ],
+        "summary" : "Get the specified BattlePassLevel object",
+        "description" : "Get a battle pass level by id",
+        "operationId" : "getBattlePassLevel",
+        "parameters" : [ {
+          "name" : "battlePassId",
+          "in" : "path",
+          "description" : "The id of the battle pass",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "battlePassLevelId",
+          "in" : "path",
+          "description" : "The id of the battle pass level",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Returns a BattlePassLevel object",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BattlePassLevel"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "put" : {
+        "tags" : [ "battle-passes" ],
+        "summary" : "Update a battle pass level",
+        "description" : "Update the a battle pass level with new values",
+        "operationId" : "updateBattlePassLevel",
+        "parameters" : [ {
+          "name" : "battlePassId",
+          "in" : "path",
+          "description" : "The id of the battle pass",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "battlePassLevelId",
+          "in" : "path",
+          "description" : "The id of the battle pass level",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "Payload for creating a battle pass",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/BattlePassLevel"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Returns the action response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BattlePassLevel"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Request could not complete as parameters were missing or were not set correctely.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "battle-passes" ],
+        "summary" : "Delete a specified BattlePassLevel object",
+        "description" : "Delete a battle pass level by id",
+        "operationId" : "deleteBattlePassLevel",
+        "parameters" : [ {
+          "name" : "battlePassId",
+          "in" : "path",
+          "description" : "The id of the battle pass",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "battlePassLevelId",
+          "in" : "path",
+          "description" : "The id of the battle pass level",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Status of operation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ActionResponse"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "servers" : [ {
+        "url" : "https://es.scillgame.com",
+        "description" : "Production URL"
+      }, {
+        "url" : "https://es-dev.scillgame.com",
+        "description" : "Dev URL"
+      } ]
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "ActionResponse" : {
+        "required" : [ "message" ],
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "type" : "integer",
+            "description" : "HTTP status code",
+            "example" : 200
+          },
+          "message" : {
+            "type" : "string",
+            "example" : "OK"
+          }
+        }
+      },
+      "BattlePass" : {
+        "required" : [ "battle_pass_name", "end_date", "start_date" ],
+        "type" : "object",
+        "properties" : {
+          "battle_pass_id" : {
+            "type" : "string",
+            "description" : "The unique id of this battle pass.",
+            "example" : "603693723277918210"
+          },
+          "app_id" : {
+            "type" : "string",
+            "description" : "The unique id of the app",
+            "example" : "597737952688570369"
+          },
+          "battle_pass_name" : {
+            "type" : "string",
+            "description" : "The name of the battle bass. You can set that in the Admin Panel. The language is set with the query parameter language. See documentation for more info on that.",
+            "example" : "My Battlepass"
+          },
+          "battle_pass_description" : {
+            "type" : "string",
+            "description" : "The description of the battle bass. You can set that in the Admin Panel and it can also be HTML. The language is set with the query parameter language. See documentation for more info on that.",
+            "nullable" : true,
+            "example" : "This battle pass gives you great fun and awesome rewards."
+          },
+          "battle_pass_short_description" : {
+            "type" : "string",
+            "description" : "A short description of the battle bass. You can set that in the Admin Panel and it can also be HTML. The language is set with the query parameter language. See documentation for more info on that.",
+            "example" : "This battle pass gives you great fun and awesome rewards."
+          },
+          "battle_pass_disclaimer" : {
+            "type" : "string",
+            "description" : "Use this to provide some terms and conditions following along this battle passes purchase.",
+            "nullable" : true,
+            "example" : "Use at your own risk"
+          },
+          "battle_pass_priority" : {
+            "type" : "integer",
+            "description" : "The priority of the battle pass. I.e. if multiple are available you can use this field to sort them.",
+            "example" : 1
+          },
+          "package_sku_ios" : {
+            "type" : "string",
+            "description" : "If you want to sell Battle Passes you can use this field to trigger in-app purchase products within your mobile app. You can set this value in the Admin Panel. This one is for iOS.",
+            "nullable" : true,
+            "example" : "com.example.bp.season1"
+          },
+          "package_sku_android" : {
+            "type" : "string",
+            "description" : "If you want to sell Battle Passes you can use this field to trigger in-app purchase products within your mobile app. You can set this value in the Admin Panel. Use this to set the package string for Android.",
+            "nullable" : true,
+            "example" : "com.example.bp.season1"
+          },
+          "image_xs" : {
+            "type" : "string",
+            "description" : "The xs sized image name or url. You can determine the best size distribution yourself and depends on your application or UI",
+            "nullable" : true,
+            "example" : "season1_xs.png"
+          },
+          "image_s" : {
+            "type" : "string",
+            "description" : "The s sized image name or url. You can determine the best size distribution yourself and depends on your application or UI",
+            "nullable" : true,
+            "example" : "season1_s.png"
+          },
+          "image_m" : {
+            "type" : "string",
+            "description" : "The m sized image name or url. You can determine the best size distribution yourself and depends on your application or UI",
+            "example" : "season1_m.png"
+          },
+          "image_l" : {
+            "type" : "string",
+            "description" : "The l sized image name or url. You can determine the best size distribution yourself and depends on your application or UI",
+            "nullable" : true,
+            "example" : "season1_l.png"
+          },
+          "image_xl" : {
+            "type" : "string",
+            "description" : "The xl sized image name or url. You can determine the best size distribution yourself and depends on your application or UI",
+            "nullable" : true,
+            "example" : "season1_xl.png"
+          },
+          "start_date" : {
+            "type" : "string",
+            "description" : "The date (in iso format) when the Battle Pass starts. Tracking begins once this date is passed.",
+            "format" : "RFC3339",
+            "example" : "2020-08-17T00:00:00Z"
+          },
+          "end_date" : {
+            "type" : "string",
+            "description" : "The date (in iso format) when the Battle Pass ends. Tracking stops once the end is reached and users will not be able to progress further than what they have achieved up to that point.",
+            "format" : "RFC3339",
+            "example" : "2020-08-17T00:00:00Z"
+          },
+          "read_more_link" : {
+            "type" : "string",
+            "description" : "If the Battle Pass costs “money” you may want to route the user to a web site/page, where they can learn more about this battle pass. You can also use this field to route the user inside your application by providing a path or whatever works for you.",
+            "nullable" : true,
+            "example" : "https://www.example.com/battle-passes/season1.html"
+          },
+          "is_unlocked_incrementally" : {
+            "type" : "boolean",
+            "description" : "Indicates if one level after the other must be activated or if users can activate whichever level they want. Typically battle passes are unlocked level by level, but if battle passes are used for other applications (like user referal programs) it can be useful to set this to false.",
+            "example" : true
+          },
+          "is_active" : {
+            "type" : "boolean",
+            "description" : "Indicated if this battle pass is active.",
+            "example" : false
+          },
+          "unlocked_at" : {
+            "type" : "string",
+            "description" : "The date in iso format when the user unlocked this Battle Pass.",
+            "format" : "RFC3339",
+            "nullable" : true,
+            "example" : "2020-08-26T08:51:09Z"
+          },
+          "can_purchase_with_money" : {
+            "type" : "boolean",
+            "description" : "Indicates that this Battle Pass can be purchased via in-app purchase. This can be set in the Admin Panel.",
+            "nullable" : true,
+            "example" : true
+          },
+          "can_purchase_with_coins" : {
+            "type" : "boolean",
+            "description" : "Indicates that this Battle Pass can be purchased with SCILL Coins. This can be set in the Admin Panel.",
+            "nullable" : true,
+            "example" : false
+          }
+        }
+      },
+      "BattlePassLevel" : {
+        "required" : [ "app_id", "battle_pass_id", "challenges", "is_active", "reward_type_id" ],
+        "type" : "object",
+        "properties" : {
+          "battle_pass_id" : {
+            "type" : "string",
+            "description" : "The unique id of this battle pass.",
+            "example" : "603693723277918210"
+          },
+          "app_id" : {
+            "type" : "string",
+            "description" : "The unique id of the app",
+            "example" : "597737952688570369"
+          },
+          "is_active" : {
+            "type" : "boolean",
+            "description" : "Set if this level is active or not",
+            "example" : true
+          },
+          "reward_type_id" : {
+            "type" : "string",
+            "description" : "The id of the reward type",
+            "example" : "563006391671062538"
+          },
+          "reward_amount" : {
+            "type" : "string",
+            "description" : "The reward amount as a string. Provide anything you like and that makes sense for your application",
+            "example" : "item_xyz"
+          },
+          "challenges" : {
+            "type" : "array",
+            "description" : "An array of BattlePassLevelChallenge objects.",
+            "items" : {
+              "$ref" : "#/components/schemas/BattlePassLevelChallenge"
+            }
+          }
+        }
+      },
+      "BattlePassLevelChallenge" : {
+        "type" : "object",
+        "properties" : {
+          "challenge_id" : {
+            "type" : "string",
+            "description" : "The id of the challenge",
+            "example" : "627086215435059201"
+          }
+        }
+      },
+      "BattlePassChallenge" : {
+        "required" : [ "challenge_goal", "challenge_goal_condition", "challenge_id", "challenge_name", "challenge_type", "challenge_xp" ],
+        "type" : "object",
+        "properties" : {
+          "app_id" : {
+            "type" : "string",
+            "description" : "The unique id of the app",
+            "example" : "597737952688570369"
+          },
+          "challenge_id" : {
+            "type" : "string",
+            "description" : "The unique id of this challenge. Every challenge is linked to a product.",
+            "example" : "505538946732425217"
+          },
+          "challenge_name" : {
+            "type" : "string",
+            "description" : "The name of the challenge in the language set by the language parameter.",
+            "example" : "Survive 5 battles"
+          },
+          "challenge_goal" : {
+            "type" : "integer",
+            "description" : "Indicates how many “tasks” must be completed or done to complete this challenge.",
+            "example" : 5
+          },
+          "challenge_goal_condition" : {
+            "type" : "integer",
+            "description" : "With this you can set the way how the SCILL system approaches the challenges state. 0 means, that the counter of the challenge must be brought above the goal. If this is 1, then the counter must be kept below the goal. This is often useful for challenges that include times, like: Manage the level in under 50 seconds.",
+            "example" : 0
+          },
+          "challenge_icon" : {
+            "type" : "string",
+            "description" : "In the admin panel you can set a string representing an image. This can be a URL, but it can also be an image or texture that you have in your games asset database.",
+            "nullable" : true,
+            "example" : "black-arrow"
+          },
+          "challenge_icon_hd" : {
+            "type" : "string",
+            "description" : "This is the HD variant of the challenge icon image. If you have a game, that runs on multiple platforms that could come in handy. Otherwise just leave blank.",
+            "nullable" : true,
+            "example" : "black-arrow-hd"
+          },
+          "challenge_type" : {
+            "type" : "string",
+            "description" : "Indicates the status of the challenge. This can be one of the following unlock: Challenge does not track anything. in-progress: Challenge is active and tracking. overtime: User did not manage to finish the challenge in time. unclaimed: The challenge has been completed but the reward has not yet been claimed. finished: The challenge has been successfully be completed and the reward has been claimed",
+            "example" : "unlock"
+          },
+          "challange_xp" : {
+            "type" : "integer",
+            "description" : "The experience points for this challenge. This is just a value you can set and make any use in your app",
+            "example" : 0
+          },
+          "required_metadata_values" : {
+            "type" : "string",
+            "description" : "An internal flag that will be used to decide when this challenge should be triggered",
+            "nullable" : true,
+            "example" : "event_type:page_impression,"
+          },
+          "generic_metadata" : {
+            "type" : "array",
+            "nullable" : true,
+            "items" : {
+              "$ref" : "#/components/schemas/GenericMetaData"
+            }
+          }
+        }
+      },
+      "BattlePassLevelId" : {
+        "required" : [ "battle_pass_level_id" ],
+        "type" : "object",
+        "properties" : {
+          "battle_pass_level_id" : {
+            "type" : "string",
+            "description" : "The level id, i.e. battle_pass_level_id of the BattlePassLevel object",
+            "example" : "563006391554179082"
+          }
+        }
+      },
+      "EventRate" : {
+        "type" : "object",
+        "properties" : {
+          "event_count" : {
+            "type" : "integer",
+            "description" : "The number of events sent this month",
+            "example" : 12345
+          },
+          "event_limit" : {
+            "type" : "integer",
+            "description" : "The number of events that can be sent each month in the current tariff",
+            "example" : 120000
+          },
+          "fusion_id" : {
+            "type" : "integer",
+            "description" : "Internal user id of the 4Players domain",
+            "example" : 1234567
+          },
+          "paid_tariff" : {
+            "type" : "boolean",
+            "description" : "Defines if this is a paid or free (explore) tariff.",
+            "example" : true
+          }
+        }
+      },
+      "EventPayload" : {
+        "required" : [ "event_name", "session_id", "user_id" ],
+        "type" : "object",
+        "properties" : {
+          "user_id" : {
+            "type" : "string",
+            "description" : "This is your user id. You can set this to whatever you like, either your real user id or an obfuscated user id. However you need to be consistent here. Events linked to this user id only track if challenges or battle passes are unlocked with the same user id.",
+            "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
+          },
+          "session_id" : {
+            "type" : "string",
+            "description" : "This is required if event_type is single and identifies a session. This can be anything used to group events together. For example this can be a level or a match id.",
+            "example" : "12345"
+          },
+          "event_name" : {
+            "type" : "string",
+            "description" : "This is the event type as a string. These have predefined event names for many games and applications. It’s wise to use those as this allows us to analyse data and help you balancing your application or game.",
+            "example" : "instant-death"
+          },
+          "event_type" : {
+            "type" : "string",
+            "description" : "This is either single or group. You can send multiple events in one request (group) or send events in sequence. Please note, that depending on your tier you might run into rate limits.",
+            "example" : "single",
+            "default" : "single"
+          },
+          "meta_data" : {
+            "type" : "object",
+            "description" : "This holds metadata and is optional. However, you can use this to send additional info, like a weapon in a kill event. This way you can build more elaborate challenges like Kill 10 enemies with AK47 and with no armor protection.",
+            "example" : {
+              "weapon" : "AK-47",
+              "map" : "de_dust"
+            }
+          }
+        }
+      },
+      "Language" : {
+        "type" : "object",
+        "properties" : {
+          "language_id" : {
+            "type" : "string",
+            "description" : "The id of the language",
+            "example" : "594089057856618499"
+          },
+          "language_name" : {
+            "type" : "string",
+            "description" : "The language in english language (human readable)",
+            "example" : "English"
+          },
+          "language_shortcode" : {
+            "type" : "string",
+            "description" : "International shortcode for the language (i.e. en, fr, de, es, it, ...)",
+            "example" : "en"
+          }
+        }
+      },
+      "Error" : {
+        "required" : [ "message" ],
+        "type" : "object",
+        "properties" : {
+          "code" : {
+            "type" : "string"
+          },
+          "message" : {
+            "type" : "string"
+          }
+        }
+      },
+      "SocketToken" : {
+        "required" : [ "socket_token" ],
+        "type" : "object",
+        "properties" : {
+          "socket_token" : {
+            "type" : "string",
+            "example" : "eyJhbGciOiJIUzI1NiIsInR59...."
+          }
+        }
+      },
+      "AccessToken" : {
+        "required" : [ "access_token" ],
+        "type" : "object",
+        "properties" : {
+          "token" : {
+            "type" : "string",
+            "example" : "eyJhbGciOiJIUzI1NiIsInR59...."
+          }
+        }
+      },
+      "ForeignUserIdentifier" : {
+        "required" : [ "user_id" ],
+        "type" : "object",
+        "properties" : {
+          "user_id" : {
+            "type" : "string",
+            "description" : "Any string allowed, this is the foreign user identifier that has no relation in the SCILL database and the user is unkown to SCILL.",
+            "example" : "123456789"
+          }
+        }
+      },
+      "App" : {
+        "required" : [ "app_id", "app_image", "app_image_hd", "app_name", "app_tag" ],
+        "type" : "object",
+        "properties" : {
+          "app_id" : {
+            "type" : "integer",
+            "description" : "The id of the app",
+            "example" : 593853042226954241
+          },
+          "app_name" : {
+            "type" : "string",
+            "description" : "The name of your app",
+            "example" : "My App"
+          },
+          "app_tag" : {
+            "type" : "string",
+            "description" : "A unique identifier for your game with only alphanumeric characters, dash and underscore",
+            "example" : "my_app"
+          },
+          "app_active" : {
+            "type" : "boolean",
+            "description" : "Indicates if this app is active. Use the DELETE route to deactivate an app",
+            "example" : true
+          },
+          "app_image" : {
+            "type" : "string",
+            "description" : "A string identifying the apps logo image in your own application. Can also be a URL.",
+            "example" : "my_app_logo.png"
+          },
+          "app_image_hd" : {
+            "type" : "string",
+            "description" : "A string identifying the apps logo image in high quality in your own application. Can also be a URL.",
+            "example" : "my_app_logo_hd.png"
+          },
+          "has_battle_passes" : {
+            "type" : "boolean",
+            "description" : "Indicates if this app has activated the battle pass system",
+            "example" : true
+          },
+          "has_battle_challenges" : {
+            "type" : "boolean",
+            "description" : "Indicates if this app has activated the challenges system",
+            "example" : true
+          },
+          "request_count" : {
+            "type" : "integer",
+            "description" : "Number of requests sent in the current month",
+            "example" : 0
+          },
+          "rate_limit" : {
+            "type" : "integer",
+            "description" : "The number of requests allowed per month",
+            "example" : 150000
+          },
+          "event_limit" : {
+            "type" : "integer",
+            "description" : "The number of events allowed per month",
+            "example" : 100000
+          },
+          "fusion_id" : {
+            "type" : "integer",
+            "description" : "The 4Players User Id",
+            "example" : 0
+          }
+        }
+      },
+      "AppPayload" : {
+        "required" : [ "app_name", "app_tag" ],
+        "type" : "object",
+        "properties" : {
+          "app_name" : {
+            "type" : "string",
+            "description" : "The name of your app",
+            "example" : "My App"
+          },
+          "app_tag" : {
+            "type" : "string",
+            "description" : "A unique identifier for your game with only alphanumeric characters, dash and underscore",
+            "example" : "my_app"
+          },
+          "app_image" : {
+            "type" : "string",
+            "description" : "A string identifying the apps logo image in your own application. Can also be a URL.",
+            "example" : "my_app_logo.png"
+          },
+          "app_image_hd" : {
+            "type" : "string",
+            "description" : "A string identifying the apps logo image in high quality in your own application. Can also be a URL.",
+            "example" : "my_app_logo_hd.png"
+          },
+          "has_battle_passes" : {
+            "type" : "boolean",
+            "description" : "Indicates if this app has activated the battle pass system",
+            "example" : true
+          },
+          "has_battle_challenges" : {
+            "type" : "boolean",
+            "description" : "Indicates if this app has activated the challenges system",
+            "example" : true
+          }
+        }
+      },
+      "Apps" : {
+        "type" : "object",
+        "properties" : {
+          "event_count" : {
+            "type" : "integer",
+            "description" : "The number of events sent so far this month",
+            "example" : 100000
+          },
+          "applications" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/App"
+            }
+          }
+        }
+      },
+      "LabelPayload" : {
+        "type" : "object",
+        "properties" : {
+          "label" : {
+            "type" : "string",
+            "description" : "Label used for the API Key",
+            "example" : "My API Key"
+          }
+        }
+      },
+      "Webhook" : {
+        "required" : [ "app_id", "secret_key", "target_url", "webhook_type" ],
+        "type" : "object",
+        "properties" : {
+          "webhook_id" : {
+            "type" : "string",
+            "description" : "The id of the webhook",
+            "example" : "593848364826296323"
+          },
+          "webhook_type" : {
+            "type" : "string",
+            "description" : "The type of the webhook. Many different areas within SCILL GaaS trigger webhooks. Refer to the documentation for all available types.",
+            "example" : "challenge-changed"
+          },
+          "app_id" : {
+            "type" : "string",
+            "description" : "The id of your app that is linked to this webhook.",
+            "example" : "YOUR_APP_ID"
+          },
+          "description" : {
+            "type" : "string",
+            "description" : "A string used to store some information about the webhook.",
+            "example" : "My new shiny webhook."
+          },
+          "target_url" : {
+            "type" : "string",
+            "description" : "The URL to the webservices called by SCILL backends. This must be world open, i.e. reachable from the internet.",
+            "example" : "https://www.example.com/scill/webhooks/challenge_changed.php"
+          },
+          "secret_key" : {
+            "type" : "string",
+            "description" : "A secret that is sent with the webhook. Implement that secret on your side to make sure, that this is an authorized request.",
+            "example" : "FaJo@RnEJ&CY$..."
+          }
+        }
+      },
+      "WebhookPayload" : {
+        "required" : [ "app_id", "secret_key", "target_url", "webhook_type" ],
+        "type" : "object",
+        "properties" : {
+          "webhook_type" : {
+            "type" : "string",
+            "description" : "The type of the webhook. Many different areas within SCILL GaaS trigger webhooks. Refer to the documentation for all available types.",
+            "example" : "challenge-changed"
+          },
+          "app_id" : {
+            "type" : "string",
+            "description" : "The id of your app that is linked to this webhook.",
+            "example" : "YOUR_APP_ID"
+          },
+          "description" : {
+            "type" : "string",
+            "description" : "A string used to store some information about the webhook.",
+            "example" : "My new shiny webhook."
+          },
+          "target_url" : {
+            "type" : "string",
+            "description" : "The URL to the webservices called by SCILL backends. This must be world open, i.e. reachable from the internet.",
+            "example" : "https://www.example.com/scill/webhooks/challenge_changed.php"
+          },
+          "secret_key" : {
+            "type" : "string",
+            "description" : "A secret that is sent with the webhook. Implement that secret on your side to make sure, that this is an authorized request.",
+            "example" : "FaJo@RnEJ&CY$..."
+          }
+        }
+      },
+      "ApiKeyInfo" : {
+        "type" : "object",
+        "properties" : {
+          "key_id" : {
+            "type" : "integer",
+            "description" : "The id of the API key",
+            "example" : 593828735301517300
+          },
+          "fusion_id" : {
+            "type" : "integer",
+            "description" : "The 4Players User Id",
+            "example" : 0
+          },
+          "app_id" : {
+            "type" : "integer",
+            "description" : "The App Id. This is the id you need to use in most other endpoints",
+            "example" : 593776232582742000
+          },
+          "api_key" : {
+            "type" : "string",
+            "description" : "The API Key. Use your API key in the Authorization header as the Bearer. Please don't expose the API Key! This should only be used in server to server communication, not in clients. Generate an access token using this API key to be used in clients",
+            "example" : "3:8OZ=I6M~$((bzTB..."
+          },
+          "enabled" : {
+            "type" : "boolean",
+            "description" : "Indicates if this API key is active.",
+            "example" : true
+          }
+        }
+      },
+      "ChallengeCategoryType" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "description" : "The unique id of the category type",
+            "example" : "594135162548027395"
+          },
+          "slug" : {
+            "type" : "string",
+            "description" : "A short name without special chars that can be used to hardcode things",
+            "example" : "tutorial"
+          },
+          "name" : {
+            "type" : "string",
+            "description" : "The name of this category type",
+            "example" : "Tutorial category"
+          }
+        }
+      },
+      "ChallengeRewardType" : {
+        "type" : "object",
+        "properties" : {
+          "reward_type_id" : {
+            "type" : "string",
+            "description" : "The id of the reward type",
+            "example" : "612265935279554561"
+          },
+          "reward_type" : {
+            "type" : "string",
+            "description" : "The type of the reward as a slug (machine readable format)",
+            "example" : "money"
+          },
+          "reward_name" : {
+            "type" : "string",
+            "description" : "The name of the reward in a human readable format",
+            "example" : "Money"
+          }
+        }
+      },
+      "ChallengeCategory" : {
+        "required" : [ "active", "app_id", "category_id", "category_name", "category_type", "position" ],
+        "type" : "object",
+        "properties" : {
+          "category_id" : {
+            "type" : "string",
+            "description" : "The unique id of the category",
+            "example" : "594162860105957378"
+          },
+          "app_id" : {
+            "type" : "string",
+            "description" : "The id of the app this challenge category is linked to",
+            "example" : "593852628853587970"
+          },
+          "category_type" : {
+            "type" : "string",
+            "description" : "The id of the challenge category type (see /api/v1/admin/challenge-category-available-types)",
+            "example" : "594135162548027395"
+          },
+          "position" : {
+            "type" : "integer",
+            "description" : "The position of the challenge category (use to change order in lists)",
+            "example" : 1
+          },
+          "active" : {
+            "type" : "boolean",
+            "description" : "Indicates if this challenge category is active",
+            "example" : true
+          },
+          "category_name" : {
+            "type" : "string",
+            "description" : "The name of the challenge category in the current language",
+            "example" : "My Tutorial Category"
+          },
+          "category_slug" : {
+            "type" : "string",
+            "description" : "A short name you can use to hardcode stuff in your code",
+            "example" : "tutorial"
+          }
+        }
+      },
+      "ChallengeCategoryPayload" : {
+        "type" : "object",
+        "properties" : {
+          "app_id" : {
+            "type" : "string",
+            "description" : "The id of the app this challenge category is linked to",
+            "example" : "593852628853587970"
+          },
+          "category_type" : {
+            "type" : "string",
+            "description" : "The id of the challenge category type (see /api/v1/admin/challenge-category-available-types)",
+            "example" : "594135162548027395"
+          },
+          "category_name" : {
+            "type" : "string",
+            "description" : "The name of the challenge category in the current language",
+            "example" : "My Tutorial Category"
+          },
+          "active" : {
+            "type" : "boolean",
+            "description" : "Indicates if this challenge category is active",
+            "example" : true
+          }
+        }
+      },
+      "ChallengeEventType" : {
+        "type" : "object",
+        "properties" : {
+          "challenge_type_id" : {
+            "type" : "string",
+            "description" : "The type id",
+            "example" : "598624626157420545"
+          },
+          "challenge_type_mandatory_metadata" : {
+            "type" : "string",
+            "description" : "Mandatory meta data fields that need to be set in the event meta data payload",
+            "example" : "score,"
+          },
+          "challenge_type_name" : {
+            "type" : "string",
+            "description" : "The name of the event type",
+            "example" : "achieve-score"
+          },
+          "challenge_type_name_humanized" : {
+            "type" : "string",
+            "description" : "The name of the event in a human readable format",
+            "example" : "Achieve score (achieve-score)"
+          },
+          "challenge_type_non_mandatory_metadata" : {
+            "type" : "string",
+            "description" : "Optional event meta data available for this event type",
+            "example" : "required_time,time_condition,"
+          }
+        }
+      },
+      "Challenge" : {
+        "type" : "object",
+        "properties" : {
+          "challenge_id" : {
+            "type" : "string",
+            "description" : "The unique id of this challenge. Every challenge is linked to a product.",
+            "example" : "505538946732425217"
+          },
+          "app_id" : {
+            "type" : "string",
+            "description" : "The id of the app this challenge is linked to",
+            "example" : "593852628853587970"
+          },
+          "challenge_category_id" : {
+            "type" : "string",
+            "description" : "The id of the challenge category this challenge should be linked to",
+            "example" : "594162860105957378"
+          },
+          "challenge_name" : {
+            "type" : "string",
+            "description" : "The name of the challenge in the language set by the language parameter.",
+            "example" : "Survive 3 battles"
+          },
+          "challenge_duration_time" : {
+            "type" : "integer",
+            "description" : "The duration of the challenge in seconds. Challenges auto lock after time-out and need to be unlocked again.",
+            "example" : 500
+          },
+          "challenge_goal" : {
+            "type" : "integer",
+            "description" : "Indicates how many “tasks” must be completed or done to complete this challenge.",
+            "example" : 5
+          },
+          "challenge_goal_condition" : {
+            "type" : "integer",
+            "description" : "With this you can set the way how the SCILL system approaches the challenges state. 0 means, that the counter of the challenge must be brought above the goal. If this is 1, then the counter must be kept below the goal. This is often useful for challenges that include times, like: Manage the level in under 50 seconds.",
+            "example" : 0
+          },
+          "challange_price" : {
+            "type" : "integer",
+            "description" : "The price for this challenge. This is just a value you can set and make any use in your app",
+            "example" : 0
+          },
+          "challange_xp" : {
+            "type" : "integer",
+            "description" : "The experience points for this challenge. This is just a value you can set and make any use in your app",
+            "example" : 0
+          },
+          "challenge_icon" : {
+            "type" : "string",
+            "description" : "In the admin panel you can set a string representing an image. This can be a URL, but it can also be an image or texture that you have in your games asset database.",
+            "example" : "black-arrow"
+          },
+          "challenge_icon_hd" : {
+            "type" : "string",
+            "description" : "This is the HD variant of the challenge icon image. If you have a game, that runs on multiple platforms that could come in handy. Otherwise just leave blank.",
+            "example" : "black-arrow-hd"
+          },
+          "challenge_description" : {
+            "type" : "string",
+            "description" : "An optional description the challenge in detail",
+            "nullable" : true,
+            "example" : "Survive 3 battles and get 20 XP"
+          },
+          "repeatable" : {
+            "type" : "boolean",
+            "description" : "If this challenge can be only activated once per user this will be false. Otherwise this challenge will always be added to list of available challenges (see personal or alliance challenges).",
+            "example" : false
+          },
+          "challenge_auto_activated" : {
+            "type" : "boolean",
+            "description" : "Wether this challenge will be activated when requested by a user automatically or if users/clients need to activate challenges by hand or script.",
+            "example" : true
+          },
+          "period_range" : {
+            "type" : "string",
+            "description" : "If challenge is auto activated it will be reset at specific points in time. Options are daily (d), weekly (w), monthly (m) or never.",
+            "nullable" : true,
+            "example" : "m"
+          },
+          "period_range_reset_at_time" : {
+            "type" : "string",
+            "description" : "The reset time this challenge will be set back. If period range is set to daily, then the challenge will be reset every day at this clock. If it's weekly, it will be set to 0 on Monday at this clock.",
+            "nullable" : true,
+            "example" : "00:00:00"
+          },
+          "period_range_time_zone" : {
+            "type" : "string",
+            "description" : "The timezone used for reseting the challenge.",
+            "nullable" : true,
+            "example" : "Arctic/Longyearbyen"
+          },
+          "time_target" : {
+            "type" : "integer",
+            "example" : 0
+          },
+          "time_condition" : {
+            "type" : "integer",
+            "example" : 0
+          },
+          "live_date" : {
+            "type" : "string",
+            "description" : "The date and time when this challenge should be activated. Use that to create challenges that will be visible in the future.",
+            "nullable" : true
+          },
+          "challenge_type" : {
+            "type" : "string",
+            "description" : "The event type used to drive this challenge",
+            "example" : "trigger-event"
+          },
+          "required_metadata_values" : {
+            "type" : "string",
+            "description" : "An internal flag that will be used to decide when this challenge should be triggered",
+            "example" : "event_type:page_impression,"
+          },
+          "is_battle_pass_challenge" : {
+            "type" : "boolean",
+            "description" : "If this is a battle pass challenge. Should always be false!",
+            "example" : false
+          },
+          "generic_metadata" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/GenericMetaData"
+            }
+          }
+        }
+      },
+      "ChallengePayload" : {
+        "required" : [ "app_id", "challenge_auto_activated", "challenge_category_id", "challenge_goal", "challenge_goal_condition", "challenge_name" ],
+        "type" : "object",
+        "properties" : {
+          "app_id" : {
+            "type" : "string",
+            "description" : "The id of the app this challenge is linked to",
+            "example" : "593852628853587970"
+          },
+          "challenge_category_id" : {
+            "type" : "string",
+            "description" : "The id of the challenge category this challenge should be linked to",
+            "example" : "594162860105957378"
+          },
+          "challenge_name" : {
+            "type" : "string",
+            "description" : "The name of the challenge in the language set by the language parameter.",
+            "example" : "Survive 3 battles"
+          },
+          "challenge_description" : {
+            "type" : "string",
+            "description" : "An optional description the challenge in detail",
+            "nullable" : true,
+            "example" : "Survive 3 battles and get 20 XP"
+          },
+          "challenge_type" : {
+            "type" : "string",
+            "description" : "The event type used to drive this challenge",
+            "example" : "trigger-event"
+          },
+          "challenge_reward_type_id" : {
+            "type" : "string",
+            "description" : "The id of the reward type.",
+            "example" : "612265935279554561"
+          },
+          "repeatable" : {
+            "type" : "boolean",
+            "description" : "Wether the challenge will be available again after it has been won or lost. Otherwise it will not be delivered again.",
+            "example" : true
+          },
+          "is_battle_pass_challenge" : {
+            "type" : "boolean",
+            "description" : "If this is a battle pass challenge. Should always be false!",
+            "example" : false
+          },
+          "challenge_icon" : {
+            "type" : "string",
+            "description" : "In the admin panel you can set a string representing an image. This can be a URL, but it can also be an image or texture that you have in your games asset database.",
+            "nullable" : true,
+            "example" : "black-arrow"
+          },
+          "challenge_icon_hd" : {
+            "type" : "string",
+            "description" : "This is the HD variant of the challenge icon image. If you have a game, that runs on multiple platforms that could come in handy. Otherwise just leave blank.",
+            "nullable" : true,
+            "example" : "black-arrow-hd"
+          },
+          "challenge_duration_time" : {
+            "type" : "integer",
+            "description" : "The duration of the challenge in seconds. Challenges auto lock after time-out and need to be unlocked again.",
+            "nullable" : true,
+            "example" : 500
+          },
+          "challenge_goal" : {
+            "type" : "integer",
+            "description" : "Indicates how many “tasks” must be completed or done to complete this challenge.",
+            "example" : 5
+          },
+          "challange_price" : {
+            "type" : "integer",
+            "description" : "The price for this challenge. This is just a value you can set and make any use in your app",
+            "example" : 0
+          },
+          "challange_xp" : {
+            "type" : "integer",
+            "description" : "The experience points for this challenge. This is just a value you can set and make any use in your app",
+            "example" : 0
+          },
+          "challange_reward" : {
+            "type" : "string",
+            "description" : "The reward for this challenge. This is just a value you can set and make any use in your app",
+            "example" : "item_XYZ"
+          },
+          "challenge_goal_condition" : {
+            "type" : "integer",
+            "description" : "With this you can set the way how the SCILL system approaches the challenges state. 0 means, that the counter of the challenge must be brought above the goal. If this is 1, then the counter must be kept below the goal. This is often useful for challenges that include times, like: Manage the level in under 50 seconds.",
+            "example" : 0
+          },
+          "live_date" : {
+            "type" : "string",
+            "description" : "The date and time when this challenge should be activated. Use that to create challenges that will be visible in the future.",
+            "nullable" : true
+          },
+          "challenge_auto_activated" : {
+            "type" : "boolean",
+            "description" : "Wether this challenge will be activated when requested by a user automatically or if users/clients need to activate challenges by hand or script.",
+            "example" : true
+          },
+          "period_range" : {
+            "type" : "string",
+            "description" : "If challenge is auto activated it will be reset at specific points in time. Options are daily (d), weekly (w), monthly (m) or never.",
+            "nullable" : true,
+            "example" : "m"
+          },
+          "period_range_reset_at_time" : {
+            "type" : "string",
+            "description" : "The reset time this challenge will be set back. If period range is set to daily, then the challenge will be reset every day at this clock. If it's weekly, it will be set to 0 on Monday at this clock.",
+            "nullable" : true,
+            "example" : "00:00:00"
+          },
+          "period_range_time_zone" : {
+            "type" : "string",
+            "description" : "The timezone used for reseting the challenge.",
+            "nullable" : true,
+            "example" : "Arctic/Longyearbyen"
+          },
+          "generic_metadata" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/GenericMetaData"
+            }
+          }
+        }
+      },
+      "GenericMetaData" : {
+        "type" : "object",
+        "properties" : {
+          "values" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string",
+              "description" : "The value that needs to be set in an event so that it triggers this challenge. Depends on the metadata event structure for the specific type.",
+              "example" : "page_impression"
+            }
+          },
+          "metadata_key" : {
+            "type" : "string",
+            "description" : "The event type that this challenge should listen to",
+            "example" : "trigger-event"
+          },
+          "conjunction" : {
+            "type" : "string",
+            "description" : "Can be OR and AND and defines if all values need to match or just any of the provided values",
+            "example" : "OR"
+          }
+        }
+      },
+      "inline_response_200" : {
+        "required" : [ "app_id" ],
+        "type" : "object",
+        "properties" : {
+          "api_key" : {
+            "type" : "string",
+            "description" : "The app id of the app just created",
+            "example" : "593852628853587970"
+          }
+        }
+      },
+      "inline_response_200_1" : {
+        "required" : [ "api_key" ],
+        "type" : "object",
+        "properties" : {
+          "api_key" : {
+            "type" : "string",
+            "description" : "The API key",
+            "example" : "3:8OZ=I6M~$((b..."
+          }
+        }
+      }
+    },
+    "responses" : {
+      "ActionSuccessful" : {
+        "description" : "The action has been successful",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ActionResponse"
+            }
+          }
+        }
+      },
+      "NotFound" : {
+        "description" : "The specified resource was not found",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "Unauthorized" : {
+        "description" : "Unauthorized",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "BadRequest" : {
+        "description" : "Request could not complete as parameters were missing or were not set correctely.",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "SocketToken" : {
+        "description" : "Response with Socket Token",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ActionResponse"
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes" : {
+      "BearerAuth" : {
+        "type" : "http",
+        "description" : "You can either use the API-Key or an Access Token generated earlier with the auth/generate-access-token route. Only use API-Key on server side, never expose it on client side. Use Access Tokens where possible. More info on this topic can be found here https://beta.developers.scillgame.com/api/authentication.html",
+        "scheme" : "bearer",
+        "bearerFormat" : "Access Token or API-Key"
+      },
+      "oAuthNoScopes" : {
+        "type" : "oauth2",
+        "flows" : {
+          "implicit" : {
+            "authorizationUrl" : "https://api.example.com/oauth2/authorize",
+            "scopes" : { }
+          }
+        }
+      }
+    }
+  }
+}
