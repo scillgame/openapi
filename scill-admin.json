@@ -23,9 +23,6 @@
     "name" : "admin",
     "description" : "Admin routes"
   }, {
-    "name" : "auth",
-    "description" : "Auth"
-  }, {
     "name" : "events",
     "description" : "Events"
   }, {
@@ -33,7 +30,7 @@
     "description" : "Apps"
   }, {
     "name" : "api-key",
-    "description" : "API-Keys"
+    "description" : "ApiKey"
   }, {
     "name" : "webhooks",
     "description" : "Webhooks"
