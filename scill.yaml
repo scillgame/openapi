@@ -229,12 +229,12 @@ paths:
         url: https://pcs.scillgame.com
       - description: Dev URL
         url: https://pcs-dev.scillgame.com
-    description: Use this endpoint to get all available challenges for your product. This will be personalized for the user encoded in the access token.
+    description: Use this endpoint to get all available challenges for your product. This will be personalized for the user encoded in the access token. It will not return completed challenges. Use getAllPersonalChallenges to get completed challenges.
     get:
       tags: [
           "challenges"
       ]
-      summary: Get personal challenges
+      summary: Get personal challenges that are not yet completed. 
       operationId: getPersonalChallenges
       externalDocs:
         description: SCILL API Reference
@@ -263,6 +263,86 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+  /api/v1/challenges/personal/unresolved/{appId}:
+    servers:
+      - description: Production URL
+        url: https://pcs.scillgame.com
+      - description: Dev URL
+        url: https://pcs-dev.scillgame.com
+    description: Use this endpoint to get only active challenges. This returns a list of challenges grouped in categories that are not finished yet. Finished (i.e. completed) challenges will not be returned in this endpoint.
+    get:
+      tags: [
+          "challenges"
+      ]
+      summary: Get personal challenges that are not yet completed. 
+      operationId: getUnresolvedPersonalChallenges
+      externalDocs:
+        description: SCILL API Reference
+        url: https://beta.developers.scillgame.com/api/challenges.html#request-challenges
+      description: Get personal challenges organized in categories that are not yet finished
+      security:
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      parameters:
+        - in: path
+          name: appId
+          description: The app id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: An array of ChallengeCategory objects
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ChallengeCategory'
+        '403':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'      
+  /api/v1/challenges/personal/all/{appId}:
+    servers:
+      - description: Production URL
+        url: https://pcs.scillgame.com
+      - description: Dev URL
+        url: https://pcs-dev.scillgame.com
+    description: Use this endpoint to get all challenges including completed challenges. This endpoint is best suited for apps that show a todo like list and want to keep showing completed challenges in the list. If you only want show challenges that the user can do something, use getUnresolvedPersonalChallenges instead.
+    get:
+      tags: [
+          "challenges"
+      ]
+      summary: Get all personal challenges available for your app. Also includes completed challenges. 
+      operationId: getAllPersonalChallenges
+      externalDocs:
+        description: SCILL API Reference
+        url: https://beta.developers.scillgame.com/api/challenges.html#request-challenges
+      description: Get personal challenges organized in categories that are not yet finished
+      security:
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      parameters:
+        - in: path
+          name: appId
+          description: The app id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: An array of ChallengeCategory objects
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ChallengeCategory'
+        '403':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'                
   /api/v1/challenges/personal/get/{appId}/{challengeId}:
     servers:
       - description: Production URL
@@ -941,8 +1021,12 @@ components:
           type: string
           example: 'Survive 3 battles'
           description: The name of the challenge in the language set by the language parameter.
+        challenge_description:
+          type: string
+          example: 'Get a great reward by managing this challenge. You can try as long as you like'
+          description: An optional multi-language description that can be set in the Admin Panel. Used to describe exactly what the user has to do.
         challenge_duration_time:
-          type: integer
+          type: number
           example: 500
           description: The duration of the challenge in seconds. Challenges auto lock after time-out and need to be unlocked again.
         live_date:
@@ -993,6 +1077,12 @@ components:
           type: string
           example: 'unlock'
           description: "Indicates the status of the challenge. This can be one of the following unlock: Challenge does not track anything. in-progress: Challenge is active and tracking. overtime: User did not manage to finish the challenge in time. unclaimed: The challenge has been completed but the reward has not yet been claimed. finished: The challenge has been successfully be completed and the reward has been claimed"
+        challenge_auto_activated:
+          type: boolean
+          example: true
+          description: Indicates if the challenges lifecycle is handled automatically by the SCILL backend. Use this flag
+            to decide when to show action buttons for unlocking, activating, claiming or canceling challenges. Hide the buttons
+            if this flag is true, and let the user manage challenges manually if this flag is false.
         is_claimed:
           type: boolean
           example: false
@@ -1567,6 +1657,20 @@ components:
       description: The payload sent to the users webhook.
       type: object
       properties:
+        webhook_type:
+          type: string
+          example: "challenge-changed"
+          description: The type of the webhook. Depending on the module, there are different webhook types indicating different events. Check the reference documentation to see all types.
+        category_position:
+          type: number
+          example: 1
+          description: The index of the category this challenge is linked to. When you request personal challenges, you get an array of categories which contain an array of challenges in their challenges property. This value indicates in which category this challenge can be found. Speeds up updating UI as you don't need to iterate through all catagories and challenges to find the challenge.
+        user_token:
+          type: string
+          example: "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ..."
+          description: The access token for the user of that challenge. You can use that user_token to directly send another
+            event and therefore to chain different SCILL pieces together. For example you can send another event driving another
+            challenge or battle pass whenever a user has completed a challenge.
         new_challenge:
           $ref: '#/components/schemas/Challenge'
         old_challenge:
