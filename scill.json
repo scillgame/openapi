@@ -1837,8 +1837,13 @@
             "description" : "The name of the challenge in the language set by the language parameter.",
             "example" : "Survive 3 battles"
           },
+          "challenge_description" : {
+            "type" : "string",
+            "description" : "An optional multi-language description that can be set in the Admin Panel. Used to describe exactly what the user has to do.",
+            "example" : "Get a great reward by managing this challenge. You can try as long as you like"
+          },
           "challenge_duration_time" : {
-            "type" : "integer",
+            "type" : "number",
             "description" : "The duration of the challenge in seconds. Challenges auto lock after time-out and need to be unlocked again.",
             "example" : 500
           },
@@ -1901,6 +1906,11 @@
             "type" : "string",
             "description" : "Indicates the status of the challenge. This can be one of the following unlock: Challenge does not track anything. in-progress: Challenge is active and tracking. overtime: User did not manage to finish the challenge in time. unclaimed: The challenge has been completed but the reward has not yet been claimed. finished: The challenge has been successfully be completed and the reward has been claimed",
             "example" : "unlock"
+          },
+          "challenge_auto_activated" : {
+            "type" : "boolean",
+            "description" : "Indicates if the challenges lifecycle is handled automatically by the SCILL backend. Use this flag to decide when to show action buttons for unlocking, activating, claiming or canceling challenges. Hide the buttons if this flag is true, and let the user manage challenges manually if this flag is false.",
+            "example" : true
           },
           "is_claimed" : {
             "type" : "boolean",
@@ -2648,6 +2658,21 @@
       "ChallengeWebhookPayload" : {
         "type" : "object",
         "properties" : {
+          "webhook_type" : {
+            "type" : "string",
+            "description" : "The type of the webhook. Depending on the module, there are different webhook types indicating different events. Check the reference documentation to see all types.",
+            "example" : "challenge-changed"
+          },
+          "category_position" : {
+            "type" : "number",
+            "description" : "The index of the category this challenge is linked to. When you request personal challenges, you get an array of categories which contain an array of challenges in their challenges property. This value indicates in which category this challenge can be found. Speeds up updating UI as you don't need to iterate through all catagories and challenges to find the challenge.",
+            "example" : 1
+          },
+          "user_token" : {
+            "type" : "string",
+            "description" : "The access token for the user of that challenge. You can use that user_token to directly send another event and therefore to chain different SCILL pieces together. For example you can send another event driving another challenge or battle pass whenever a user has completed a challenge.",
+            "example" : "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ..."
+          },
           "new_challenge" : {
             "$ref" : "#/components/schemas/Challenge"
           },
