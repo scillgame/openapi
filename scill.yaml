@@ -1325,6 +1325,10 @@ components:
           type: integer
           example: 0
           description: Indicates how many tasks the user already has completed. Use this in combination with challenge_goal to render a nice progress bar.
+        challenge_xp: 
+          type: integer
+          example: 0
+          description: If you have experience, player rankings whatever, you can use this field to set the gain in that when this challenge is rewarded.   
         challenge_icon:
           type: string
           example: 'black-arrow'
