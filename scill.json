@@ -2220,6 +2220,11 @@
             "description" : "Indicates how many tasks the user already has completed. Use this in combination with challenge_goal to render a nice progress bar.",
             "example" : 0
           },
+          "challenge_xp" : {
+            "type" : "integer",
+            "description" : "If you have experience, player rankings whatever, you can use this field to set the gain in that when this challenge is rewarded.",
+            "example" : 0
+          },
           "challenge_icon" : {
             "type" : "string",
             "description" : "In the admin panel you can set a string representing an image. This can be a URL, but it can also be an image or texture that you have in your games asset database.",
