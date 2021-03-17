@@ -2469,10 +2469,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/LeaderboardMemberRanking"
-                  }
+                  "$ref" : "#/components/schemas/LeaderboardMemberRanking"
                 }
               }
             }
