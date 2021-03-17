@@ -1407,9 +1407,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:              
-                  $ref: '#/components/schemas/LeaderboardMemberRanking'
+                $ref: '#/components/schemas/LeaderboardMemberRanking'
         '403':
           $ref: '#/components/responses/Unauthorized'
         '404':
