@@ -2156,7 +2156,7 @@
       "description" : "Get current leaderboard specific by id",
       "get" : {
         "tags" : [ "leaderboards" ],
-        "summary" : "Returns a leaderboard specified by the id",
+        "summary" : "Retrieve Leaderboard",
         "description" : "Provides the current leaderboard rankings for a specific leaderboard.",
         "externalDocs" : {
           "description" : "SCILL API Reference",
@@ -2247,7 +2247,7 @@
       "description" : "Get all leaderboards",
       "get" : {
         "tags" : [ "leaderboards" ],
-        "summary" : "Returns an array of leaderboards that are setup for the application",
+        "summary" : "Retrieve Leaderboards",
         "description" : "Returns an array of Leaderboard items defined for the application.",
         "externalDocs" : {
           "description" : "SCILL API Reference",
@@ -2331,7 +2331,7 @@
       "description" : "Get the rankings for a specified user for all leaderboards defined in the application",
       "get" : {
         "tags" : [ "leaderboards" ],
-        "summary" : "Returns the LeaderboardRanking items for the specified user or team for all leaderboards available in the application",
+        "summary" : "Retrieve User Rankings",
         "description" : "Returns an array of LeaderboardRanking items defined for all leaderboards in the application specified for the user.",
         "externalDocs" : {
           "description" : "SCILL API Reference",
@@ -2415,7 +2415,7 @@
       "description" : "Get the rankings for a specified user and the specified leaderboard defined in the application",
       "get" : {
         "tags" : [ "leaderboards" ],
-        "summary" : "Returns the LeaderboardMemberRanking item for the specified user or team for the specified leaderboard",
+        "summary" : "Retrieve User Ranking",
         "description" : "Returns a LeaderboardMemberRanking item for the specified leaderboard. Use this route to get the position of a user of team in a specified leaderboard.",
         "externalDocs" : {
           "description" : "SCILL API Reference",
