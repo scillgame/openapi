@@ -1222,7 +1222,7 @@ paths:
       tags: [
         "leaderboards"  
       ]
-      summary: Returns a leaderboard specified by the id
+      summary: Retrieve Leaderboard
       operationId: getLeaderboard
       externalDocs:
         description: SCILL API Reference
@@ -1273,7 +1273,7 @@ paths:
       tags: [
         "leaderboards"  
       ]
-      summary: Returns an array of leaderboards that are setup for the application
+      summary: Retrieve Leaderboards
       operationId: getLeaderboards
       externalDocs:
         description: SCILL API Reference
@@ -1320,7 +1320,7 @@ paths:
       tags: [
         "leaderboards"  
       ]
-      summary: Returns the LeaderboardRanking items for the specified user or team for all leaderboards available in the application
+      summary: Retrieve User Rankings
       operationId: getLeaderboardRankings
       externalDocs:
         description: SCILL API Reference
@@ -1367,7 +1367,7 @@ paths:
       tags: [
         "leaderboards"  
       ]
-      summary: Returns the LeaderboardMemberRanking item for the specified user or team for the specified leaderboard
+      summary: Retrieve User Ranking
       operationId: getLeaderboardRanking
       externalDocs:
         description: SCILL API Reference
