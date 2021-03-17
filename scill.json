@@ -28,6 +28,9 @@
   }, {
     "name" : "battle-passes",
     "description" : "BattlePasses"
+  }, {
+    "name" : "leaderboards",
+    "description" : "Leaderboards"
   } ],
   "paths" : {
     "/api/v1/auth/access-token" : {
@@ -281,6 +284,93 @@
         "description" : "Dev URL"
       } ]
     },
+    "/api/v1/user-additional-info" : {
+      "description" : "Provide tools to set additional user info like usernames and avatar images",
+      "get" : {
+        "tags" : [ "auth" ],
+        "summary" : "Get additional info stored per user",
+        "description" : "Returns additional info object with usernames and avatar image for a user which is used in the leaderboard system",
+        "operationId" : "getUserInfo",
+        "responses" : {
+          "200" : {
+            "description" : "Returns the socket token",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UserInfo"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "put" : {
+        "tags" : [ "auth" ],
+        "summary" : "Set additional info stored per user",
+        "description" : "Sets user info like username and avatar image which is returned as part of the user rankings in leaderboards.",
+        "operationId" : "setUserInfo",
+        "requestBody" : {
+          "description" : "UserInfo object stored in the SCILL database for the user",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/UserInfo"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Returns the socket token",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UserInfo"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "servers" : [ {
+        "url" : "https://us.scillgame.com",
+        "description" : "Production URL"
+      }, {
+        "url" : "https://us-dev.scillgame.com",
+        "description" : "Dev URL"
+      } ]
+    },
     "/api/v1/events" : {
       "description" : "Events are a piece of structured information that your application or application backend sends to SCILL. Those events are processed in real-time to drive challenges and battle passes that you setup in the Admin Panel and that you activate for your users. Events are also stored in the SCILL backend to drive game analytics. Using this API you can create events.",
       "post" : {
@@ -293,7 +383,7 @@
         },
         "operationId" : "sendEvent",
         "requestBody" : {
-          "description" : "Event payload",
+          "description" : "Event payload or team event payload",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -402,6 +492,42 @@
           "schema" : {
             "type" : "string"
           }
+        }, {
+          "name" : "include_categories",
+          "in" : "query",
+          "description" : "A list of categories that should be included in the response. Only the categories provided will be returned",
+          "required" : false,
+          "style" : "form",
+          "explode" : false,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }, {
+          "name" : "exclude_categories",
+          "in" : "query",
+          "description" : "A list of categories that should be excluded from the response. All  categories except those listed here will be returned",
+          "required" : false,
+          "style" : "form",
+          "explode" : false,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }, {
+          "name" : "language",
+          "in" : "query",
+          "description" : "Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ...",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
         } ],
         "responses" : {
           "200" : {
@@ -473,6 +599,42 @@
           "schema" : {
             "type" : "string"
           }
+        }, {
+          "name" : "include_categories",
+          "in" : "query",
+          "description" : "A list of categories that should be included in the response. Only the categories provided will be returned",
+          "required" : false,
+          "style" : "form",
+          "explode" : false,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }, {
+          "name" : "exclude_categories",
+          "in" : "query",
+          "description" : "A list of categories that should be excluded from the response. All  categories except those listed here will be returned",
+          "required" : false,
+          "style" : "form",
+          "explode" : false,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }, {
+          "name" : "language",
+          "in" : "query",
+          "description" : "Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ...",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
         } ],
         "responses" : {
           "200" : {
@@ -541,6 +703,42 @@
           "required" : true,
           "style" : "simple",
           "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "include_categories",
+          "in" : "query",
+          "description" : "A list of categories that should be included in the response. Only the categories provided will be returned",
+          "required" : false,
+          "style" : "form",
+          "explode" : false,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }, {
+          "name" : "exclude_categories",
+          "in" : "query",
+          "description" : "A list of categories that should be excluded from the response. All  categories except those listed here will be returned",
+          "required" : false,
+          "style" : "form",
+          "explode" : false,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }, {
+          "name" : "language",
+          "in" : "query",
+          "description" : "Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ...",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
           "schema" : {
             "type" : "string"
           }
@@ -625,6 +823,16 @@
           "schema" : {
             "type" : "string"
           }
+        }, {
+          "name" : "language",
+          "in" : "query",
+          "description" : "Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ...",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
         } ],
         "responses" : {
           "200" : {
@@ -690,6 +898,16 @@
           "required" : true,
           "style" : "simple",
           "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "language",
+          "in" : "query",
+          "description" : "Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ...",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
           "schema" : {
             "type" : "string"
           }
@@ -774,6 +992,16 @@
           "schema" : {
             "type" : "string"
           }
+        }, {
+          "name" : "language",
+          "in" : "query",
+          "description" : "Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ...",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
         } ],
         "responses" : {
           "201" : {
@@ -849,6 +1077,16 @@
           "required" : true,
           "style" : "simple",
           "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "language",
+          "in" : "query",
+          "description" : "Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ...",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
           "schema" : {
             "type" : "string"
           }
@@ -930,6 +1168,16 @@
           "schema" : {
             "type" : "string"
           }
+        }, {
+          "name" : "language",
+          "in" : "query",
+          "description" : "Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ...",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
         } ],
         "responses" : {
           "200" : {
@@ -1005,6 +1253,16 @@
           "required" : true,
           "style" : "simple",
           "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "language",
+          "in" : "query",
+          "description" : "Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ...",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
           "schema" : {
             "type" : "string"
           }
@@ -1098,6 +1356,7 @@
             }
           }
         },
+        "deprecated" : true,
         "security" : [ {
           "BearerAuth" : [ ]
         }, {
@@ -1130,6 +1389,16 @@
           "required" : true,
           "style" : "simple",
           "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "language",
+          "in" : "query",
+          "description" : "Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ...",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
           "schema" : {
             "type" : "string"
           }
@@ -1204,6 +1473,16 @@
           "schema" : {
             "type" : "string"
           }
+        }, {
+          "name" : "language",
+          "in" : "query",
+          "description" : "Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ...",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
         } ],
         "responses" : {
           "200" : {
@@ -1272,6 +1551,16 @@
           "required" : true,
           "style" : "simple",
           "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "language",
+          "in" : "query",
+          "description" : "Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ...",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
           "schema" : {
             "type" : "string"
           }
@@ -1356,6 +1645,16 @@
           "schema" : {
             "type" : "string"
           }
+        }, {
+          "name" : "language",
+          "in" : "query",
+          "description" : "Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ...",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
         } ],
         "responses" : {
           "200" : {
@@ -1434,6 +1733,16 @@
           "schema" : {
             "type" : "string"
           }
+        }, {
+          "name" : "language",
+          "in" : "query",
+          "description" : "Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ...",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
         } ],
         "responses" : {
           "200" : {
@@ -1502,6 +1811,16 @@
           "required" : true,
           "style" : "simple",
           "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "language",
+          "in" : "query",
+          "description" : "Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ...",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
           "schema" : {
             "type" : "string"
           }
@@ -1586,6 +1905,16 @@
           "schema" : {
             "type" : "string"
           }
+        }, {
+          "name" : "language",
+          "in" : "query",
+          "description" : "Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ...",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
         } ],
         "responses" : {
           "200" : {
@@ -1661,6 +1990,16 @@
           "required" : true,
           "style" : "simple",
           "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "language",
+          "in" : "query",
+          "description" : "Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ...",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
           "schema" : {
             "type" : "string"
           }
@@ -1742,6 +2081,16 @@
           "schema" : {
             "type" : "string"
           }
+        }, {
+          "name" : "language",
+          "in" : "query",
+          "description" : "Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ...",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
         } ],
         "requestBody" : {
           "description" : "Provide purchase info for the battle pass",
@@ -1802,10 +2151,458 @@
           "oAuthNoScopes" : [ ]
         } ]
       }
+    },
+    "/api/v1/leaderboards/{leaderboardId}" : {
+      "description" : "Get current leaderboard specific by id",
+      "get" : {
+        "tags" : [ "leaderboards" ],
+        "summary" : "Returns a leaderboard specified by the id",
+        "description" : "Provides the current leaderboard rankings for a specific leaderboard.",
+        "externalDocs" : {
+          "description" : "SCILL API Reference",
+          "url" : "https://developers.scillgame.com/api/leaderboards.html"
+        },
+        "operationId" : "getLeaderboard",
+        "parameters" : [ {
+          "name" : "leaderboardId",
+          "in" : "path",
+          "description" : "The id of the leaderboard",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "currentPage",
+          "in" : "query",
+          "description" : "The page index starting at 1. The number of pageSize elements are returned for each page. Default value is 1",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "The number of elements per page. Default is 25.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "language",
+          "in" : "query",
+          "description" : "Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ...",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "A Leaderboard object with information about the leaderboard and current rankings",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Leaderboard"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      }
+    },
+    "/api/v1/leaderboards" : {
+      "description" : "Get all leaderboards",
+      "get" : {
+        "tags" : [ "leaderboards" ],
+        "summary" : "Returns an array of leaderboards that are setup for the application",
+        "description" : "Returns an array of Leaderboard items defined for the application.",
+        "externalDocs" : {
+          "description" : "SCILL API Reference",
+          "url" : "https://developers.scillgame.com/api/leaderboards.html"
+        },
+        "operationId" : "getLeaderboards",
+        "parameters" : [ {
+          "name" : "currentPage",
+          "in" : "query",
+          "description" : "The page index starting at 1. The number of pageSize elements are returned for each page. Default value is 1",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "The number of elements per page. Default is 25.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "language",
+          "in" : "query",
+          "description" : "Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ...",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "A Leaderboard object with information about the leaderboard and current rankings",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Leaderboard"
+                  }
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      }
+    },
+    "/api/v1/leaderboards-members/{memberType}/{memberId}" : {
+      "description" : "Get the rankings for a specified user for all leaderboards defined in the application",
+      "get" : {
+        "tags" : [ "leaderboards" ],
+        "summary" : "Returns the LeaderboardRanking items for the specified user or team for all leaderboards available in the application",
+        "description" : "Returns an array of LeaderboardRanking items defined for all leaderboards in the application specified for the user.",
+        "externalDocs" : {
+          "description" : "SCILL API Reference",
+          "url" : "https://developers.scillgame.com/api/leaderboards.html"
+        },
+        "operationId" : "getLeaderboardRankings",
+        "parameters" : [ {
+          "name" : "memberType",
+          "in" : "path",
+          "description" : "The member type, can be user or team (right now) and sets which leaderboards should be selected.",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "memberId",
+          "in" : "path",
+          "description" : "Either the user_id or team_id you used when sending the events. The memberType flag identifies which one is used.",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "language",
+          "in" : "query",
+          "description" : "Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ...",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "A Leaderboard object with information about the leaderboard and current rankings",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/LeaderboardMemberRanking"
+                  }
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      }
+    },
+    "/api/v1/leaderboards-members/{memberType}/{memberId}/{leaderboardId}" : {
+      "description" : "Get the rankings for a specified user and the specified leaderboard defined in the application",
+      "get" : {
+        "tags" : [ "leaderboards" ],
+        "summary" : "Returns the LeaderboardMemberRanking item for the specified user or team for the specified leaderboard",
+        "description" : "Returns a LeaderboardMemberRanking item for the specified leaderboard. Use this route to get the position of a user of team in a specified leaderboard.",
+        "externalDocs" : {
+          "description" : "SCILL API Reference",
+          "url" : "https://developers.scillgame.com/api/leaderboards.html"
+        },
+        "operationId" : "getLeaderboardRanking",
+        "parameters" : [ {
+          "name" : "memberType",
+          "in" : "path",
+          "description" : "The member type, can be user or team (right now) and sets which leaderboards should be selected.",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "memberId",
+          "in" : "path",
+          "description" : "Either the user_id or team_id you used when sending the events. The memberType flag identifies which one is used.",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "leaderboardId",
+          "in" : "path",
+          "description" : "The id of the leaderboard",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "language",
+          "in" : "query",
+          "description" : "Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ...",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "A Leaderboard object with information about the leaderboard and current rankings",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/LeaderboardMemberRanking"
+                  }
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      }
     }
   },
   "components" : {
     "schemas" : {
+      "UserInfo" : {
+        "type" : "object",
+        "properties" : {
+          "username" : {
+            "type" : "string",
+            "description" : "The user name of the user",
+            "nullable" : true,
+            "example" : "NoName"
+          },
+          "avatarImage" : {
+            "type" : "string",
+            "description" : "The name or URL of an avatar image for a user.",
+            "nullable" : true,
+            "example" : "https://www.example.com/avatars/unknown.png"
+          }
+        },
+        "description" : "Can be any object that is attached to the user. You can set these values in the user service. For example you can provide a user name and an avatar image url.",
+        "nullable" : true
+      },
+      "Leaderboard" : {
+        "type" : "object",
+        "properties" : {
+          "leaderboard_id" : {
+            "type" : "string",
+            "description" : "The id of the leaderboard",
+            "example" : "641184035742547979"
+          },
+          "name" : {
+            "type" : "string",
+            "description" : "The name of the leaderboard",
+            "example" : "Hall of Fame"
+          },
+          "grouped_by_users" : {
+            "type" : "array",
+            "description" : "An array of LeaderboardRanking Items for individual users",
+            "items" : {
+              "$ref" : "#/components/schemas/LeaderboardRanking"
+            }
+          },
+          "grouped_by_teams" : {
+            "type" : "array",
+            "description" : "An array of LeaderboardRanking Items for teams. Provide a team_id in the event payload to also create leaderboards for teams",
+            "items" : {
+              "$ref" : "#/components/schemas/LeaderboardRanking"
+            }
+          }
+        }
+      },
+      "LeaderboardMemberRanking" : {
+        "type" : "object",
+        "properties" : {
+          "leaderboard_id" : {
+            "type" : "string",
+            "description" : "The id of the leaderboard",
+            "example" : "641184035742547979"
+          },
+          "name" : {
+            "type" : "string",
+            "description" : "The name of the leaderboard",
+            "example" : "Hall of Fame"
+          },
+          "member" : {
+            "$ref" : "#/components/schemas/LeaderboardRanking"
+          }
+        }
+      },
+      "LeaderboardRanking" : {
+        "type" : "object",
+        "properties" : {
+          "member_id" : {
+            "type" : "string",
+            "description" : "The id of the user - its the same user id you used to create the access token and the same user id you used to send the events",
+            "example" : "1234567"
+          },
+          "member_type" : {
+            "type" : "string",
+            "description" : "Indicates what type this entry is, it's either user or team",
+            "example" : "user"
+          },
+          "score" : {
+            "type" : "integer",
+            "description" : "The score achieved as an integer value. If you want to store floats, for example laptimes you need to convert them into an int before (i.e. multiply by 100 to get hundreds of seconds and format back to float in UI)",
+            "example" : 3843
+          },
+          "rank" : {
+            "type" : "integer",
+            "description" : "The position within the leaderboard",
+            "example" : 3
+          },
+          "additional_info" : {
+            "$ref" : "#/components/schemas/UserInfo"
+          }
+        },
+        "description" : "The ranking for the user or team in this leaderboard"
+      },
       "ActionResponse" : {
         "required" : [ "message", "status" ],
         "type" : "object",
@@ -2281,6 +3078,12 @@
           },
           "meta_data" : {
             "$ref" : "#/components/schemas/EventMetaData"
+          },
+          "team_id" : {
+            "type" : "string",
+            "description" : "Provide an optional team id that will be used in leaderboards to group results of teams.",
+            "nullable" : true,
+            "example" : "XYZ"
           }
         }
       },
