@@ -2551,7 +2551,8 @@
               "$ref" : "#/components/schemas/LeaderboardRanking"
             }
           }
-        }
+        },
+        "description" : "The Leaderboard object contains information about the leaderboard itself like the name and the id, but also contains actual rankings for users and teams."
       },
       "LeaderboardMemberRanking" : {
         "type" : "object",
@@ -2569,7 +2570,8 @@
           "member" : {
             "$ref" : "#/components/schemas/LeaderboardRanking"
           }
-        }
+        },
+        "description" : "You get these object if you query the leaderboard ranking for a specific user. Only the requested user will be returned."
       },
       "LeaderboardRanking" : {
         "type" : "object",
@@ -2598,7 +2600,7 @@
             "$ref" : "#/components/schemas/UserInfo"
           }
         },
-        "description" : "The ranking for the user or team in this leaderboard"
+        "description" : "The ranking for the user or team in the leaderboard"
       },
       "ActionResponse" : {
         "required" : [ "message", "status" ],
@@ -2616,7 +2618,8 @@
           "challenge" : {
             "$ref" : "#/components/schemas/Challenge"
           }
-        }
+        },
+        "description" : "Standard response for actions like update or delete. If anything went fine, you'll receive a HTTP code of 200 and a OK message."
       },
       "Challenge" : {
         "type" : "object",
@@ -2735,7 +2738,8 @@
             "description" : "Gives indication in what state the challenge is.",
             "example" : 0
           }
-        }
+        },
+        "description" : "The challenge object holds all information about a users challenge. It contains information like the duration, the type, progress states like counter and the goal and various other info."
       },
       "ChallengeCategory" : {
         "type" : "object",
@@ -2772,7 +2776,8 @@
               "$ref" : "#/components/schemas/Challenge"
             }
           }
-        }
+        },
+        "description" : "Challenges are grouped into categories. You can exclude or include categories in queries. Per default all categories will be returned."
       },
       "BattlePass" : {
         "type" : "object",
@@ -2890,7 +2895,8 @@
             "description" : "Indicates that this Battle Pass can be purchased with SCILL Coins. This can be set in the Admin Panel.",
             "example" : false
           }
-        }
+        },
+        "description" : "A Battle Pass is a structured layer above challenges and handles the lifecycle of challenges based on a level system. Users need to fullfil challenges to unlock the next level. Each level can have a reward that you can specify in the BattlePassLevel structure. Battle Passes need to be unlocked before they start tracking progress."
       },
       "BattlePassTranslation" : {
         "type" : "object",
@@ -2984,7 +2990,8 @@
               "$ref" : "#/components/schemas/BattlePassLevelChallenge"
             }
           }
-        }
+        },
+        "description" : "Battle Passes are grouped into levels that contain challenges that must be achieved to unlock the next level. Only challenges for the current level are tracking progress."
       },
       "BattlePassLevelChallenge" : {
         "type" : "object",
@@ -3034,7 +3041,8 @@
             "description" : "Indicates the status of the challenge. This can be one of the following unlock: Challenge does not track anything. in-progress: Challenge is active and tracking. overtime: User did not manage to finish the challenge in time. unclaimed: The challenge has been completed but the reward has not yet been claimed. finished: The challenge has been successfully be completed and the reward has been claimed",
             "example" : "unlock"
           }
-        }
+        },
+        "description" : "Each level in battle passes contains one or more challenges that need to be fullfilled to unlock the next level. This structure holds challenge information and is based on the Challenge structure. However, as Battle Passes manage the lifecycle of challenges, this data structure is a bit simpler. The same principles apply mostly as for the personal challenges, i.e. you can share the exact same UI to render personal challenges and battle pass challenges."
       },
       "BattlePassLevelId" : {
         "required" : [ "battle_pass_level_id" ],
@@ -3082,7 +3090,8 @@
             "nullable" : true,
             "example" : "XYZ"
           }
-        }
+        },
+        "description" : "Events are the engine and driver for challenges, battle passes and leaderboards within the SCILL ecosystem. They are a simple, yet powerful data structure. The idea is, that you just send events for actions and things that happen in your game or application. SCILL leverages these info to update and progress challenges or to figure out the users score within a leaderboard. You don't have to handle any state in your application or game, as everything is done by SCILL."
       },
       "EventProperty" : {
         "type" : "object",
@@ -3397,7 +3406,8 @@
           "message" : {
             "type" : "string"
           }
-        }
+        },
+        "description" : "Errors are reported using this structure. Error messages are human readable and will be translated (if available) in the language provided by the language query parameter."
       },
       "UnknownChallengeError" : {
         "type" : "object",
@@ -3437,7 +3447,8 @@
             "type" : "string",
             "example" : "topic/challenges/3ea785c6d0ce23e67beff"
           }
-        }
+        },
+        "description" : "Realtime updates are implemented via MQTT - a resource efficient real time message system. Each user has it's own channel in our MQTT system that you need to request from the backend. This structure returns the topic for the user provided with the access token."
       },
       "AccessToken" : {
         "required" : [ "access_token" ],
@@ -3447,7 +3458,8 @@
             "type" : "string",
             "example" : "eyJhbGciOiJIUzI1NiIsInR59...."
           }
-        }
+        },
+        "description" : "As SCILL does not know anything about the users an access token is required to handle authentication. Requesting an access token in the backend returns this object that contains the token which needs to be set as the Authentication Bearer in subsequent requests to the SCILL backend."
       },
       "ForeignUserIdentifier" : {
         "required" : [ "user_id" ],
@@ -3458,7 +3470,8 @@
             "description" : "Any string allowed, this is the foreign user identifier that has no relation in the SCILL database and the user is unkown to SCILL.",
             "example" : "123456789"
           }
-        }
+        },
+        "description" : "Requesting an access token requires this object to be sent containing the user id of your user. The user id can be anything (we dont care) but it must be consistent for the lifetime of the user."
       },
       "ChallengeWebhookPayload" : {
         "type" : "object",
@@ -3501,7 +3514,8 @@
             "description" : "The currency (EUR, USD, etc) of the purchase price",
             "example" : "EUR"
           }
-        }
+        },
+        "description" : "Unlocking a battle pass requires some info to be sent so we can validate everything is ok"
       },
       "BattlePassUnlockInfo" : {
         "type" : "object",
