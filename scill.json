@@ -99,6 +99,9 @@
         "url" : "https://us.scillgame.com",
         "description" : "Production URL"
       }, {
+        "url" : "https://us-staging.scillgame.com",
+        "description" : "Staging URL"
+      }, {
         "url" : "https://us-dev.scillgame.com",
         "description" : "Dev URL"
       } ]
@@ -163,6 +166,9 @@
         "url" : "https://pcs.scillgame.com",
         "description" : "Production URL"
       }, {
+        "url" : "https://pcs-staging.scillgame.com",
+        "description" : "Staging URL"
+      }, {
         "url" : "https://pcs-dev.scillgame.com",
         "description" : "Dev URL"
       } ]
@@ -215,6 +221,9 @@
       "servers" : [ {
         "url" : "https://pcs.scillgame.com",
         "description" : "Production URL"
+      }, {
+        "url" : "https://pcs-staging.scillgame.com",
+        "description" : "Staging URL"
       }, {
         "url" : "https://pcs-dev.scillgame.com",
         "description" : "Dev URL"
@@ -280,7 +289,77 @@
         "url" : "https://pcs.scillgame.com",
         "description" : "Production URL"
       }, {
+        "url" : "https://pcs-staging.scillgame.com",
+        "description" : "Staging URL"
+      }, {
         "url" : "https://pcs-dev.scillgame.com",
+        "description" : "Dev URL"
+      } ]
+    },
+    "/api/v1/auth/leaderboard-topic-link" : {
+      "description" : "Request a topic for the MQTT server to receive real time updates if the leaderboard for the application changes.",
+      "get" : {
+        "tags" : [ "auth" ],
+        "summary" : "Get MQTT topic for leaderboard",
+        "description" : "Get a topic to be used with an MQTT client to receive real time updates whenever the specified leaderboard changes.",
+        "operationId" : "getLeaderboardNotificationTopic",
+        "parameters" : [ {
+          "name" : "leaderboard_id",
+          "in" : "query",
+          "description" : "The id of the leaderboard you want to get notified",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Returns the notification topic",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/NotificationTopic"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "servers" : [ {
+        "url" : "https://us.scillgame.com",
+        "description" : "Production URL"
+      }, {
+        "url" : "https://us-staging.scillgame.com",
+        "description" : "Staging URL"
+      }, {
+        "url" : "https://us-dev.scillgame.com",
         "description" : "Dev URL"
       } ]
     },
@@ -367,6 +446,9 @@
         "url" : "https://us.scillgame.com",
         "description" : "Production URL"
       }, {
+        "url" : "https://us-staging.scillgame.com",
+        "description" : "Staging URL"
+      }, {
         "url" : "https://us-dev.scillgame.com",
         "description" : "Dev URL"
       } ]
@@ -429,6 +511,9 @@
         "url" : "https://ep.scillgame.com",
         "description" : "Production URL"
       }, {
+        "url" : "https://ep-staging.scillgame.com",
+        "description" : "Staging URL"
+      }, {
         "url" : "https://ep-dev.scillgame.com",
         "description" : "Dev URL"
       } ]
@@ -466,6 +551,9 @@
       "servers" : [ {
         "url" : "https://ep.scillgame.com",
         "description" : "Production URL"
+      }, {
+        "url" : "https://ep-staging.scillgame.com",
+        "description" : "Staging URL"
       }, {
         "url" : "https://ep-dev.scillgame.com",
         "description" : "Dev URL"
@@ -574,6 +662,9 @@
         "url" : "https://pcs.scillgame.com",
         "description" : "Production URL"
       }, {
+        "url" : "https://pcs-staging.scillgame.com",
+        "description" : "Staging URL"
+      }, {
         "url" : "https://pcs-dev.scillgame.com",
         "description" : "Dev URL"
       } ]
@@ -680,6 +771,9 @@
       "servers" : [ {
         "url" : "https://pcs.scillgame.com",
         "description" : "Production URL"
+      }, {
+        "url" : "https://pcs-staging.scillgame.com",
+        "description" : "Staging URL"
       }, {
         "url" : "https://pcs-dev.scillgame.com",
         "description" : "Dev URL"
@@ -788,6 +882,9 @@
         "url" : "https://pcs.scillgame.com",
         "description" : "Production URL"
       }, {
+        "url" : "https://pcs-staging.scillgame.com",
+        "description" : "Staging URL"
+      }, {
         "url" : "https://pcs-dev.scillgame.com",
         "description" : "Dev URL"
       } ]
@@ -876,6 +973,9 @@
         "url" : "https://pcs.scillgame.com",
         "description" : "Production URL"
       }, {
+        "url" : "https://pcs-staging.scillgame.com",
+        "description" : "Staging URL"
+      }, {
         "url" : "https://pcs-dev.scillgame.com",
         "description" : "Dev URL"
       } ]
@@ -956,6 +1056,9 @@
       "servers" : [ {
         "url" : "https://pcs.scillgame.com",
         "description" : "Production URL"
+      }, {
+        "url" : "https://pcs-staging.scillgame.com",
+        "description" : "Staging URL"
       }, {
         "url" : "https://pcs-dev.scillgame.com",
         "description" : "Dev URL"
@@ -1045,6 +1148,9 @@
         "url" : "https://pcs.scillgame.com",
         "description" : "Production URL"
       }, {
+        "url" : "https://pcs-staging.scillgame.com",
+        "description" : "Staging URL"
+      }, {
         "url" : "https://pcs-dev.scillgame.com",
         "description" : "Dev URL"
       } ]
@@ -1132,6 +1238,9 @@
       "servers" : [ {
         "url" : "https://pcs.scillgame.com",
         "description" : "Production URL"
+      }, {
+        "url" : "https://pcs-staging.scillgame.com",
+        "description" : "Staging URL"
       }, {
         "url" : "https://pcs-dev.scillgame.com",
         "description" : "Dev URL"
@@ -1221,6 +1330,9 @@
         "url" : "https://pcs.scillgame.com",
         "description" : "Production URL"
       }, {
+        "url" : "https://pcs-staging.scillgame.com",
+        "description" : "Staging URL"
+      }, {
         "url" : "https://pcs-dev.scillgame.com",
         "description" : "Dev URL"
       } ]
@@ -1309,6 +1421,9 @@
         "url" : "https://pcs.scillgame.com",
         "description" : "Production URL"
       }, {
+        "url" : "https://pcs-staging.scillgame.com",
+        "description" : "Staging URL"
+      }, {
         "url" : "https://pcs-dev.scillgame.com",
         "description" : "Dev URL"
       } ]
@@ -1366,6 +1481,9 @@
       "servers" : [ {
         "url" : "https://pcs.scillgame.com",
         "description" : "Production URL"
+      }, {
+        "url" : "https://pcs-staging.scillgame.com",
+        "description" : "Staging URL"
       }, {
         "url" : "https://pcs-dev.scillgame.com",
         "description" : "Dev URL"
@@ -1448,6 +1566,9 @@
         "url" : "https://es.scillgame.com",
         "description" : "Production URL"
       }, {
+        "url" : "https://es-staging.scillgame.com",
+        "description" : "Staging URL"
+      }, {
         "url" : "https://es-dev.scillgame.com",
         "description" : "Dev URL"
       } ]
@@ -1529,6 +1650,9 @@
         "url" : "https://es.scillgame.com",
         "description" : "Production URL"
       }, {
+        "url" : "https://es-staging.scillgame.com",
+        "description" : "Staging URL"
+      }, {
         "url" : "https://es-dev.scillgame.com",
         "description" : "Dev URL"
       } ]
@@ -1609,6 +1733,9 @@
       "servers" : [ {
         "url" : "https://es.scillgame.com",
         "description" : "Production URL"
+      }, {
+        "url" : "https://es-staging.scillgame.com",
+        "description" : "Staging URL"
       }, {
         "url" : "https://es-dev.scillgame.com",
         "description" : "Dev URL"
@@ -1697,6 +1824,9 @@
       "servers" : [ {
         "url" : "https://es.scillgame.com",
         "description" : "Production URL"
+      }, {
+        "url" : "https://es-staging.scillgame.com",
+        "description" : "Staging URL"
       }, {
         "url" : "https://es-dev.scillgame.com",
         "description" : "Dev URL"
@@ -1789,6 +1919,9 @@
         "url" : "https://es.scillgame.com",
         "description" : "Production URL"
       }, {
+        "url" : "https://es-staging.scillgame.com",
+        "description" : "Staging URL"
+      }, {
         "url" : "https://es-dev.scillgame.com",
         "description" : "Dev URL"
       } ]
@@ -1869,6 +2002,9 @@
       "servers" : [ {
         "url" : "https://es.scillgame.com",
         "description" : "Production URL"
+      }, {
+        "url" : "https://es-staging.scillgame.com",
+        "description" : "Staging URL"
       }, {
         "url" : "https://es-dev.scillgame.com",
         "description" : "Dev URL"
@@ -1958,6 +2094,9 @@
         "url" : "https://es.scillgame.com",
         "description" : "Production URL"
       }, {
+        "url" : "https://es-staging.scillgame.com",
+        "description" : "Staging URL"
+      }, {
         "url" : "https://es-dev.scillgame.com",
         "description" : "Dev URL"
       } ]
@@ -2045,6 +2184,9 @@
       "servers" : [ {
         "url" : "https://es.scillgame.com",
         "description" : "Production URL"
+      }, {
+        "url" : "https://es-staging.scillgame.com",
+        "description" : "Staging URL"
       }, {
         "url" : "https://es-dev.scillgame.com",
         "description" : "Dev URL"
@@ -2332,7 +2474,7 @@
       "get" : {
         "tags" : [ "leaderboards" ],
         "summary" : "Retrieve User Rankings",
-        "description" : "Returns an array of LeaderboardRanking items defined for all leaderboards in the application specified for the user.",
+        "description" : "Returns an array of LeaderboardRanking items defined for all leaderboards in the application specified for the user. If the member is not in the leaderboard, the rank will be -1 in the LeaderboardRanking object.",
         "externalDocs" : {
           "description" : "SCILL API Reference",
           "url" : "https://developers.scillgame.com/api/leaderboards.html"
@@ -2412,7 +2554,7 @@
       }
     },
     "/api/v1/leaderboards-members/{memberType}/{memberId}/{leaderboardId}" : {
-      "description" : "Get the rankings for a specified user and the specified leaderboard defined in the application",
+      "description" : "Get the rankings for a specified user and the specified leaderboard defined in the application. If the member is not in the leaderboard, the rank will be -1 in the LeaderboardRanking object.",
       "get" : {
         "tags" : [ "leaderboards" ],
         "summary" : "Retrieve User Ranking",
@@ -2550,9 +2692,50 @@
             "items" : {
               "$ref" : "#/components/schemas/LeaderboardRanking"
             }
+          },
+          "num_teams" : {
+            "type" : "number",
+            "description" : "The total number of team rankings available in the leaderboard",
+            "example" : 20482
+          },
+          "num_users" : {
+            "type" : "number",
+            "description" : "The total number of user rankings available in the leaderboard",
+            "example" : 137299
           }
         },
         "description" : "The Leaderboard object contains information about the leaderboard itself like the name and the id, but also contains actual rankings for users and teams."
+      },
+      "LeaderboardInfo" : {
+        "type" : "object",
+        "properties" : {
+          "app_id" : {
+            "type" : "string",
+            "description" : "The id of the app",
+            "example" : "597737952688570369"
+          },
+          "leaderboard_id" : {
+            "type" : "string",
+            "description" : "The id of the leaderboard",
+            "example" : "641184035742547979"
+          },
+          "name" : {
+            "type" : "string",
+            "description" : "The name of the leaderboard",
+            "example" : "Hall of Fame"
+          },
+          "event_type" : {
+            "type" : "string",
+            "description" : "The event type that triggers this leaderboard",
+            "example" : "finish-round"
+          },
+          "sort_order_ascending" : {
+            "type" : "boolean",
+            "description" : "True if this leaderboard sorts the score ascending or false if the ranking is defined by a descending score.",
+            "example" : true
+          }
+        },
+        "description" : "The Leaderboard object contains information about the leaderboard itself like the name and the id"
       },
       "LeaderboardMemberRanking" : {
         "type" : "object",
@@ -2601,6 +2784,45 @@
           }
         },
         "description" : "The ranking for the user or team in the leaderboard"
+      },
+      "LeaderboardScore" : {
+        "type" : "object",
+        "properties" : {
+          "score" : {
+            "type" : "integer",
+            "description" : "The score achieved as an integer value. If you want to store floats, for example laptimes you need to convert them into an int before (i.e. multiply by 100 to get hundreds of seconds and format back to float in UI)",
+            "example" : 3843
+          },
+          "rank" : {
+            "type" : "integer",
+            "description" : "The position within the leaderboard",
+            "example" : 3
+          }
+        },
+        "description" : "Contains info about rank and score"
+      },
+      "LeaderboardUpdatePayload" : {
+        "type" : "object",
+        "properties" : {
+          "webhook_type" : {
+            "type" : "string",
+            "description" : "The type of the webhook, in this case it is leaderboard-ranking-changed",
+            "example" : "leaderboard-ranking-changed"
+          },
+          "leaderboard_data" : {
+            "$ref" : "#/components/schemas/LeaderboardInfo"
+          },
+          "member_data" : {
+            "$ref" : "#/components/schemas/LeaderboardRanking"
+          },
+          "old_leaderboard_ranking" : {
+            "$ref" : "#/components/schemas/LeaderboardScore"
+          },
+          "new_leaderboard_ranking" : {
+            "$ref" : "#/components/schemas/LeaderboardScore"
+          }
+        },
+        "description" : "The payload used for realtime updates and webhooks if a leaderboard is updated."
       },
       "ActionResponse" : {
         "required" : [ "message", "status" ],
