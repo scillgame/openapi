@@ -28,6 +28,8 @@ paths:
     servers:
       - description: Production URL
         url: https://us.scillgame.com
+      - description: Staging URL
+        url: https://us-staging.scillgame.com
       - description: Dev URL
         url: https://us-dev.scillgame.com
     description: "Generate an access token for API-Key and User ID. This access token
@@ -68,6 +70,8 @@ paths:
     servers:
       - description: Production URL
         url: https://pcs.scillgame.com
+      - description: Staging URL
+        url: https://pcs-staging.scillgame.com
       - description: Dev URL
         url: https://pcs-dev.scillgame.com
     description: "Request a topic for the MQTT server to receive real time updates if the specified challenge changes for the user. Use the getUserChallengesNotificationTopic operation if you want to get notifications for all challenges."
@@ -103,6 +107,8 @@ paths:
     servers:
       - description: Production URL
         url: https://pcs.scillgame.com
+      - description: Staging URL
+        url: https://pcs-staging.scillgame.com
       - description: Dev URL
         url: https://pcs-dev.scillgame.com
     description: "Request a topic for the MQTT server to receive real time updates if challenges change for the user. This will return changes for all challenges. If you want to listen only for a specific challenge, use the getUserChallengeNotificationTopic."
@@ -131,6 +137,8 @@ paths:
     servers:
       - description: Production URL
         url: https://pcs.scillgame.com
+      - description: Staging URL
+        url: https://pcs-staging.scillgame.com
       - description: Dev URL
         url: https://pcs-dev.scillgame.com
     description: "Request a topic for the MQTT server to receive real time updates if battle passes change for the user."
@@ -161,11 +169,50 @@ paths:
         '403':
           $ref: '#/components/responses/Unauthorized'
         '404':
-          $ref: '#/components/responses/NotFound'                  
+          $ref: '#/components/responses/NotFound'               
+  /api/v1/auth/leaderboard-topic-link:
+    servers:
+      - description: Production URL
+        url: https://us.scillgame.com
+      - description: Staging URL
+        url: https://us-staging.scillgame.com
+      - description: Dev URL
+        url: https://us-dev.scillgame.com
+    description: "Request a topic for the MQTT server to receive real time updates if the leaderboard for the application changes."
+    parameters:
+      - in: query
+        name: leaderboard_id
+        schema:
+          type: string
+        description: The id of the leaderboard you want to get notified  
+        required: true
+    get:
+      tags: [
+          "auth"
+      ]
+      summary: Get MQTT topic for leaderboard
+      operationId: getLeaderboardNotificationTopic
+      description: Get a topic to be used with an MQTT client to receive real time updates whenever the specified leaderboard changes.
+      security:
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      responses:
+        '200':
+          description: Returns the notification topic
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationTopic'
+        '403':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'                 
   /api/v1/user-additional-info:
     servers:
       - description: Production URL
         url: https://us.scillgame.com
+      - description: Staging URL
+        url: https://us-staging.scillgame.com
       - description: Dev URL
         url: https://us-dev.scillgame.com
     description: Provide tools to set additional user info like usernames and avatar images
@@ -218,6 +265,8 @@ paths:
     servers:
       - description: Production URL
         url: https://ep.scillgame.com
+      - description: Staging URL
+        url: https://ep-staging.scillgame.com
       - description: Dev URL
         url: https://ep-dev.scillgame.com
     description: Events are a piece of structured information that your application or application backend sends to SCILL. Those events are processed in real-time to drive challenges and battle passes that you setup in the Admin Panel and that you activate for your users. Events are also stored in the SCILL backend to drive game analytics. Using this API you can create events.
@@ -253,6 +302,8 @@ paths:
     servers:
       - description: Production URL
         url: https://ep.scillgame.com
+      - description: Staging URL
+        url: https://ep-staging.scillgame.com
       - description: Dev URL
         url: https://ep-dev.scillgame.com
     description: Returns a list of available events in the platform with required and optional properties. Used internally for updating documentation and the Admin Panel inline help.
@@ -281,6 +332,8 @@ paths:
     servers:
       - description: Production URL
         url: https://pcs.scillgame.com
+      - description: Staging URL
+        url: https://pcs-staging.scillgame.com
       - description: Dev URL
         url: https://pcs-dev.scillgame.com
     description: Use this endpoint to get all available challenges for your product. This will be personalized for the user encoded in the access token. It will not return completed challenges. Use getAllPersonalChallenges to get completed challenges.
@@ -347,6 +400,8 @@ paths:
     servers:
       - description: Production URL
         url: https://pcs.scillgame.com
+      - description: Staging URL
+        url: https://pcs-staging.scillgame.com
       - description: Dev URL
         url: https://pcs-dev.scillgame.com
     description: Use this endpoint to get only active challenges. This returns a list of challenges grouped in categories that are not finished yet. Finished (i.e. completed) challenges will not be returned in this endpoint.
@@ -413,6 +468,8 @@ paths:
     servers:
       - description: Production URL
         url: https://pcs.scillgame.com
+      - description: Staging URL
+        url: https://pcs-staging.scillgame.com
       - description: Dev URL
         url: https://pcs-dev.scillgame.com
     description: Use this endpoint to get all challenges including completed challenges. This endpoint is best suited for apps that show a todo like list and want to keep showing completed challenges in the list. If you only want show challenges that the user can do something, use getUnresolvedPersonalChallenges instead.
@@ -479,6 +536,8 @@ paths:
     servers:
       - description: Production URL
         url: https://pcs.scillgame.com
+      - description: Staging URL
+        url: https://pcs-staging.scillgame.com
       - description: Dev URL
         url: https://pcs-dev.scillgame.com
     description: Use this endpoint to load a challenge by id. This will be personalized for the user encoded in the access token.
@@ -530,6 +589,8 @@ paths:
     servers:
       - description: Production URL
         url: https://pcs.scillgame.com
+      - description: Staging URL
+        url: https://pcs-staging.scillgame.com
       - description: Dev URL
         url: https://pcs-dev.scillgame.com
     description: Use this endpoint to get all active challenges for your product. This will be personalized for the user encoded in the access token.
@@ -576,6 +637,8 @@ paths:
     servers:
       - description: Production URL
         url: https://pcs.scillgame.com
+      - description: Staging URL
+        url: https://pcs-staging.scillgame.com
       - description: Dev URL
         url: https://pcs-dev.scillgame.com
     description: "Challenges are locked by default and don't track any progress. Buy (i.e. unlock or activate) a challenge using this REST-API endpoint."
@@ -622,6 +685,8 @@ paths:
     servers:
       - description: Production URL
         url: https://pcs.scillgame.com
+      - description: Staging URL
+        url: https://pcs-staging.scillgame.com
       - description: Dev URL
         url: https://pcs-dev.scillgame.com
     description: "Challenges must be activated before they will track progress. Please note, that this endpoint requires the user_challenge_id set as the second paramater."
@@ -668,6 +733,8 @@ paths:
     servers:
       - description: Production URL
         url: https://pcs.scillgame.com
+      - description: Staging URL
+        url: https://pcs-staging.scillgame.com
       - description: Dev URL
         url: https://pcs-dev.scillgame.com
     description: "Challenges can be canceled at any time. Use this endpoint to cancel a challenge."
@@ -714,6 +781,8 @@ paths:
     servers:
       - description: Production URL
         url: https://pcs.scillgame.com
+      - description: Staging URL
+        url: https://pcs-staging.scillgame.com
       - description: Dev URL
         url: https://pcs-dev.scillgame.com
     description: "Completed challenges must be claimed to finish them. Either you do that automatically (for the user) or you offer a user interface for the user to claim the challenge. Only challenges where type is unclaimed can be claimed. Otherwise this request will fail."
@@ -760,6 +829,8 @@ paths:
     servers:
       - description: Production URL
         url: https://pcs.scillgame.com
+      - description: Staging URL
+        url: https://pcs-staging.scillgame.com
       - description: Dev URL
         url: https://pcs-dev.scillgame.com
     description: "Request an access token for the Websockets server, then you connect to the Websocket server to receive updates in realtime."
@@ -792,6 +863,8 @@ paths:
     servers:
       - description: Production URL
         url: https://es.scillgame.com
+      - description: Staging URL
+        url: https://es-staging.scillgame.com
       - description: Dev URL
         url: https://es-dev.scillgame.com
     description: Using this endpoint you can query all available Battle Passes for the given product id. Typically this query is used to show Battle Passes the user can purchase. You can use the package_sku field to trigger the corresponding in-app purchase.
@@ -838,6 +911,8 @@ paths:
     servers:
       - description: Production URL
         url: https://es.scillgame.com
+      - description: Staging URL
+        url: https://es-staging.scillgame.com
       - description: Dev URL
         url: https://es-dev.scillgame.com
     description: Using this endpoint you can query all active available Battle Passes for the given app id. Typically this query is used to show Battle Passes the user can purchase. You can use the package_sku field to trigger the corresponding in-app purchase.
@@ -884,6 +959,8 @@ paths:
     servers:
       - description: Production URL
         url: https://es.scillgame.com
+      - description: Staging URL
+        url: https://es-staging.scillgame.com
       - description: Dev URL
         url: https://es-dev.scillgame.com
     description: Using this endpoint you can query all Battle Passes unlocked for the user. 
@@ -930,6 +1007,8 @@ paths:
     servers:
       - description: Production URL
         url: https://es.scillgame.com
+      - description: Staging URL
+        url: https://es-staging.scillgame.com
       - description: Dev URL
         url: https://es-dev.scillgame.com
     description: Use this endpoint to retrieve a specific battle pass. By using the access token this object is enriched with user specific additions and current status.
@@ -980,6 +1059,8 @@ paths:
     servers:
       - description: Production URL
         url: https://es.scillgame.com
+      - description: Staging URL
+        url: https://es-staging.scillgame.com
       - description: Dev URL
         url: https://es-dev.scillgame.com
     description: Use this endpoint to retrieve the levels of a specific battle pass.
@@ -1032,6 +1113,8 @@ paths:
     servers:
       - description: Production URL
         url: https://es.scillgame.com
+      - description: Staging URL
+        url: https://es-staging.scillgame.com
       - description: Dev URL
         url: https://es-dev.scillgame.com
     description: Get all battle pass levels for the app
@@ -1078,6 +1161,8 @@ paths:
     servers:
       - description: Production URL
         url: https://es.scillgame.com
+      - description: Staging URL
+        url: https://es-staging.scillgame.com
       - description: Dev URL
         url: https://es-dev.scillgame.com
     description: Use this endpoint to activate a battle pass level by level id
@@ -1124,6 +1209,8 @@ paths:
     servers:
       - description: Production URL
         url: https://es.scillgame.com
+      - description: Staging URL
+        url: https://es-staging.scillgame.com
       - description: Dev URL
         url: https://es-dev.scillgame.com
     description: Use this endpoint to claim a battle pass level reward by level id
@@ -1325,7 +1412,7 @@ paths:
       externalDocs:
         description: SCILL API Reference
         url: https://developers.scillgame.com/api/leaderboards.html
-      description: Returns an array of LeaderboardRanking items defined for all leaderboards in the application specified for the user. 
+      description: Returns an array of LeaderboardRanking items defined for all leaderboards in the application specified for the user. If the member is not in the leaderboard, the rank will be -1 in the LeaderboardRanking object.
       security: 
         - BearerAuth: []
         - oAuthNoScopes: []
@@ -1362,7 +1449,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'                     
   /api/v1/leaderboards-members/{memberType}/{memberId}/{leaderboardId}:
-    description: Get the rankings for a specified user and the specified leaderboard defined in the application
+    description: Get the rankings for a specified user and the specified leaderboard defined in the application. If the member is not in the leaderboard, the rank will be -1 in the LeaderboardRanking object.
     get:
       tags: [
         "leaderboards"  
@@ -1452,6 +1539,38 @@ components:
           items:
             $ref: '#/components/schemas/LeaderboardRanking'
           description: An array of LeaderboardRanking Items for teams. Provide a team_id in the event payload to also create leaderboards for teams
+        num_teams:
+          type: number
+          example: 20482
+          description: The total number of team rankings available in the leaderboard
+        num_users:
+          type: number
+          example: 137299
+          description: The total number of user rankings available in the leaderboard
+    LeaderboardInfo:
+      type: object
+      description: The Leaderboard object contains information about the leaderboard itself like the name and the id
+      properties:
+        app_id:
+          type: string
+          example: "597737952688570369"
+          description: The id of the app      
+        leaderboard_id:
+          type: string
+          example: "641184035742547979"
+          description: The id of the leaderboard
+        name:
+          type: string
+          example: "Hall of Fame"
+          description: The name of the leaderboard
+        event_type:
+          type: string
+          example: "finish-round"
+          description: The event type that triggers this leaderboard
+        sort_order_ascending:
+          type: boolean
+          example: true
+          description: True if this leaderboard sorts the score ascending or false if the ranking is defined by a descending score.
     LeaderboardMemberRanking:
       type: object
       description: You get these object if you query the leaderboard ranking for a specific user. Only the requested user will be returned.
@@ -1488,6 +1607,34 @@ components:
           description: The position within the leaderboard
         additional_info:
           $ref: '#/components/schemas/UserInfo'
+    LeaderboardScore:
+      type: object
+      description: Contains info about rank and score
+      properties:
+        score:
+          type: integer
+          example: 3843
+          description: The score achieved as an integer value. If you want to store floats, for example laptimes you need to convert them into an int before (i.e. multiply by 100 to get hundreds of seconds and format back to float in UI)
+        rank:
+          type: integer
+          example: 3
+          description: The position within the leaderboard
+    LeaderboardUpdatePayload:
+      type: object
+      description: The payload used for realtime updates and webhooks if a leaderboard is updated.
+      properties:
+        webhook_type:
+          type: string
+          description: The type of the webhook, in this case it is leaderboard-ranking-changed
+          example: "leaderboard-ranking-changed"
+        leaderboard_data:
+          $ref: '#/components/schemas/LeaderboardInfo'
+        member_data:
+          $ref: '#/components/schemas/LeaderboardRanking'
+        old_leaderboard_ranking:
+          $ref: '#/components/schemas/LeaderboardScore'
+        new_leaderboard_ranking:
+          $ref: '#/components/schemas/LeaderboardScore'          
     ActionResponse:
       type: object
       description: Standard response for actions like update or delete. If anything went fine, you'll receive a HTTP code of 200 and a OK message.
