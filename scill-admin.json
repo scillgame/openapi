@@ -3233,7 +3233,7 @@
           },
           "end_date" : {
             "type" : "string",
-            "description" : "The date (in iso format) when the Battle Pass ends. Tracking stops once the end is reached and users will not be able to progress further than what they have achieved up to that point.",
+            "description" : "The date (in iso format) when the Battle Pass ends. Tracking stops once the end is reached and users will not be able to progress further than what they have achieved up to that point. If left empty, the end date will be exactly one month after the start date.",
             "format" : "RFC3339",
             "example" : "2020-08-17T00:00:00Z"
           },
