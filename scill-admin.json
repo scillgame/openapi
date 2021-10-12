@@ -40,8 +40,653 @@
   }, {
     "name" : "users",
     "description" : "Users"
+  }, {
+    "name" : "leaderboards",
+    "description" : "Leaderboards"
   } ],
   "paths" : {
+    "/api/v2/admin/leaderboards/{appId}" : {
+      "description" : "Get a list of all available event types",
+      "get" : {
+        "tags" : [ "leaderboards" ],
+        "summary" : "Get a list of all available leaderboard for the given app ID",
+        "description" : "Get a list of all available leaderboard for the given app ID",
+        "externalDocs" : {
+          "description" : "SCILL API Reference",
+          "url" : "https://developers.scillgame.com/api/leaderboards.html"
+        },
+        "operationId" : "getAppLeaderboards",
+        "parameters" : [ {
+          "name" : "appId",
+          "in" : "path",
+          "description" : "The application ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Returns available leaderboards",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Leaderboard"
+                  }
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "leaderboards" ],
+        "summary" : "Create a leaderboard for the given app ID",
+        "description" : "Create a leaderboard for the given app ID",
+        "externalDocs" : {
+          "description" : "SCILL API Reference",
+          "url" : "https://developers.scillgame.com/api/leaderboards.html"
+        },
+        "operationId" : "createLeaderboard",
+        "parameters" : [ {
+          "name" : "appId",
+          "in" : "path",
+          "description" : "The application ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "Payload for creating a leaderboard",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/LeaderboardCreate"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Returns the created leaderboard object",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Leaderboard"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Request could not complete as parameters were missing or were not set correctely.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "servers" : [ {
+        "url" : "https://ls.scill.4players.io",
+        "description" : "Production URL"
+      }, {
+        "url" : "https://ls-dev.scill.4players.io",
+        "description" : "Dev URL"
+      } ]
+    },
+    "/api/v2/admin/leaderboards/{appId}/{leaderboardId}" : {
+      "description" : "Get a list of all available event types",
+      "get" : {
+        "tags" : [ "leaderboards" ],
+        "summary" : "Get info for a single leaderboard for the given app ID and leaderboard ID",
+        "description" : "Get info for a single leaderboard for the given app ID and leaderboard ID",
+        "externalDocs" : {
+          "description" : "SCILL API Reference",
+          "url" : "https://developers.scillgame.com/api/leaderboards.html"
+        },
+        "operationId" : "getAppLeaderboard",
+        "parameters" : [ {
+          "name" : "appId",
+          "in" : "path",
+          "description" : "The application ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "leaderboardId",
+          "in" : "path",
+          "description" : "The leaderboard ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Returns the requested leaderboard",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Leaderboard"
+                  }
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "put" : {
+        "tags" : [ "leaderboards" ],
+        "summary" : "Update a single leaderboard for the given app ID and leaderboard ID",
+        "description" : "Update a single leaderboard for the given app ID and leaderboard ID",
+        "externalDocs" : {
+          "description" : "SCILL API Reference",
+          "url" : "https://developers.scillgame.com/api/leaderboards.html"
+        },
+        "operationId" : "updateAppLeaderboard",
+        "parameters" : [ {
+          "name" : "appId",
+          "in" : "path",
+          "description" : "The application ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "leaderboardId",
+          "in" : "path",
+          "description" : "The leaderboard ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "Payload for updating a leaderboard",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/LeaderboardUpdate"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Returns the updated leaderboard",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Leaderboard"
+                  }
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "leaderboards" ],
+        "summary" : "Deletes a single leaderboard for the given app ID and leaderboard ID",
+        "description" : "Deletes a single leaderboard for the given app ID and leaderboard ID",
+        "externalDocs" : {
+          "description" : "SCILL API Reference",
+          "url" : "https://developers.scillgame.com/api/leaderboards.html"
+        },
+        "operationId" : "deleteAppLeaderboard",
+        "parameters" : [ {
+          "name" : "appId",
+          "in" : "path",
+          "description" : "The application ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "leaderboardId",
+          "in" : "path",
+          "description" : "The leaderboard ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The action has been successful",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ActionResponse"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "servers" : [ {
+        "url" : "https://ls.scill.4players.io",
+        "description" : "Production URL"
+      }, {
+        "url" : "https://ls-dev.scill.4players.io",
+        "description" : "Dev URL"
+      } ]
+    },
+    "/api/v2/admin/leaderboards/{appId}/sorting-metadata/{eventType}" : {
+      "description" : "Get allowed leaderboard sorting metadata fields for the set event type",
+      "get" : {
+        "tags" : [ "leaderboards" ],
+        "summary" : "Get info for a single leaderboard for the given app ID and leaderboard ID",
+        "description" : "Get info for a single leaderboard for the given app ID and leaderboard ID",
+        "externalDocs" : {
+          "description" : "SCILL API Reference",
+          "url" : "https://developers.scillgame.com/api/leaderboards.html"
+        },
+        "operationId" : "getLeaderboardSortingMetadata",
+        "parameters" : [ {
+          "name" : "appId",
+          "in" : "path",
+          "description" : "The application ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "eventType",
+          "in" : "path",
+          "description" : "The event type name for which the sorting meatadata is requested, e.g. \"achieve-score\"",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Returns the requested leaderboard sorting metadata",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/LeaderboardSortingMetadata"
+                  }
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "servers" : [ {
+        "url" : "https://ls.scill.4players.io",
+        "description" : "Production URL"
+      }, {
+        "url" : "https://ls-dev.scill.4players.io",
+        "description" : "Dev URL"
+      } ]
+    },
+    "/api/v2/admin/leaderboards/{appId}/sorting-metadata/{leaderboardId}" : {
+      "description" : "Create leaderboard sorting metadata for the provided application ID and leaderboard ID",
+      "post" : {
+        "tags" : [ "leaderboards" ],
+        "summary" : "Create leaderboard sorting metadata for the provided application ID and leaderboard ID",
+        "description" : "Create leaderboard sorting metadata for the provided application ID and leaderboard ID",
+        "externalDocs" : {
+          "description" : "SCILL API Reference",
+          "url" : "https://developers.scillgame.com/api/leaderboards.html"
+        },
+        "operationId" : "createLeaderboardSortingMetadata",
+        "parameters" : [ {
+          "name" : "appId",
+          "in" : "path",
+          "description" : "The application ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "leaderboardId",
+          "in" : "path",
+          "description" : "The leaderboard ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "Payload for creating leaderboard metadata",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/LeaderboardSortingMetadataCreate"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Returns the array of the requested leaderboard's sorting metadata",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/LeaderboardSortingMetadataCreate"
+                  }
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "servers" : [ {
+        "url" : "https://ls.scill.4players.io",
+        "description" : "Production URL"
+      }, {
+        "url" : "https://ls-dev.scill.4players.io",
+        "description" : "Dev URL"
+      } ]
+    },
+    "/api/v2/admin/leaderboards/{appId}/sorting-metadata/{leaderboardId}/{metadataKey}" : {
+      "description" : "Create leaderboard sorting metadata for the provided application ID and leaderboard ID",
+      "delete" : {
+        "tags" : [ "leaderboards" ],
+        "summary" : "Delete leaderboard sorting metadata for the provided application ID, leaderboard ID, and metadata key",
+        "description" : "Delete leaderboard sorting metadata for the provided application ID, leaderboard ID, and metadata key",
+        "externalDocs" : {
+          "description" : "SCILL API Reference",
+          "url" : "https://developers.scillgame.com/api/leaderboards.html"
+        },
+        "operationId" : "deleteLeaderboardSortingMetadata",
+        "parameters" : [ {
+          "name" : "appId",
+          "in" : "path",
+          "description" : "The application ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "leaderboardId",
+          "in" : "path",
+          "description" : "The leaderboard ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "metadataKey",
+          "in" : "path",
+          "description" : "The metadata key value you are deleting",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The action has been successful",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ActionResponse"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "servers" : [ {
+        "url" : "https://ls.scill.4players.io",
+        "description" : "Production URL"
+      }, {
+        "url" : "https://ls-dev.scill.4players.io",
+        "description" : "Dev URL"
+      } ]
+    },
     "/api/v1/languages" : {
       "description" : "Get a list of all available event types",
       "get" : {
@@ -95,10 +740,10 @@
         } ]
       },
       "servers" : [ {
-        "url" : "https://us.scillgame.com",
+        "url" : "https://us.scill.4players.io",
         "description" : "Production URL"
       }, {
-        "url" : "https://us-dev.scillgame.com",
+        "url" : "https://us-dev.scill.4players,io",
         "description" : "Dev URL"
       } ]
     },
@@ -155,10 +800,10 @@
         } ]
       },
       "servers" : [ {
-        "url" : "https://ep.scillgame.com",
+        "url" : "https://ep.scill.4players.io",
         "description" : "Production URL"
       }, {
-        "url" : "https://ep-dev.scillgame.com",
+        "url" : "https://ep-dev.scill.4players.io",
         "description" : "Dev URL"
       } ]
     },
@@ -212,10 +857,10 @@
         } ]
       },
       "servers" : [ {
-        "url" : "https://ep.scillgame.com",
+        "url" : "https://ep.scill.4players.io",
         "description" : "Production URL"
       }, {
-        "url" : "https://ep-dev.scillgame.com",
+        "url" : "https://ep-dev.scill.4players.io",
         "description" : "Dev URL"
       } ]
     },
@@ -272,10 +917,10 @@
         } ]
       },
       "servers" : [ {
-        "url" : "https://pcs.scillgame.com",
+        "url" : "https://pcs.scill.4players.io",
         "description" : "Production URL"
       }, {
-        "url" : "https://pcs-dev.scillgame.com",
+        "url" : "https://pcs-dev.scill.4players.io",
         "description" : "Dev URL"
       } ]
     },
@@ -414,10 +1059,10 @@
         } ]
       },
       "servers" : [ {
-        "url" : "https://pcs.scillgame.com",
+        "url" : "https://pcs.scill.4players.io",
         "description" : "Production URL"
       }, {
-        "url" : "https://pcs-dev.scillgame.com",
+        "url" : "https://pcs-dev.scill.4players.io",
         "description" : "Dev URL"
       } ]
     },
@@ -583,10 +1228,10 @@
         } ]
       },
       "servers" : [ {
-        "url" : "https://pcs.scillgame.com",
+        "url" : "https://pcs.scill.4players.io",
         "description" : "Production URL"
       }, {
-        "url" : "https://pcs-dev.scillgame.com",
+        "url" : "https://pcs-dev.scill.4players.io",
         "description" : "Dev URL"
       } ]
     },
@@ -725,10 +1370,10 @@
         } ]
       },
       "servers" : [ {
-        "url" : "https://pcs.scillgame.com",
+        "url" : "https://pcs.scill.4players.io",
         "description" : "Production URL"
       }, {
-        "url" : "https://pcs-dev.scillgame.com",
+        "url" : "https://pcs-dev.scill.4players.io",
         "description" : "Dev URL"
       } ]
     },
@@ -894,10 +1539,10 @@
         } ]
       },
       "servers" : [ {
-        "url" : "https://pcs.scillgame.com",
+        "url" : "https://pcs.scill.4players.io",
         "description" : "Production URL"
       }, {
-        "url" : "https://pcs-dev.scillgame.com",
+        "url" : "https://pcs-dev.scill.4players.io",
         "description" : "Dev URL"
       } ]
     },
@@ -960,10 +1605,10 @@
         } ]
       },
       "servers" : [ {
-        "url" : "https://pcs.scillgame.com",
+        "url" : "https://pcs.scill.4players.io",
         "description" : "Production URL"
       }, {
-        "url" : "https://pcs-dev.scillgame.com",
+        "url" : "https://pcs-dev.scill.4players.io",
         "description" : "Dev URL"
       } ]
     },
@@ -1087,10 +1732,10 @@
         } ]
       },
       "servers" : [ {
-        "url" : "https://gs.scillgame.com",
+        "url" : "https://gs.scill.4players.io",
         "description" : "Production URL"
       }, {
-        "url" : "https://gs-dev.scillgame.com",
+        "url" : "https://gs-dev.scill.4players.io",
         "description" : "Dev URL"
       } ]
     },
@@ -1300,10 +1945,10 @@
         } ]
       },
       "servers" : [ {
-        "url" : "https://gs.scillgame.com",
+        "url" : "https://gs.scill.4players.io",
         "description" : "Production URL"
       }, {
-        "url" : "https://gs-dev.scillgame.com",
+        "url" : "https://gs-dev.scill.4players.io",
         "description" : "Dev URL"
       } ]
     },
@@ -1452,10 +2097,10 @@
         } ]
       },
       "servers" : [ {
-        "url" : "https://gs.scillgame.com",
+        "url" : "https://gs.scill.4players.io",
         "description" : "Production URL"
       }, {
-        "url" : "https://gs-dev.scillgame.com",
+        "url" : "https://gs-dev.scill.4players.io",
         "description" : "Dev URL"
       } ]
     },
@@ -1684,10 +2329,10 @@
         } ]
       },
       "servers" : [ {
-        "url" : "https://gs.scillgame.com",
+        "url" : "https://gs.scill.4players.io",
         "description" : "Production URL"
       }, {
-        "url" : "https://gs-dev.scillgame.com",
+        "url" : "https://gs-dev.scill.4players.io",
         "description" : "Dev URL"
       } ]
     },
@@ -1748,10 +2393,10 @@
         } ]
       },
       "servers" : [ {
-        "url" : "https://gs.scillgame.com",
+        "url" : "https://gs.scill.4players.io",
         "description" : "Production URL"
       }, {
-        "url" : "https://gs-dev.scillgame.com",
+        "url" : "https://gs-dev.scill.4players.io",
         "description" : "Dev URL"
       } ]
     },
@@ -1815,10 +2460,10 @@
         } ]
       },
       "servers" : [ {
-        "url" : "https://gs.scillgame.com",
+        "url" : "https://gs.scill.4players.io",
         "description" : "Production URL"
       }, {
-        "url" : "https://gs-dev.scillgame.com",
+        "url" : "https://gs-dev.scill.4players.io",
         "description" : "Dev URL"
       } ]
     },
@@ -2021,10 +2666,10 @@
         } ]
       },
       "servers" : [ {
-        "url" : "https://gs.scillgame.com",
+        "url" : "https://gs.scill.4players.io",
         "description" : "Production URL"
       }, {
-        "url" : "https://gs-dev.scillgame.com",
+        "url" : "https://gs-dev.scill.4players.io",
         "description" : "Dev URL"
       } ]
     },
@@ -2163,10 +2808,10 @@
         } ]
       },
       "servers" : [ {
-        "url" : "https://es.scillgame.com",
+        "url" : "https://es.scill.4players.io",
         "description" : "Production URL"
       }, {
-        "url" : "https://es-dev.scillgame.com",
+        "url" : "https://es-dev.scill.4players.io",
         "description" : "Dev URL"
       } ]
     },
@@ -2322,10 +2967,10 @@
         } ]
       },
       "servers" : [ {
-        "url" : "https://es.scillgame.com",
+        "url" : "https://es.scill.4players.io",
         "description" : "Production URL"
       }, {
-        "url" : "https://es-dev.scillgame.com",
+        "url" : "https://es-dev.scill.4players.io",
         "description" : "Dev URL"
       } ]
     },
@@ -2464,10 +3109,10 @@
         } ]
       },
       "servers" : [ {
-        "url" : "https://es.scillgame.com",
+        "url" : "https://es.scill.4players.io",
         "description" : "Production URL"
       }, {
-        "url" : "https://es-dev.scillgame.com",
+        "url" : "https://es-dev.scill.4players.io",
         "description" : "Dev URL"
       } ]
     },
@@ -2687,10 +3332,10 @@
         } ]
       },
       "servers" : [ {
-        "url" : "https://es.scillgame.com",
+        "url" : "https://es.scill.4players.io",
         "description" : "Production URL"
       }, {
-        "url" : "https://es-dev.scillgame.com",
+        "url" : "https://es-dev.scill.4players.io",
         "description" : "Dev URL"
       } ]
     },
@@ -2829,10 +3474,10 @@
         } ]
       },
       "servers" : [ {
-        "url" : "https://es.scillgame.com",
+        "url" : "https://es.scill.4players.io",
         "description" : "Production URL"
       }, {
-        "url" : "https://es-dev.scillgame.com",
+        "url" : "https://es-dev.scill.4players.io",
         "description" : "Dev URL"
       } ]
     },
@@ -3052,10 +3697,10 @@
         } ]
       },
       "servers" : [ {
-        "url" : "https://es.scillgame.com",
+        "url" : "https://es.scill.4players.io",
         "description" : "Production URL"
       }, {
-        "url" : "https://es-dev.scillgame.com",
+        "url" : "https://es-dev.scill.4players.io",
         "description" : "Dev URL"
       } ]
     },
@@ -3118,10 +3763,10 @@
         } ]
       },
       "servers" : [ {
-        "url" : "https://es.scillgame.com",
+        "url" : "https://es.scill.4players.io",
         "description" : "Production URL"
       }, {
-        "url" : "https://es-dev.scillgame.com",
+        "url" : "https://es-dev.scill.4players.io",
         "description" : "Dev URL"
       } ]
     }
@@ -3398,6 +4043,256 @@
             "example" : "563006391554179082"
           }
         }
+      },
+      "Leaderboard" : {
+        "type" : "object",
+        "properties" : {
+          "leaderboard_id" : {
+            "type" : "string",
+            "description" : "The unique id of the leaderboard",
+            "example" : "597737952688570369"
+          },
+          "name" : {
+            "type" : "string",
+            "description" : "The name of the leaderboard",
+            "example" : "My leaderboard"
+          },
+          "app_id" : {
+            "type" : "string",
+            "description" : "The unique id of the app this leaderboard belong to",
+            "example" : "597737952688570369"
+          },
+          "event_type" : {
+            "type" : "string",
+            "description" : "The name of the event type that this leaderboard responds to",
+            "example" : "achieve-score"
+          },
+          "start_date" : {
+            "type" : "string",
+            "description" : "The date (in ISO format) when the leaderboard starts. Tracking begins once this datetime has been reached.",
+            "format" : "RFC3339",
+            "example" : "2020-08-17T00:00:00Z"
+          },
+          "end_date" : {
+            "type" : "string",
+            "description" : "The date (in ISO format) when the leaderboard ends. Tracking stops once the end date is reached, unless the leaderboard is repeatable, in which case this field is irrelevant",
+            "format" : "RFC3339",
+            "example" : "2020-08-17T00:00:00Z"
+          },
+          "active" : {
+            "type" : "boolean",
+            "description" : "Set if this leaderboard is active or not",
+            "example" : true
+          },
+          "sort_order_ascending" : {
+            "type" : "boolean",
+            "description" : "Set if you want an asecending sort order; if false, the order is descending",
+            "example" : true
+          },
+          "sorting_metadata_list" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/SortingMetaDataList"
+            }
+          },
+          "generic_metadata" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/GenericMetaDataCreate"
+            }
+          },
+          "repeatable_leaderboard" : {
+            "type" : "boolean",
+            "description" : "Set if this leaderboard is to be reset at regular intervals, e.g. daily, weekly, or monthly",
+            "example" : true
+          },
+          "reset_period_range" : {
+            "type" : "string",
+            "description" : "The interval, \"d\" for day, \"w\" for week, or \"m\" for month, after which the leaderboard resets",
+            "example" : "d"
+          },
+          "reset_period_range_number" : {
+            "type" : "integer",
+            "description" : "The duration of days (\"d\"), weeks (\"w\"), or months (\"m\") after which the leaderboard resets; this field with a value of 12, in combination with the range value of \"d\", means that the leaderboard wil lreset itself every 12 days",
+            "example" : 12
+          },
+          "reset_period_range_at_time" : {
+            "type" : "string",
+            "description" : "The time (HH:mm:ss) when the leaderboard resets. Valid only for a specific timezone.",
+            "format" : "HH:mm:ss",
+            "example" : "06:00:00"
+          },
+          "reset_period_range_time_zone" : {
+            "type" : "string",
+            "description" : "The date (TZ database format) when the leaderboard resets. Referrs to the reset period range.",
+            "format" : "TZ-DATABASE",
+            "example" : "Europe/Berlin"
+          }
+        }
+      },
+      "LeaderboardCreate" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string",
+            "description" : "The name of the leaderboard",
+            "example" : "My leaderboard"
+          },
+          "app_id" : {
+            "type" : "string",
+            "description" : "The unique id of the app this leaderboard belong to",
+            "example" : "597737952688570369"
+          },
+          "event_type" : {
+            "type" : "string",
+            "description" : "The name of the event type that this leaderboard responds to",
+            "example" : "achieve-score"
+          },
+          "start_date" : {
+            "type" : "string",
+            "description" : "The date (in ISO format) when the leaderboard starts. Tracking begins once this datetime has been reached.",
+            "format" : "RFC3339",
+            "example" : "2020-08-17T00:00:00Z"
+          },
+          "end_date" : {
+            "type" : "string",
+            "description" : "The date (in ISO format) when the leaderboard ends. Tracking stops once the end date is reached, unless the leaderboard is repeatable, in which case this field is irrelevant",
+            "format" : "RFC3339",
+            "example" : "2020-08-17T00:00:00Z"
+          },
+          "active" : {
+            "type" : "boolean",
+            "description" : "Set if this leaderboard is active or not",
+            "example" : true
+          },
+          "sort_order_ascending" : {
+            "type" : "boolean",
+            "description" : "Set if you want an asecending sort order; if false, the order is descending",
+            "example" : true
+          },
+          "sorting_metadata_list" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/SortingMetaDataList"
+            }
+          },
+          "generic_metadata" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/GenericMetaDataCreate"
+            }
+          },
+          "repeatable_leaderboard" : {
+            "type" : "boolean",
+            "description" : "Set if this leaderboard is to be reset at regular intervals, e.g. daily, weekly, or monthly",
+            "example" : true
+          },
+          "reset_period_range" : {
+            "type" : "string",
+            "description" : "The interval, \"d\" for day, \"w\" for week, or \"m\" for month, after which the leaderboard resets",
+            "example" : "d"
+          },
+          "reset_period_range_number" : {
+            "type" : "integer",
+            "description" : "The duration of days (\"d\"), weeks (\"w\"), or months (\"m\") after which the leaderboard resets; this field with a value of 12, in combination with the range value of \"d\", means that the leaderboard wil lreset itself every 12 days",
+            "example" : 12
+          },
+          "reset_period_range_at_time" : {
+            "type" : "string",
+            "description" : "The time (HH:mm:ss) when the leaderboard resets. Valid only for a specific timezone.",
+            "format" : "HH:mm:ss",
+            "example" : "06:00:00"
+          },
+          "reset_period_range_time_zone" : {
+            "type" : "string",
+            "description" : "The date (TZ database format) when the leaderboard resets. Referrs to the reset period range.",
+            "format" : "TZ-DATABASE",
+            "example" : "Europe/Berlin"
+          }
+        }
+      },
+      "LeaderboardUpdate" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string",
+            "description" : "The name of the leaderboard",
+            "example" : "My leaderboard"
+          },
+          "active" : {
+            "type" : "boolean",
+            "description" : "Set if this leaderboard is active or not",
+            "example" : true
+          },
+          "start_date" : {
+            "type" : "string",
+            "description" : "The date (in ISO format) when the leaderboard starts. Tracking begins once this datetime has been reached.",
+            "format" : "RFC3339",
+            "example" : "2020-08-17T00:00:00Z"
+          },
+          "end_date" : {
+            "type" : "string",
+            "description" : "The date (in ISO format) when the leaderboard ends. Tracking stops once the end date is reached, unless the leaderboard is repeatable, in which case this field is irrelevant",
+            "format" : "RFC3339",
+            "example" : "2020-08-17T00:00:00Z"
+          }
+        }
+      },
+      "LeaderboardSortingMetadata" : {
+        "type" : "object",
+        "properties" : {
+          "allowed_aggregates" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/LeaderboardAggregate"
+            }
+          },
+          "allowed_orders" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/LeaderboardOrder"
+            }
+          },
+          "allowed_sorting_metadata" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string",
+              "description" : "The name of the event type",
+              "example" : "achieve-score"
+            }
+          }
+        }
+      },
+      "LeaderboardSortingMetadataCreate" : {
+        "type" : "object",
+        "properties" : {
+          "aggregate" : {
+            "type" : "string",
+            "description" : "The aggregate function for the calculation of the results - can be BEST (returns a single score - either the lowest if ASC sorting is used, or the highest if DESC is used) or SUM (default value - increments (sums up) the scores).",
+            "example" : "SUM"
+          },
+          "metadata_key" : {
+            "type" : "string",
+            "description" : "The name of the event type",
+            "example" : "achieve-score"
+          },
+          "order" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/LeaderboardOrder"
+            }
+          }
+        }
+      },
+      "LeaderboardAggregate" : {
+        "type" : "string",
+        "description" : "The aggregate function for the calculation of the results - can be BEST (returns a single score - either the lowest if ASC sorting is used, or the highest if DESC is used) or SUM (default value - increments (sums up) the scores).",
+        "example" : "SUM"
+      },
+      "LeaderboardOrder" : {
+        "type" : "string",
+        "description" : "Can be ASC for ascending or DESC for descending order, designating how the leaderboard scores are sorted",
+        "example" : "ASC"
       },
       "EventRate" : {
         "type" : "object",
@@ -4155,6 +5050,32 @@
             "type" : "string",
             "description" : "Can be OR and AND and defines if all values need to match or just any of the provided values",
             "example" : "OR"
+          }
+        }
+      },
+      "GenericMetaDataCreate" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/GenericMetaData"
+        }
+      },
+      "SortingMetaDataList" : {
+        "type" : "object",
+        "properties" : {
+          "aggregate" : {
+            "type" : "string",
+            "description" : "Can have a value of SUM or BEST. SUM increments the score, and BEST replaces the score depending on the order (if the order is ASC, it will replace a lower score, otherwise, for DESC, it will replace the score only if the score is larger)",
+            "example" : "BEST"
+          },
+          "metadata_key" : {
+            "type" : "string",
+            "description" : "The event type that this challenge should listen to",
+            "example" : "trigger-event"
+          },
+          "order" : {
+            "type" : "string",
+            "description" : "Can be ASC or DESC; signifies ascending or descending sorting order",
+            "example" : "ASC"
           }
         }
       },
