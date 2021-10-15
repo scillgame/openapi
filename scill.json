@@ -10,10 +10,10 @@
       "name" : "Apache 2.0",
       "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "version" : "1.0.0"
+    "version" : "1.2.0"
   },
   "servers" : [ {
-    "url" : "https://virtserver.swaggerhub.com/4Players-GmbH/scill-gaas/1.0.0",
+    "url" : "https://virtserver.swaggerhub.com/4Players-GmbH/scill-gaas/1.2.0",
     "description" : "SwaggerHub API Auto Mocking"
   } ],
   "tags" : [ {
@@ -40,7 +40,7 @@
         "summary" : "Get an access token for any user identifier signed with the API-Key",
         "externalDocs" : {
           "description" : "SCILL API Reference",
-          "url" : "https://beta.developers.scillgame.com/api/authentication.html#access-tokens"
+          "url" : "https://developers.4players.io/scill/api/authentication/#access-tokens"
         },
         "operationId" : "generateAccessToken",
         "requestBody" : {
@@ -461,7 +461,7 @@
         "description" : "Post an event to the SCILL backend",
         "externalDocs" : {
           "description" : "SCILL API Reference",
-          "url" : "https://beta.developers.scillgame.com/api/events.html#sending-events"
+          "url" : "https://developers.4players.io/scill/api/events/#sending-events"
         },
         "operationId" : "sendEvent",
         "requestBody" : {
@@ -526,7 +526,7 @@
         "description" : "Get all available events and required and optional properties",
         "externalDocs" : {
           "description" : "SCILL API Reference",
-          "url" : "https://developers.scillgame.com/events.html"
+          "url" : "https://developers.4players.io/scill/events/"
         },
         "operationId" : "getAvailableEvents",
         "responses" : {
@@ -567,7 +567,7 @@
         "description" : "Get personal challenges organized in categories",
         "externalDocs" : {
           "description" : "SCILL API Reference",
-          "url" : "https://beta.developers.scillgame.com/api/challenges.html#request-challenges"
+          "url" : "https://developers.4players.io/scill/api/challenges/#request-challenges"
         },
         "operationId" : "getPersonalChallenges",
         "parameters" : [ {
@@ -677,7 +677,7 @@
         "description" : "Get personal challenges organized in categories that are not yet finished",
         "externalDocs" : {
           "description" : "SCILL API Reference",
-          "url" : "https://beta.developers.scillgame.com/api/challenges.html#request-challenges"
+          "url" : "https://developers.4players.io/scill/api/challenges/#get-all-unresolved-challenges"
         },
         "operationId" : "getUnresolvedPersonalChallenges",
         "parameters" : [ {
@@ -787,7 +787,7 @@
         "description" : "Get personal challenges organized in categories that are not yet finished",
         "externalDocs" : {
           "description" : "SCILL API Reference",
-          "url" : "https://beta.developers.scillgame.com/api/challenges.html#request-challenges"
+          "url" : "https://developers.4players.io/scill/api/challenges/#request-challenges"
         },
         "operationId" : "getAllPersonalChallenges",
         "parameters" : [ {
@@ -897,7 +897,7 @@
         "description" : "Get personal challenges organized in categories",
         "externalDocs" : {
           "description" : "SCILL API Reference",
-          "url" : "https://beta.developers.scillgame.com/api/challenges.html#request-challenges"
+          "url" : "https://developers.4players.io/scill/api/challenges/#request-challenges"
         },
         "operationId" : "getPersonalChallengeById",
         "parameters" : [ {
@@ -988,7 +988,7 @@
         "description" : "Get active personal challenges organized in categories",
         "externalDocs" : {
           "description" : "SCILL API Reference",
-          "url" : "https://beta.developers.scillgame.com/api/challenges.html#request-challenges"
+          "url" : "https://developers.4players.io/scill/api/challenges/#get-all-active-challenges"
         },
         "operationId" : "getActivePersonalChallenges",
         "parameters" : [ {
@@ -1072,7 +1072,7 @@
         "description" : "Unlock a personal challenge by product id and challenge id",
         "externalDocs" : {
           "description" : "SCILL API Reference",
-          "url" : "https://beta.developers.scillgame.com/api/challenges.html#unlock-a-challenge"
+          "url" : "https://developers.4players.io/scill/api/challenges/#unlock-a-challenge"
         },
         "operationId" : "unlockPersonalChallenge",
         "parameters" : [ {
@@ -1163,7 +1163,7 @@
         "description" : "Activate a personal challenge by product id and user challenge id",
         "externalDocs" : {
           "description" : "SCILL API Reference",
-          "url" : "https://beta.developers.scillgame.com/api/challenges.html#activate-a-challenge"
+          "url" : "https://developers.4players.io/scill/api/challenges/#activate-a-challenge"
         },
         "operationId" : "activatePersonalChallenge",
         "parameters" : [ {
@@ -1254,7 +1254,7 @@
         "description" : "Cancel an active personal challenge by product id and user challenge id",
         "externalDocs" : {
           "description" : "SCILL API Reference",
-          "url" : "https://beta.developers.scillgame.com/api/challenges.html#cancel-a-challenge"
+          "url" : "https://developers.4players.io/scill/api/challenges/#cancel-a-challenge"
         },
         "operationId" : "cancelPersonalChallenge",
         "parameters" : [ {
@@ -1345,7 +1345,7 @@
         "description" : "Claim the reward of a finished personal challenge by product id and user challenge id",
         "externalDocs" : {
           "description" : "SCILL API Reference",
-          "url" : "https://beta.developers.scillgame.com/api/challenges.html#claim-a-reward"
+          "url" : "https://developers.4players.io/scill/api/challenges/#claim-a-reward"
         },
         "operationId" : "claimPersonalChallengeReward",
         "parameters" : [ {
@@ -1436,7 +1436,7 @@
         "description" : "Get an access token for the Websockets server notifying of updates in real time",
         "externalDocs" : {
           "description" : "SCILL API Reference",
-          "url" : "https://beta.developers.scillgame.com/api/challenges.html#realtime-updates"
+          "url" : "https://developers.4players.io/scill/api/challenges/#1-get-a-topic"
         },
         "operationId" : "generateWebsocketAccessToken",
         "responses" : {
@@ -1489,6 +1489,87 @@
         "description" : "Dev URL"
       } ]
     },
+    "/api/v1/reset-challenges/{appId}/{userId}" : {
+      "description" : "Resets all challenges for a given user",
+      "post" : {
+        "tags" : [ "challenges" ],
+        "summary" : "Resets all challenges for the given app ID and user ID",
+        "description" : "Resets all challenges for the given app ID and user ID",
+        "externalDocs" : {
+          "description" : "SCILL API Reference",
+          "url" : "https://developers.4players.io/scill/api/realtimeupdates/"
+        },
+        "operationId" : "resetUserAppChallenges",
+        "parameters" : [ {
+          "name" : "appId",
+          "in" : "path",
+          "description" : "The app id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "userId",
+          "in" : "path",
+          "description" : "The user id (",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The action has been successful",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ActionResponse"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "servers" : [ {
+        "url" : "https://pcs.scillgame.com",
+        "description" : "Production URL"
+      }, {
+        "url" : "https://pcs-staging.scillgame.com",
+        "description" : "Staging URL"
+      }, {
+        "url" : "https://pcs-dev.scillgame.com",
+        "description" : "Dev URL"
+      } ]
+    },
     "/api/v1/battle-passes/{appId}" : {
       "description" : "Using this endpoint you can query all available Battle Passes for the given product id. Typically this query is used to show Battle Passes the user can purchase. You can use the package_sku field to trigger the corresponding in-app purchase.",
       "get" : {
@@ -1497,7 +1578,7 @@
         "description" : "Get battle passes for the product",
         "externalDocs" : {
           "description" : "SCILL API Reference",
-          "url" : "https://beta.developers.scillgame.com/api/battlepasses.html#retrieve-available-bps"
+          "url" : "https://developers.4players.io/scill/api/battlepasses/#retrieve-available-bps"
         },
         "operationId" : "getBattlePasses",
         "parameters" : [ {
@@ -1581,7 +1662,7 @@
         "description" : "Get active battle passes for the app",
         "externalDocs" : {
           "description" : "SCILL API Reference",
-          "url" : "https://beta.developers.scillgame.com/api/battlepasses.html#retrieve-available-bps"
+          "url" : "https://developers.4players.io/scill/api/battlepasses/#retrieve-available-bps"
         },
         "operationId" : "getActiveBattlePasses",
         "parameters" : [ {
@@ -1665,7 +1746,7 @@
         "description" : "Get unlocked battle passes for the user encoded in the access token",
         "externalDocs" : {
           "description" : "SCILL API Reference",
-          "url" : "https://beta.developers.scillgame.com/api/battlepasses.html#retrieve-available-bps"
+          "url" : "https://developers.4players.io/scill/api/battlepasses/#retrieve-available-bps"
         },
         "operationId" : "getUnlockedBattlePasses",
         "parameters" : [ {
@@ -1749,7 +1830,7 @@
         "description" : "Get battle pass for the product with id",
         "externalDocs" : {
           "description" : "SCILL API Reference",
-          "url" : "https://beta.developers.scillgame.com/api/battlepasses.html#retrieve-battle-pass"
+          "url" : "https://developers.4players.io/scill/api/battlepasses/#retrieve-available-bps"
         },
         "operationId" : "getBattlePass",
         "parameters" : [ {
@@ -1840,7 +1921,7 @@
         "description" : "Get battle pass levels for a battle pass",
         "externalDocs" : {
           "description" : "SCILL API Reference",
-          "url" : "https://developers.scillgame.com/api/battlepasses.html#retrieve-battle-pass"
+          "url" : "https://developers.4players.io/scill/api/battlepasses#retrieve-available-bps"
         },
         "operationId" : "getBattlePassLevels",
         "parameters" : [ {
@@ -1934,7 +2015,7 @@
         "description" : "Get all battle pass levels for an app",
         "externalDocs" : {
           "description" : "SCILL API Reference",
-          "url" : "https://developers.scillgame.com/api/battlepasses.html#retrieve-battle-pass"
+          "url" : "https://developers.4players.io/scill/api/battlepasses/#retrieve-battle-pass"
         },
         "operationId" : "getAllBattlePassLevels",
         "parameters" : [ {
@@ -2018,7 +2099,7 @@
         "description" : "Activate a given battle pass level by id",
         "externalDocs" : {
           "description" : "SCILL API Reference",
-          "url" : "https://beta.developers.scillgame.com/api/battlepasses.html#activate"
+          "url" : "https://developers.4players.io/scill/api/battlepasses/#activate-level"
         },
         "operationId" : "activateBattlePassLevel",
         "parameters" : [ {
@@ -2109,7 +2190,7 @@
         "description" : "Claim the battle pass level id",
         "externalDocs" : {
           "description" : "SCILL API Reference",
-          "url" : "https://beta.developers.scillgame.com/api/battlepasses.html#activate"
+          "url" : "https://developers.4players.io/scill/api/battlepasses/#activate-level"
         },
         "operationId" : "claimBattlePassLevelReward",
         "parameters" : [ {
@@ -2200,7 +2281,7 @@
         "description" : "Unlock the battle pass for a user",
         "externalDocs" : {
           "description" : "SCILL API Reference",
-          "url" : "https://developers.scillgame.com/api/battlepasses.html"
+          "url" : "https://developers.4players.io/scill/api/battlepasses/"
         },
         "operationId" : "unlockBattlePass",
         "parameters" : [ {
@@ -2292,17 +2373,27 @@
         }, {
           "oAuthNoScopes" : [ ]
         } ]
-      }
+      },
+      "servers" : [ {
+        "url" : "https://es.scillgame.com",
+        "description" : "Production URL"
+      }, {
+        "url" : "https://es-staging.scillgame.com",
+        "description" : "Staging URL"
+      }, {
+        "url" : "https://es-dev.scillgame.com",
+        "description" : "Dev URL"
+      } ]
     },
-    "/api/v1/leaderboards/{leaderboardId}" : {
-      "description" : "Get current leaderboard specific by id",
+    "/api/v2/leaderboards/{leaderboardId}" : {
+      "description" : "Get the current leaderboard by id",
       "get" : {
         "tags" : [ "leaderboards" ],
         "summary" : "Retrieve Leaderboard",
-        "description" : "Provides the current leaderboard rankings for a specific leaderboard.",
+        "description" : "Provides the selected leaderboard rankings for a specific leaderboard.",
         "externalDocs" : {
           "description" : "SCILL API Reference",
-          "url" : "https://developers.scillgame.com/api/leaderboards.html"
+          "url" : "https://developers.4players.io/scill/api/leaderboards/#retrieve-leaderboard"
         },
         "operationId" : "getLeaderboard",
         "parameters" : [ {
@@ -2316,9 +2407,54 @@
             "type" : "string"
           }
         }, {
+          "name" : "startDate",
+          "in" : "query",
+          "description" : "The date (in iso format) when the leaderboard starts. Tracking begins once this date is reached.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "format" : "RFC3339",
+            "example" : "2020-08-17T00:00:00Z"
+          }
+        }, {
+          "name" : "endDate",
+          "in" : "query",
+          "description" : "The date (in iso format) when the leaderboard ends. Tracking ends once this date is reached.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "format" : "RFC3339",
+            "example" : "2020-08-17T00:00:00Z"
+          }
+        }, {
+          "name" : "aggregate",
+          "in" : "query",
+          "description" : "The aggregate function for the calculation of the results - can be BEST (returns a single score - either the lowest if ASC sorting is used, or the highest if DESC is used) or SUM (default value - increments (sums up) the scores).",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "example" : "BEST"
+          }
+        }, {
           "name" : "currentPage",
           "in" : "query",
           "description" : "The page index starting at 1. The number of pageSize elements are returned for each page. Default value is 1",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "currentPosition",
+          "in" : "query",
+          "description" : "The starting leaderboard position from which the results should be loaded. The number of results is controlled via the pageSize variable. This parameter overrides the currentPage parameter.",
           "required" : false,
           "style" : "form",
           "explode" : true,
@@ -2352,7 +2488,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/Leaderboard"
+                  "$ref" : "#/components/schemas/LeaderboardResults"
                 }
               }
             }
@@ -2383,23 +2519,78 @@
         }, {
           "oAuthNoScopes" : [ ]
         } ]
-      }
+      },
+      "servers" : [ {
+        "url" : "https://ls.scillgame.com",
+        "description" : "Production URL"
+      }, {
+        "url" : "https://ls-staging.scillgame.com",
+        "description" : "Staging URL"
+      }, {
+        "url" : "https://ls-dev.scillgame.com",
+        "description" : "Dev URL"
+      } ]
     },
-    "/api/v1/leaderboards" : {
-      "description" : "Get all leaderboards",
+    "/api/v2/leaderboards" : {
+      "description" : "Get all leaderboard results",
       "get" : {
         "tags" : [ "leaderboards" ],
         "summary" : "Retrieve Leaderboards",
-        "description" : "Returns an array of Leaderboard items defined for the application.",
+        "description" : "Returns an array of LeaderboardResults items defined for the application.",
         "externalDocs" : {
           "description" : "SCILL API Reference",
-          "url" : "https://developers.scillgame.com/api/leaderboards.html"
+          "url" : "https://developers.4players.io/scill/api/leaderboards/#retrieve-leaderboards"
         },
         "operationId" : "getLeaderboards",
         "parameters" : [ {
+          "name" : "startDate",
+          "in" : "query",
+          "description" : "The date (in iso format) when the leaderboard starts. Tracking begins once this date is passed.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "format" : "RFC3339",
+            "example" : "2020-08-17T00:00:00Z"
+          }
+        }, {
+          "name" : "endDate",
+          "in" : "query",
+          "description" : "The date (in iso format) when the leaderboard ends. Tracking ends once this date is passed.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "format" : "RFC3339",
+            "example" : "2020-08-17T00:00:00Z"
+          }
+        }, {
+          "name" : "aggregate",
+          "in" : "query",
+          "description" : "The aggregate function for the calculation of the results - can be BEST (returns a single score - either the lowest if ASC sorting is used, or the highest if DESC is used) or SUM (default value - increments (sums up) the scores).",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "example" : "BEST"
+          }
+        }, {
           "name" : "currentPage",
           "in" : "query",
           "description" : "The page index starting at 1. The number of pageSize elements are returned for each page. Default value is 1",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "currentPosition",
+          "in" : "query",
+          "description" : "The starting leaderboard position from which the results should be loaded. The number of results is controlled via the pageSize variable. This parameter overrides the currentPage parameter.",
           "required" : false,
           "style" : "form",
           "explode" : true,
@@ -2435,7 +2626,7 @@
                 "schema" : {
                   "type" : "array",
                   "items" : {
-                    "$ref" : "#/components/schemas/Leaderboard"
+                    "$ref" : "#/components/schemas/LeaderboardResults"
                   }
                 }
               }
@@ -2467,17 +2658,27 @@
         }, {
           "oAuthNoScopes" : [ ]
         } ]
-      }
+      },
+      "servers" : [ {
+        "url" : "https://ls.scillgame.com",
+        "description" : "Production URL"
+      }, {
+        "url" : "https://ls-staging.scillgame.com",
+        "description" : "Staging URL"
+      }, {
+        "url" : "https://ls-dev.scillgame.com",
+        "description" : "Dev URL"
+      } ]
     },
-    "/api/v1/leaderboards-members/{memberType}/{memberId}" : {
+    "/api/v2/leaderboards-members/{memberType}/{memberId}" : {
       "description" : "Get the rankings for a specified user for all leaderboards defined in the application",
       "get" : {
         "tags" : [ "leaderboards" ],
-        "summary" : "Retrieve User Rankings",
-        "description" : "Returns an array of LeaderboardRanking items defined for all leaderboards in the application specified for the user. If the member is not in the leaderboard, the rank will be -1 in the LeaderboardRanking object.",
+        "summary" : "Retrieve user rankings across all leaderboards",
+        "description" : "Returns an array of LeaderboardMemberRanking items defined for all leaderboards in the application specified for the user. If the member is not in the leaderboard, the rank will be -1 in the LeaderboardRanking object.",
         "externalDocs" : {
           "description" : "SCILL API Reference",
-          "url" : "https://developers.scillgame.com/api/leaderboards.html"
+          "url" : "https://developers.4players.io/scill/api/leaderboards/#retrieve-user-rankings"
         },
         "operationId" : "getLeaderboardRankings",
         "parameters" : [ {
@@ -2501,6 +2702,41 @@
             "type" : "string"
           }
         }, {
+          "name" : "startDate",
+          "in" : "query",
+          "description" : "The date (in iso format) when the leaderboard starts. Tracking begins once this date is passed.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "format" : "RFC3339",
+            "example" : "2020-08-17T00:00:00Z"
+          }
+        }, {
+          "name" : "endDate",
+          "in" : "query",
+          "description" : "The date (in iso format) when the leaderboard ends. Tracking ends once this date is passed.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "format" : "RFC3339",
+            "example" : "2020-08-17T00:00:00Z"
+          }
+        }, {
+          "name" : "aggregate",
+          "in" : "query",
+          "description" : "The aggregate function for the calculation of the results - can be BEST (returns a single score - either the lowest if ASC sorting is used, or the highest if DESC is used) or SUM (default value - increments (sums up) the scores).",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "example" : "BEST"
+          }
+        }, {
           "name" : "language",
           "in" : "query",
           "description" : "Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ...",
@@ -2513,7 +2749,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "A Leaderboard object with information about the leaderboard and current rankings",
+            "description" : "An array of LeaderboardMemberRanking objects with information about all the leaderboard and current rankings",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -2551,17 +2787,27 @@
         }, {
           "oAuthNoScopes" : [ ]
         } ]
-      }
+      },
+      "servers" : [ {
+        "url" : "https://ls.scillgame.com",
+        "description" : "Production URL"
+      }, {
+        "url" : "https://ls-staging.scillgame.com",
+        "description" : "Staging URL"
+      }, {
+        "url" : "https://ls-dev.scillgame.com",
+        "description" : "Dev URL"
+      } ]
     },
-    "/api/v1/leaderboards-members/{memberType}/{memberId}/{leaderboardId}" : {
+    "/api/v2/leaderboards-members/{memberType}/{memberId}/{leaderboardId}" : {
       "description" : "Get the rankings for a specified user and the specified leaderboard defined in the application. If the member is not in the leaderboard, the rank will be -1 in the LeaderboardRanking object.",
       "get" : {
         "tags" : [ "leaderboards" ],
-        "summary" : "Retrieve User Ranking",
+        "summary" : "Retrieve user ranking for a single leaderboard",
         "description" : "Returns a LeaderboardMemberRanking item for the specified leaderboard. Use this route to get the position of a user of team in a specified leaderboard.",
         "externalDocs" : {
           "description" : "SCILL API Reference",
-          "url" : "https://developers.scillgame.com/api/leaderboards.html"
+          "url" : "https://developers.4players.io/scill/api/leaderboards/#retrieve-user-rankings"
         },
         "operationId" : "getLeaderboardRanking",
         "parameters" : [ {
@@ -2595,6 +2841,41 @@
             "type" : "string"
           }
         }, {
+          "name" : "startDate",
+          "in" : "query",
+          "description" : "The date (in iso format) when the leaderboard starts. Tracking begins once this date is passed.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "format" : "RFC3339",
+            "example" : "2020-08-17T00:00:00Z"
+          }
+        }, {
+          "name" : "endDate",
+          "in" : "query",
+          "description" : "The date (in iso format) when the leaderboard ends. Tracking ends once this date is passed.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "format" : "RFC3339",
+            "example" : "2020-08-17T00:00:00Z"
+          }
+        }, {
+          "name" : "aggregate",
+          "in" : "query",
+          "description" : "The aggregate function for the calculation of the results - can be BEST (returns a single score - either the lowest if ASC sorting is used, or the highest if DESC is used) or SUM (default value - increments (sums up) the scores).",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "example" : "BEST"
+          }
+        }, {
           "name" : "language",
           "in" : "query",
           "description" : "Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ...",
@@ -2607,7 +2888,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "A Leaderboard object with information about the leaderboard and current rankings",
+            "description" : "A LeaderboardMemberRanking object with information about the leaderboard and current rankings",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -2642,7 +2923,98 @@
         }, {
           "oAuthNoScopes" : [ ]
         } ]
-      }
+      },
+      "servers" : [ {
+        "url" : "https://ls.scillgame.com",
+        "description" : "Production URL"
+      }, {
+        "url" : "https://ls-staging.scillgame.com",
+        "description" : "Staging URL"
+      }, {
+        "url" : "https://ls-dev.scillgame.com",
+        "description" : "Dev URL"
+      } ]
+    },
+    "/api/v2/leaderboards-reset/{appId}/{leaderboardId}" : {
+      "description" : "Delete all leaderboard data, i.e. reset the leaderboard.",
+      "delete" : {
+        "tags" : [ "leaderboards" ],
+        "summary" : "Delete all leaderboard data, i.e. reset the leaderboard.",
+        "description" : "Delete all leaderboard data, i.e. reset the leaderboard.",
+        "externalDocs" : {
+          "description" : "SCILL API Reference",
+          "url" : "https://developers.4players.io/scill/api/leaderboards/#reset-leaderboard-data"
+        },
+        "operationId" : "resetLeaderboardRankings",
+        "parameters" : [ {
+          "name" : "appId",
+          "in" : "path",
+          "description" : "The application ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "leaderboardId",
+          "in" : "path",
+          "description" : "The leaderboard ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The action has been successful",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ActionResponse"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The specified resource was not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "BearerAuth" : [ ]
+        }, {
+          "oAuthNoScopes" : [ ]
+        } ]
+      },
+      "servers" : [ {
+        "url" : "https://ls.scillgame.com",
+        "description" : "Production URL"
+      }, {
+        "url" : "https://ls-staging.scillgame.com",
+        "description" : "Staging URL"
+      }, {
+        "url" : "https://ls-dev.scillgame.com",
+        "description" : "Dev URL"
+      } ]
     }
   },
   "components" : {
@@ -2666,7 +3038,7 @@
         "description" : "Can be any object that is attached to the user. You can set these values in the user service. For example you can provide a user name and an avatar image url.",
         "nullable" : true
       },
-      "Leaderboard" : {
+      "LeaderboardResults" : {
         "type" : "object",
         "properties" : {
           "leaderboard_id" : {
@@ -2674,34 +3046,22 @@
             "description" : "The id of the leaderboard",
             "example" : "641184035742547979"
           },
-          "name" : {
+          "leaderboard_name" : {
             "type" : "string",
             "description" : "The name of the leaderboard",
             "example" : "Hall of Fame"
           },
-          "grouped_by_users" : {
+          "leaderboard_sort_order_ascending" : {
+            "type" : "boolean",
+            "description" : "Determines the results sort order. If true, the order is ascending, otherwise, it's descending.",
+            "example" : true
+          },
+          "leaderboard_results_by_member_type" : {
             "type" : "array",
-            "description" : "An array of LeaderboardRanking Items for individual users",
+            "description" : "This object uses twwo keys - \"user\" and \"team\", both of which contain ranking info",
             "items" : {
-              "$ref" : "#/components/schemas/LeaderboardRanking"
+              "$ref" : "#/components/schemas/LeaderboardMemberTypeRanking"
             }
-          },
-          "grouped_by_teams" : {
-            "type" : "array",
-            "description" : "An array of LeaderboardRanking Items for teams. Provide a team_id in the event payload to also create leaderboards for teams",
-            "items" : {
-              "$ref" : "#/components/schemas/LeaderboardRanking"
-            }
-          },
-          "num_teams" : {
-            "type" : "number",
-            "description" : "The total number of team rankings available in the leaderboard",
-            "example" : 20482
-          },
-          "num_users" : {
-            "type" : "number",
-            "description" : "The total number of user rankings available in the leaderboard",
-            "example" : 137299
           }
         },
         "description" : "The Leaderboard object contains information about the leaderboard itself like the name and the id, but also contains actual rankings for users and teams."
@@ -2719,7 +3079,7 @@
             "description" : "The id of the leaderboard",
             "example" : "641184035742547979"
           },
-          "name" : {
+          "leaderboard_name" : {
             "type" : "string",
             "description" : "The name of the leaderboard",
             "example" : "Hall of Fame"
@@ -2737,6 +3097,23 @@
         },
         "description" : "The Leaderboard object contains information about the leaderboard itself like the name and the id"
       },
+      "LeaderboardChanged" : {
+        "type" : "object",
+        "properties" : {
+          "webhook_type" : {
+            "type" : "string",
+            "description" : "The type of the notification. If you receive this payload, it's most likely leaderboard-changed.",
+            "example" : "laderboard-info"
+          },
+          "old_leaderboard" : {
+            "$ref" : "#/components/schemas/LeaderboardInfo"
+          },
+          "new_leaderboard" : {
+            "$ref" : "#/components/schemas/LeaderboardInfo"
+          }
+        },
+        "description" : "This object is sent via Webhook or notifications of type leaderboard-changed."
+      },
       "LeaderboardMemberRanking" : {
         "type" : "object",
         "properties" : {
@@ -2745,18 +3122,45 @@
             "description" : "The id of the leaderboard",
             "example" : "641184035742547979"
           },
-          "name" : {
+          "leaderboard_name" : {
             "type" : "string",
             "description" : "The name of the leaderboard",
             "example" : "Hall of Fame"
           },
-          "member" : {
-            "$ref" : "#/components/schemas/LeaderboardRanking"
+          "leaderboard_sort_order_ascending" : {
+            "type" : "boolean",
+            "description" : "Determines the results sort order. If true, the order is ascending, otherwise, it's descending.",
+            "example" : true
+          },
+          "leaderboard_member" : {
+            "type" : "array",
+            "description" : "Returns the LeaderboardMember object containing user ranking information",
+            "items" : {
+              "$ref" : "#/components/schemas/LeaderboardMember"
+            }
           }
         },
-        "description" : "You get these object if you query the leaderboard ranking for a specific user. Only the requested user will be returned."
+        "description" : "The Leaderboard object contains information about the leaderboard itself like the name and the id"
       },
-      "LeaderboardRanking" : {
+      "LeaderboardMemberTypeRanking" : {
+        "type" : "object",
+        "properties" : {
+          "count" : {
+            "type" : "integer",
+            "description" : "The total number of members included in the results",
+            "example" : 123
+          },
+          "members" : {
+            "type" : "array",
+            "description" : "An array of LeaderboardMember objects",
+            "items" : {
+              "$ref" : "#/components/schemas/LeaderboardMember"
+            }
+          }
+        },
+        "description" : "You get this object if you query the leaderboard ranking for a specific user. Only the requested user will be returned."
+      },
+      "LeaderboardMember" : {
         "type" : "object",
         "properties" : {
           "member_id" : {
@@ -2779,11 +3183,43 @@
             "description" : "The position within the leaderboard",
             "example" : 3
           },
+          "metadata_results" : {
+            "type" : "array",
+            "description" : "Returns an array of the LeaderboardMemberMetadata objects containing user ranking metadata information",
+            "items" : {
+              "$ref" : "#/components/schemas/LeaderboardMemberMetadata"
+            }
+          },
           "additional_info" : {
             "$ref" : "#/components/schemas/UserInfo"
           }
         },
         "description" : "The ranking for the user or team in the leaderboard"
+      },
+      "LeaderboardMemberMetadata" : {
+        "type" : "object",
+        "properties" : {
+          "key" : {
+            "type" : "string",
+            "description" : "The event type key used for ranking",
+            "example" : "required_time"
+          },
+          "ranked" : {
+            "type" : "boolean",
+            "description" : "Determines if the user is ranked for that event type key. If false, no score and rank will be provided"
+          },
+          "score" : {
+            "type" : "integer",
+            "description" : "The score achieved as an integer value. If you want to store floats, for example laptimes you need to convert them into an int before (i.e. multiply by 100 to get hundreds of seconds and format back to float in UI)",
+            "example" : 3843
+          },
+          "rank" : {
+            "type" : "integer",
+            "description" : "The position within the leaderboard",
+            "example" : 3
+          }
+        },
+        "description" : "The object containing secondary metadata ranking information, useful for tied scores on the main tracking parameter"
       },
       "LeaderboardScore" : {
         "type" : "object",
@@ -2813,7 +3249,7 @@
             "$ref" : "#/components/schemas/LeaderboardInfo"
           },
           "member_data" : {
-            "$ref" : "#/components/schemas/LeaderboardRanking"
+            "$ref" : "#/components/schemas/LeaderboardMember"
           },
           "old_leaderboard_ranking" : {
             "$ref" : "#/components/schemas/LeaderboardScore"
@@ -3944,23 +4380,6 @@
           }
         },
         "description" : "This object holds some basic info about lifetime of a battle pass and is used in expired notifications."
-      },
-      "BattlePassExpiredPayload" : {
-        "type" : "object",
-        "properties" : {
-          "webhook_type" : {
-            "type" : "string",
-            "description" : "The type of the notification. If you receive this payload, it's most likely battlepass-expired",
-            "example" : "battlepass-expired"
-          },
-          "old_battle_pass" : {
-            "$ref" : "#/components/schemas/BattlePassState"
-          },
-          "new_battle_pass" : {
-            "$ref" : "#/components/schemas/BattlePassState"
-          }
-        },
-        "description" : "This object is sent via Webhook or notifications of type battlepass-expired."
       }
     },
     "responses" : {
@@ -4048,7 +4467,7 @@
     "securitySchemes" : {
       "BearerAuth" : {
         "type" : "http",
-        "description" : "You can either use the API-Key or an Access Token generated earlier with the auth/generate-access-token route. Only use API-Key on server side, never expose it on client side. Use Access Tokens where possible. More info on this topic can be found here https://beta.developers.scillgame.com/api/authentication.html",
+        "description" : "You can either use the API-Key or an Access Token generated earlier with the auth/generate-access-token route. Only use API-Key on server side, never expose it on client side. Use Access Tokens where possible. More info on this topic can be found here https://developers.4players.io/scill/api/authentication/",
         "scheme" : "bearer",
         "bearerFormat" : "Access Token or API-Key"
       },
