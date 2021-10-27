@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   description: "SCILL gives you the tools to activate, retain and grow your user base in your app or game by bringing you features well known in the gaming industry: Gamification. We take care of the services and technology involved so you can focus on your game and content."
-  version: "1.0.0"
+  version: 1.0.0
   title: SCILL API
   contact:
     email: support@scillgame.com
@@ -21,6 +21,8 @@ tags:
     description: Challenges
   - name: battle-passes
     description: BattlePasses
+  - name: leaderboardsV2
+    description: Leaderboards V2
   - name: leaderboards
     description: Leaderboards
 paths:
@@ -42,7 +44,7 @@ paths:
       operationId: generateAccessToken
       externalDocs:
         description: SCILL API Reference
-        url: https://beta.developers.scillgame.com/api/authentication.html#access-tokens
+        url: https://developers.4players.io/scill/api/authentication/#access-tokens
       security:
         - BearerAuth: []
         - oAuthNoScopes: []
@@ -278,7 +280,7 @@ paths:
       operationId: sendEvent
       externalDocs:
         description: SCILL API Reference
-        url: https://beta.developers.scillgame.com/api/events.html#sending-events
+        url: https://developers.4players.io/scill/api/events/#sending-events
       description: Post an event to the SCILL backend
       security:
         - BearerAuth: []
@@ -315,7 +317,7 @@ paths:
       operationId: getAvailableEvents
       externalDocs:
         description: SCILL API Reference
-        url: https://developers.scillgame.com/events.html
+        url: https://developers.4players.io/scill/events/
       description: Get all available events and required and optional properties
       responses:
         '200':
@@ -345,7 +347,7 @@ paths:
       operationId: getPersonalChallenges
       externalDocs:
         description: SCILL API Reference
-        url: https://beta.developers.scillgame.com/api/challenges.html#request-challenges
+        url: https://developers.4players.io/scill/api/challenges/#request-challenges
       description: Get personal challenges organized in categories
       security:
         - BearerAuth: []
@@ -413,7 +415,7 @@ paths:
       operationId: getUnresolvedPersonalChallenges
       externalDocs:
         description: SCILL API Reference
-        url: https://beta.developers.scillgame.com/api/challenges.html#request-challenges
+        url: https://developers.4players.io/scill/api/challenges/#get-all-unresolved-challenges
       description: Get personal challenges organized in categories that are not yet finished
       security:
         - BearerAuth: []
@@ -481,7 +483,7 @@ paths:
       operationId: getAllPersonalChallenges
       externalDocs:
         description: SCILL API Reference
-        url: https://beta.developers.scillgame.com/api/challenges.html#request-challenges
+        url: https://developers.4players.io/scill/api/challenges/#request-challenges
       description: Get personal challenges organized in categories that are not yet finished
       security:
         - BearerAuth: []
@@ -549,7 +551,7 @@ paths:
       operationId: getPersonalChallengeById
       externalDocs:
         description: SCILL API Reference
-        url: https://beta.developers.scillgame.com/api/challenges.html#request-challenges
+        url: https://developers.4players.io/scill/api/challenges/#request-challenges
       description: Get personal challenges organized in categories
       security:
         - BearerAuth: []
@@ -602,7 +604,7 @@ paths:
       operationId: getActivePersonalChallenges
       externalDocs:
         description: SCILL API Reference
-        url: https://beta.developers.scillgame.com/api/challenges.html#request-challenges
+        url: https://developers.4players.io/scill/api/challenges/#get-all-active-challenges
       description: Get active personal challenges organized in categories
       security:
         - BearerAuth: []
@@ -650,7 +652,7 @@ paths:
       operationId: unlockPersonalChallenge
       externalDocs:
         description: SCILL API Reference
-        url: https://beta.developers.scillgame.com/api/challenges.html#unlock-a-challenge
+        url: https://developers.4players.io/scill/api/challenges/#unlock-a-challenge
       description: Unlock a personal challenge by product id and challenge id
       security:
         - BearerAuth: []
@@ -698,7 +700,7 @@ paths:
       operationId: activatePersonalChallenge
       externalDocs:
         description: SCILL API Reference
-        url: https://beta.developers.scillgame.com/api/challenges.html#activate-a-challenge
+        url: https://developers.4players.io/scill/api/challenges/#activate-a-challenge
       description: Activate a personal challenge by product id and user challenge id
       security:
         - BearerAuth: []
@@ -746,7 +748,7 @@ paths:
       operationId: cancelPersonalChallenge
       externalDocs:
         description: SCILL API Reference
-        url: https://beta.developers.scillgame.com/api/challenges.html#cancel-a-challenge
+        url: https://developers.4players.io/scill/api/challenges/#cancel-a-challenge
       description: Cancel an active personal challenge by product id and user challenge id
       security:
         - BearerAuth: []
@@ -794,7 +796,7 @@ paths:
       operationId: claimPersonalChallengeReward
       externalDocs:
         description: SCILL API Reference
-        url: https://beta.developers.scillgame.com/api/challenges.html#claim-a-reward
+        url: https://developers.4players.io/scill/api/challenges/#claim-a-reward
       description: Claim the reward of a finished personal challenge by product id and user challenge id
       security:
         - BearerAuth: []
@@ -843,7 +845,7 @@ paths:
       operationId: generateWebsocketAccessToken
       externalDocs:
         description: SCILL API Reference
-        url: https://beta.developers.scillgame.com/api/challenges.html#realtime-updates
+        url: https://developers.4players.io/scill/api/challenges/#1-get-a-topic
       description: Get an access token for the Websockets server notifying of updates in real time
       security:
         - BearerAuth: []
@@ -855,6 +857,48 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SocketToken'
+        '403':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /api/v1/reset-challenges/{appId}/{userId}:
+    servers:
+      - description: Production URL
+        url: https://pcs.scillgame.com
+      - description: Staging URL
+        url: https://pcs-staging.scillgame.com
+      - description: Dev URL
+        url: https://pcs-dev.scillgame.com
+    description: "Resets all challenges for a given user"
+    post:
+      tags: [
+          "challenges"
+      ]
+      summary: Resets all challenges for the given app ID and user ID
+      operationId: resetUserAppChallenges
+      externalDocs:
+        description: SCILL API Reference
+        url: https://developers.4players.io/scill/api/realtimeupdates/
+      description: Resets all challenges for the given app ID and user ID
+      security:
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      parameters:
+        - in: path
+          name: appId
+          description: The app id
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: userId
+          description: The user id (
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/ActionSuccessful'
         '403':
           $ref: '#/components/responses/Unauthorized'
         '404':
@@ -876,7 +920,7 @@ paths:
       operationId: getBattlePasses
       externalDocs:
         description: SCILL API Reference
-        url: https://beta.developers.scillgame.com/api/battlepasses.html#retrieve-available-bps
+        url: https://developers.4players.io/scill/api/battlepasses/#retrieve-available-bps
       description: Get battle passes for the product
       security:
         - BearerAuth: []
@@ -924,7 +968,7 @@ paths:
       operationId: getActiveBattlePasses
       externalDocs:
         description: SCILL API Reference
-        url: https://beta.developers.scillgame.com/api/battlepasses.html#retrieve-available-bps
+        url: https://developers.4players.io/scill/api/battlepasses/#retrieve-available-bps
       description: Get active battle passes for the app
       security:
         - BearerAuth: []
@@ -972,7 +1016,7 @@ paths:
       operationId: getUnlockedBattlePasses
       externalDocs:
         description: SCILL API Reference
-        url: https://beta.developers.scillgame.com/api/battlepasses.html#retrieve-available-bps
+        url: https://developers.4players.io/scill/api/battlepasses/#retrieve-available-bps
       description: Get unlocked battle passes for the user encoded in the access token
       security:
         - BearerAuth: []
@@ -1020,7 +1064,7 @@ paths:
       operationId: getBattlePass
       externalDocs:
         description: SCILL API Reference
-        url: https://beta.developers.scillgame.com/api/battlepasses.html#retrieve-battle-pass
+        url: https://developers.4players.io/scill/api/battlepasses/#retrieve-available-bps
       description: Get battle pass for the product with id
       security:
         - BearerAuth: []
@@ -1072,7 +1116,7 @@ paths:
       operationId: getBattlePassLevels
       externalDocs:
         description: SCILL API Reference
-        url: https://developers.scillgame.com/api/battlepasses.html#retrieve-battle-pass
+        url: https://developers.4players.io/scill/api/battlepasses#retrieve-available-bps
       description: Get battle pass levels for a battle pass
       security:
         - BearerAuth: []
@@ -1126,7 +1170,7 @@ paths:
       operationId: getAllBattlePassLevels
       externalDocs:
         description: SCILL API Reference
-        url: https://developers.scillgame.com/api/battlepasses.html#retrieve-battle-pass
+        url: https://developers.4players.io/scill/api/battlepasses/#retrieve-battle-pass
       description: Get all battle pass levels for an app
       security:
         - BearerAuth: []
@@ -1174,7 +1218,7 @@ paths:
       operationId: activateBattlePassLevel
       externalDocs:
         description: SCILL API Reference
-        url: https://beta.developers.scillgame.com/api/battlepasses.html#activate
+        url: https://developers.4players.io/scill/api/battlepasses/#activate-level
       description: Activate a given battle pass level by id
       security:
         - BearerAuth: []
@@ -1222,7 +1266,7 @@ paths:
       operationId: claimBattlePassLevelReward
       externalDocs:
         description: SCILL API Reference
-        url: https://beta.developers.scillgame.com/api/battlepasses.html#activate
+        url: https://developers.4players.io/scill/api/battlepasses/#activate-level
       description: Claim the battle pass level id
       security:
         - BearerAuth: []
@@ -1252,8 +1296,385 @@ paths:
         '403':
           $ref: '#/components/responses/Unauthorized'
         '404':
-          $ref: '#/components/responses/NotFound'                    
+          $ref: '#/components/responses/NotFound'                           
+  /api/v2/leaderboards/{leaderboardId}:
+    servers:
+      - description: Production URL
+        url: https://ls.scillgame.com
+      - description: Staging URL
+        url: https://ls-staging.scillgame.com
+      - description: Dev URL
+        url: https://ls-dev.scillgame.com
+    description: Get the current leaderboard by id
+    get:
+      tags: [
+        "leaderboardsV2"  
+      ]
+      summary: Retrieve Leaderboard
+      operationId: getLeaderboardV2
+      externalDocs:
+        description: SCILL API Reference
+        url: https://developers.4players.io/scill/api/leaderboards/#retrieve-leaderboard
+      description: Provides the selected leaderboard V2 rankings for a specific leaderboard.
+      security: 
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      parameters:
+        - in: path
+          name: leaderboardId
+          description: The id of the leaderboard
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: startDate
+          description: The starting date for fetching results.
+          schema:
+            type: string
+            format: RFC3339
+            example: '2020-08-17T00:00:00Z'
+          required: false
+        - in: query
+          name: endDate
+          description: The ending date for fetching results.
+          schema:
+            type: string
+            format: RFC3339
+            example: '2020-08-17T00:00:00Z'
+          required: false
+        - in: query
+          name: aggregate
+          description: The aggregate function for the calculation of the results - can be BEST (returns a single score - either the lowest if ASC sorting is used, or the highest if DESC is used) or SUM (default value - increments (sums up) the scores).
+          schema:
+            type: string
+            example: 'BEST'
+          required: false
+        - in: query
+          name: currentPage
+          schema:
+            type: integer
+          description: The page index starting at 1. The number of pageSize elements are returned for each page. Default value is 1
+          required: false
+        - in: query
+          name: currentPosition
+          schema:
+            type: integer
+          description: The starting leaderboard position from which the results should be loaded. The number of results is controlled via the pageSize variable. This parameter overrides the currentPage parameter.
+          required: false
+        - in: query
+          name: pageSize
+          schema:
+            type: integer
+          description: The number of elements per page. Default is 25.
+          required: false      
+        - in: query
+          name: language
+          description: Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ...
+          required: false
+          schema:
+            type: string                 
+      responses:
+        '200':
+          description: A Leaderboard object with information about the leaderboard and current rankings
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeaderboardV2Results'
+        '403':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'          
+  /api/v2/leaderboards:
+    servers:
+      - description: Production URL
+        url: https://ls.scillgame.com
+      - description: Staging URL
+        url: https://ls-staging.scillgame.com
+      - description: Dev URL
+        url: https://ls-dev.scillgame.com
+    description: Get all leaderboard results
+    get:
+      tags: [
+        "leaderboardsV2"  
+      ]
+      summary: Retrieve Leaderboards
+      operationId: getLeaderboardsV2
+      externalDocs:
+        description: SCILL API Reference
+        url: https://developers.4players.io/scill/api/leaderboards/#retrieve-leaderboards
+      description: Returns an array of LeaderboardV2Results items defined for the application.
+      security: 
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      parameters:
+        - in: query
+          name: startDate
+          description: The starting date for fetching results.
+          schema:
+            type: string
+            format: RFC3339
+            example: '2020-08-17T00:00:00Z'
+          required: false
+        - in: query
+          name: endDate
+          description: The ending date for fetching results.
+          schema:
+            type: string
+            format: RFC3339
+            example: '2020-08-17T00:00:00Z'
+          required: false
+        - in: query
+          name: aggregate
+          description: The aggregate function for the calculation of the results - can be BEST (returns a single score - either the lowest if ASC sorting is used, or the highest if DESC is used) or SUM (default value - increments (sums up) the scores).
+          schema:
+            type: string
+            example: 'BEST'
+          required: false
+        - in: query
+          name: currentPage
+          schema:
+            type: integer
+          description: The page index starting at 1. The number of pageSize elements are returned for each page. Default value is 1
+          required: false
+        - in: query
+          name: currentPosition
+          schema:
+            type: integer
+          description: The starting leaderboard position from which the results should be loaded. The number of results is controlled via the pageSize variable. This parameter overrides the currentPage parameter.
+          required: false
+        - in: query
+          name: pageSize
+          schema:
+            type: integer
+          description: The number of elements per page. Default is 25.
+          required: false          
+        - in: query
+          name: language
+          description: Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ...
+          required: false
+          schema:
+            type: string                 
+      responses:
+        '200':
+          description: A Leaderboard object with information about the leaderboard and current rankings
+          content:
+            application/json:
+              schema:
+                type: array
+                items:              
+                  $ref: '#/components/schemas/LeaderboardV2Results'
+        '403':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'                  
+  /api/v2/leaderboards-members/{memberType}/{memberId}:
+    servers:
+      - description: Production URL
+        url: https://ls.scillgame.com
+      - description: Staging URL
+        url: https://ls-staging.scillgame.com
+      - description: Dev URL
+        url: https://ls-dev.scillgame.com
+    description: Get the rankings for a specified user for all leaderboards V2 defined in the application
+    get:
+      tags: [
+        "leaderboardsV2"  
+      ]
+      summary: Retrieve user rankings across all leaderboards
+      operationId: getLeaderboardV2Rankings
+      externalDocs:
+        description: SCILL API Reference
+        url: https://developers.4players.io/scill/api/leaderboards/#retrieve-user-rankings
+      description: Returns an array of LeaderboardV2MemberRanking items defined for all leaderboards in the application specified for the user. If the member is not in the leaderboard, the rank will be -1 in the LeaderboardRanking object.
+      security: 
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      parameters:
+        - in: path
+          name: memberType
+          schema:
+            type: string
+          description: The member type, can be user or team (right now) and sets which leaderboards should be selected.
+          required: true
+        - in: path
+          name: memberId
+          schema:
+            type: string
+          description: Either the user_id or team_id you used when sending the events. The memberType flag identifies which one is used.
+          required: true    
+        - in: query
+          name: startDate
+          description: The starting date for fetching results.
+          schema:
+            type: string
+            format: RFC3339
+            example: '2020-08-17T00:00:00Z'
+          required: false
+        - in: query
+          name: endDate
+          description: The ending date for fetching results.
+          schema:
+            type: string
+            format: RFC3339
+            example: '2020-08-17T00:00:00Z'
+          required: false
+        - in: query
+          name: aggregate
+          description: The aggregate function for the calculation of the results - can be BEST (returns a single score - either the lowest if ASC sorting is used, or the highest if DESC is used) or SUM (default value - increments (sums up) the scores).
+          schema:
+            type: string
+            example: 'BEST'
+          required: false      
+        - in: query
+          name: language
+          description: Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ...
+          required: false
+          schema:
+            type: string                 
+      responses:
+        '200':
+          description: An array of LeaderboardV2MemberRanking objects with information about all the leaderboard and current rankings
+          content:
+            application/json:
+              schema:
+                type: array
+                items:              
+                  $ref: '#/components/schemas/LeaderboardV2MemberRanking'
+        '403':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'                     
+  /api/v2/leaderboards-members/{memberType}/{memberId}/{leaderboardId}:
+    servers:
+      - description: Production URL
+        url: https://ls.scillgame.com
+      - description: Staging URL
+        url: https://ls-staging.scillgame.com
+      - description: Dev URL
+        url: https://ls-dev.scillgame.com
+    description: Get the rankings for a specified user and the specified leaderboard V2 defined in the application. If the member is not in the leaderboard, the rank will be -1 in the LeaderboardRanking object.
+    get:
+      tags: [
+        "leaderboardsV2"  
+      ]
+      summary: Retrieve user ranking for a single leaderboard V2
+      operationId: getLeaderboardV2Ranking
+      externalDocs:
+        description: SCILL API Reference
+        url: https://developers.4players.io/scill/api/leaderboards/#retrieve-user-rankings
+      description: Returns a LeaderboardV2MemberRanking item for the specified leaderboard. Use this route to get the position of a user of team in a specified leaderboard.
+      security: 
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      parameters:
+        - in: path
+          name: memberType
+          schema:
+            type: string
+          description: The member type, can be user or team (right now) and sets which leaderboards should be selected.
+          required: true
+        - in: path
+          name: memberId
+          schema:
+            type: string
+          description: Either the user_id or team_id you used when sending the events. The memberType flag identifies which one is used.
+          required: true         
+        - in: path
+          name: leaderboardId
+          description: The id of the leaderboard
+          required: true
+          schema:
+            type: string   
+        - in: query
+          name: startDate
+          description: The starting date for fetching results.
+          schema:
+            type: string
+            format: RFC3339
+            example: '2020-08-17T00:00:00Z'
+          required: false
+        - in: query
+          name: endDate
+          description: The ending date for fetching results.
+          schema:
+            type: string
+            format: RFC3339
+            example: '2020-08-17T00:00:00Z'
+          required: false
+        - in: query
+          name: aggregate
+          description: The aggregate function for the calculation of the results - can be BEST (returns a single score - either the lowest if ASC sorting is used, or the highest if DESC is used) or SUM (default value - increments (sums up) the scores).
+          schema:
+            type: string
+            example: 'BEST'
+          required: false       
+        - in: query
+          name: language
+          description: Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ...
+          required: false
+          schema:
+            type: string                   
+      responses:
+        '200':
+          description: A LeaderboardMemberRankings object with information about the leaderboard and current rankings
+          content:
+            application/json:
+              schema:              
+                $ref: '#/components/schemas/LeaderboardV2MemberRanking'
+        '403':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /api/v2/leaderboards-reset/{appId}/{leaderboardId}:
+    servers:
+      - description: Production URL
+        url: https://ls.scillgame.com
+      - description: Staging URL
+        url: https://ls-staging.scillgame.com
+      - description: Dev URL
+        url: https://ls-dev.scillgame.com
+    description: Deletes all leaderboard V2 data, i.e. reset the leaderboard V2.
+    delete:
+      tags: [
+        "leaderboardsV2"  
+      ]
+      summary: Deletes all leaderboard V2 data, i.e. reset the leaderboard V2.
+      operationId: resetLeaderboardV2Rankings
+      externalDocs:
+        description: SCILL API Reference
+        url: https://developers.4players.io/scill/api/leaderboards/#reset-leaderboard-data
+      description: Deletes all leaderboard V2 data, i.e. reset the leaderboard V2.
+      security: 
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      parameters:      
+        - in: path
+          name: appId
+          description: The application ID
+          required: true
+          schema:
+            type: string  
+        - in: path
+          name: leaderboardId
+          schema:
+            type: string
+          description: The leaderboard ID
+          required: true                 
+      responses:
+        '200':
+          $ref: '#/components/responses/ActionSuccessful'
+        '403':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'   
   /api/v1/battle-passes/{appId}/unlock/{battlePassId}:
+    servers:
+      - description: Production URL
+        url: https://es.scillgame.com
+      - description: Staging URL
+        url: https://es-staging.scillgame.com
+      - description: Dev URL
+        url: https://es-dev.scillgame.com
     description: Unlock the specified battle pass for the user provided in the access token. You can provide purchase info like price and currency.
     post:
       tags: [
@@ -1263,7 +1684,7 @@ paths:
       operationId: unlockBattlePass
       externalDocs:
         description: SCILL API Reference
-        url: https://developers.scillgame.com/api/battlepasses.html
+        url: https://developers.4players.io/scill/api/battlepasses/
       description: Unlock the battle pass for a user
       security: 
         - BearerAuth: []
@@ -1302,7 +1723,7 @@ paths:
         '403':
           $ref: '#/components/responses/Unauthorized'
         '404':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/NotFound'  
   /api/v1/leaderboards/{leaderboardId}:
     description: Get current leaderboard specific by id
     get:
@@ -1336,7 +1757,23 @@ paths:
           schema:
             type: integer
           description: The number of elements per page. Default is 25.
-          required: false      
+          required: false   
+        - in: query
+          name: startDate
+          description: The starting date for fetching results.
+          schema:
+            type: string
+            format: RFC3339
+            example: '2020-08-17T00:00:00Z'
+          required: false
+        - in: query
+          name: endDate
+          description: The ending date for fetching results.
+          schema:
+            type: string
+            format: RFC3339
+            example: '2020-08-17T00:00:00Z'
+          required: false     
         - in: query
           name: language
           description: Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ...
@@ -1381,7 +1818,23 @@ paths:
           schema:
             type: integer
           description: The number of elements per page. Default is 25.
-          required: false          
+          required: false 
+        - in: query
+          name: startDate
+          description: The starting date for fetching results.
+          schema:
+            type: string
+            format: RFC3339
+            example: '2020-08-17T00:00:00Z'
+          required: false
+        - in: query
+          name: endDate
+          description: The ending date for fetching results.
+          schema:
+            type: string
+            format: RFC3339
+            example: '2020-08-17T00:00:00Z'
+          required: false           
         - in: query
           name: language
           description: Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ...
@@ -1428,7 +1881,23 @@ paths:
           schema:
             type: string
           description: Either the user_id or team_id you used when sending the events. The memberType flag identifies which one is used.
-          required: true         
+          required: true  
+        - in: query
+          name: startDate
+          description: The starting date for fetching results.
+          schema:
+            type: string
+            format: RFC3339
+            example: '2020-08-17T00:00:00Z'
+          required: false
+        - in: query
+          name: endDate
+          description: The ending date for fetching results.
+          schema:
+            type: string
+            format: RFC3339
+            example: '2020-08-17T00:00:00Z'
+          required: false         
         - in: query
           name: language
           description: Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ...
@@ -1481,7 +1950,23 @@ paths:
           description: The id of the leaderboard
           required: true
           schema:
-            type: string          
+            type: string   
+        - in: query
+          name: startDate
+          description: The starting date for fetching results.
+          schema:
+            type: string
+            format: RFC3339
+            example: '2020-08-17T00:00:00Z'
+          required: false
+        - in: query
+          name: endDate
+          description: The ending date for fetching results.
+          schema:
+            type: string
+            format: RFC3339
+            example: '2020-08-17T00:00:00Z'
+          required: false    
         - in: query
           name: language
           description: Set the language. Content can be translated in the Admin Panel. Values can be international language codes like de, en, fr, it, ...
@@ -1498,7 +1983,55 @@ paths:
         '403':
           $ref: '#/components/responses/Unauthorized'
         '404':
-          $ref: '#/components/responses/NotFound'                      
+          $ref: '#/components/responses/NotFound'
+  /api/v1/reset-leaderboard/{memberType}/{appId}/{memberId}:
+    servers:
+      - description: Production URL
+        url: https://ls.scillgame.com
+      - description: Staging URL
+        url: https://ls-staging.scillgame.com
+      - description: Dev URL
+        url: https://ls-dev.scillgame.com
+    description: Delete all leaderboard data, i.e. reset the leaderboard for the specified member.
+    delete:
+      tags: [
+        "leaderboards"  
+      ]
+      summary: Delete all leaderboard data, i.e. reset the leaderboard for the specified member.
+      operationId: resetLeaderboardRankings
+      externalDocs:
+        description: SCILL API Reference
+        url: https://developers.4players.io/scill/api/leaderboards/#reset-leaderboard-data
+      description: Delete all leaderboard data, i.e. reset the leaderboard for the specified member.
+      security: 
+        - BearerAuth: []
+        - oAuthNoScopes: []
+      parameters:      
+        - in: path
+          name: memberType
+          schema:
+            type: string
+          description: The member type, can be user or team (right now) and sets which leaderboards should be selected.
+          required: true  
+        - in: path
+          name: appId
+          description: The application ID
+          required: true
+          schema:
+            type: string  
+        - in: path
+          name: memberId
+          schema:
+            type: string
+          description: Either the user_id or team_id you used when sending the events. The memberType flag identifies which one is used.
+          required: true                 
+      responses:
+        '200':
+          $ref: '#/components/responses/ActionSuccessful'
+        '403':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'         
 components:
   schemas:
     UserInfo:
@@ -1631,6 +2164,160 @@ components:
           $ref: '#/components/schemas/LeaderboardInfo'
         member_data:
           $ref: '#/components/schemas/LeaderboardRanking'
+        old_leaderboard_ranking:
+          $ref: '#/components/schemas/LeaderboardScore'
+        new_leaderboard_ranking:
+          $ref: '#/components/schemas/LeaderboardScore' 
+    LeaderboardV2Results:
+      type: object
+      description: The Leaderboard object contains information about the leaderboard itself like the name and the id, but also contains actual rankings for users
+        and teams.
+      properties:
+        leaderboard_id:
+          type: string
+          example: "641184035742547979"
+          description: The id of the leaderboard
+        leaderboard_name:
+          type: string
+          example: "Hall of Fame"
+          description: The name of the leaderboard
+        leaderboard_sort_order_ascending:
+          type: boolean
+          example: true
+          description: Determines the results sort order. If true, the order is ascending, otherwise, it's descending.
+        leaderboard_results_by_member_type:
+          type: object
+          description: This object uses two keys - "user" and "team", both of which contain ranking info
+          items:
+            $ref: '#/components/schemas/LeaderboardV2MemberTypeRanking'
+    LeaderboardV2Info:
+      type: object
+      description: The Leaderboard object contains information about the leaderboard itself like the name and the id
+      properties:
+        app_id:
+          type: string
+          example: "597737952688570369"
+          description: The id of the app      
+        leaderboard_id:
+          type: string
+          example: "641184035742547979"
+          description: The id of the leaderboard
+        leaderboard_name:
+          type: string
+          example: "Hall of Fame"
+          description: The name of the leaderboard
+        event_type:
+          type: string
+          example: "finish-round"
+          description: The event type that triggers this leaderboard
+        sort_order_ascending:
+          type: boolean
+          example: true
+          description: True if this leaderboard sorts the score ascending or false if the ranking is defined by a descending score.
+    LeaderboardV2Changed:
+      type: object
+      description: This object is sent via Webhook or notifications of type leaderboard-changed. 
+      properties:
+        webhook_type:
+          type: string
+          description: The type of the notification. If you receive this payload, it's most likely leaderboard-changed.
+          example: laderboard-info
+        old_leaderboard:
+          $ref: '#/components/schemas/LeaderboardV2Info'
+        new_leaderboard:
+          $ref: '#/components/schemas/LeaderboardV2Info'
+    LeaderboardV2MemberRanking:
+      type: object
+      description: The Leaderboard object contains information about the leaderboard itself like the name and the id
+      properties:    
+        leaderboard_id:
+          type: string
+          example: "641184035742547979"
+          description: The id of the leaderboard
+        leaderboard_name:
+          type: string
+          example: "Hall of Fame"
+          description: The name of the leaderboard
+        leaderboard_sort_order_ascending:
+          type: boolean
+          example: true
+          description: Determines the results sort order. If true, the order is ascending, otherwise, it's descending.  
+        leaderboard_member:
+          type: object
+          description: Returns the LeaderboardMember object containing user ranking information
+          items:
+            $ref: '#/components/schemas/LeaderboardV2Member'
+    LeaderboardV2MemberTypeRanking:
+      type: object
+      description: You get this object if you query the leaderboard ranking for a specific user. Only the requested user will be returned.
+      properties:
+        count:
+          type: integer
+          example: 123
+          description: The total number of members included in the results
+        members:
+          type: array
+          description: An array of LeaderboardMember objects
+          items:
+            $ref: '#/components/schemas/LeaderboardV2Member'
+    LeaderboardV2Member:
+      description: The ranking for the user or team in the leaderboard
+      type: object
+      properties:
+        member_id:
+          type: string
+          example: "1234567"
+          description: The id of the user - its the same user id you used to create the access token and the same user id you used to send the events
+        member_type:
+          type: string
+          example: "user"
+          description: Indicates what type this entry is, it's either user or team
+        score:
+          type: integer
+          example: 3843
+          description: The score achieved as an integer value. If you want to store floats, for example laptimes you need to convert them into an int before (i.e. multiply by 100 to get hundreds of seconds and format back to float in UI)
+        rank:
+          type: integer
+          example: 3
+          description: The position within the leaderboard
+        metadata_results:
+          type: array
+          description: Returns an array of the LeaderboardMemberMetadata objects containing user ranking metadata information
+          items:
+            $ref: '#/components/schemas/LeaderboardV2MemberMetadata'
+        additional_info:
+          $ref: '#/components/schemas/UserInfo'
+    LeaderboardV2MemberMetadata:
+      description: The object containing secondary metadata ranking information, useful for tied scores on the main tracking parameter
+      type: object
+      properties:
+        key:
+          type: string
+          example: required_time
+          description: The event type key used for ranking 
+        ranked:
+          type: boolean
+          description: Determines if the user is ranked for that event type key. If false, no score and rank will be provided
+        score:
+          type: integer
+          example: 3843
+          description: The score achieved as an integer value. If you want to store floats, for example laptimes you need to convert them into an int before (i.e. multiply by 100 to get hundreds of seconds and format back to float in UI)
+        rank:
+          type: integer
+          example: 3
+          description: The position within the leaderboard
+    LeaderboardV2UpdatePayload:
+      type: object
+      description: The payload used for realtime updates and webhooks if a leaderboard is updated.
+      properties:
+        webhook_type:
+          type: string
+          description: The type of the webhook, in this case it is leaderboard-ranking-changed
+          example: "leaderboard-ranking-changed"
+        leaderboard_data:
+          $ref: '#/components/schemas/LeaderboardV2Info'
+        member_data:
+          $ref: '#/components/schemas/LeaderboardV2Member'
         old_leaderboard_ranking:
           $ref: '#/components/schemas/LeaderboardScore'
         new_leaderboard_ranking:
@@ -2509,25 +3196,13 @@ components:
           type: boolean
           example: false
           description: Indicated if this battle pass is active.
-    BattlePassExpiredPayload:
-      type: object
-      description: This object is sent via Webhook or notifications of type battlepass-expired. 
-      properties:
-        webhook_type:
-          type: string
-          description: The type of the notification. If you receive this payload, it's most likely battlepass-expired
-          example: battlepass-expired
-        old_battle_pass:
-          $ref: '#/components/schemas/BattlePassState'
-        new_battle_pass:
-          $ref: '#/components/schemas/BattlePassState'                  
   securitySchemes:
     BearerAuth:
       type: http
       scheme: bearer
       bearerFormat: Access Token or API-Key
       description: You can either use the API-Key or an Access Token generated earlier with the auth/generate-access-token route. Only use API-Key on server side, never expose it on client side. Use Access Tokens where possible. More info
-        on this topic can be found here https://beta.developers.scillgame.com/api/authentication.html
+        on this topic can be found here https://developers.4players.io/scill/api/authentication/
     oAuthNoScopes:
       type: oauth2
       flows:
