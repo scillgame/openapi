@@ -3755,11 +3755,7 @@
             "example" : true
           },
           "leaderboard_results_by_member_type" : {
-            "type" : "array",
-            "description" : "This object uses two keys - \"user\" and \"team\", both of which contain ranking info",
-            "items" : {
-              "$ref" : "#/components/schemas/LeaderboardV2MemberTypeRanking"
-            }
+            "$ref" : "#/components/schemas/LeaderboardV2Results_leaderboard_results_by_member_type"
           }
         },
         "description" : "The Leaderboard object contains information about the leaderboard itself like the name and the id, but also contains actual rankings for users and teams."
@@ -5062,6 +5058,18 @@
           }
         },
         "description" : "This object holds some basic info about lifetime of a battle pass and is used in expired notifications."
+      },
+      "LeaderboardV2Results_leaderboard_results_by_member_type" : {
+        "type" : "object",
+        "properties" : {
+          "team" : {
+            "$ref" : "#/components/schemas/LeaderboardV2MemberTypeRanking"
+          },
+          "user" : {
+            "$ref" : "#/components/schemas/LeaderboardV2MemberTypeRanking"
+          }
+        },
+        "description" : "This object uses two keys - \"user\" and \"team\", both of which contain ranking info"
       }
     },
     "responses" : {
