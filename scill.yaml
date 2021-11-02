@@ -2188,8 +2188,11 @@ components:
         leaderboard_results_by_member_type:
           type: object
           description: This object uses two keys - "user" and "team", both of which contain ranking info
-          items:
-            $ref: '#/components/schemas/LeaderboardV2MemberTypeRanking'
+          properties:
+            team:
+              $ref: '#/components/schemas/LeaderboardV2MemberTypeRanking'
+            user:
+              $ref: '#/components/schemas/LeaderboardV2MemberTypeRanking'
     LeaderboardV2Info:
       type: object
       description: The Leaderboard object contains information about the leaderboard itself like the name and the id
