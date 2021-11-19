@@ -2827,10 +2827,10 @@
       } ]
     },
     "/api/v2/leaderboards-reset/{appId}/{leaderboardId}" : {
-      "description" : "Reset user leaderboard data",
+      "description" : "Deletes all leaderboard V2 data, i.e. reset the leaderboard V2.",
       "delete" : {
         "tags" : [ "leaderboardsV2" ],
-        "summary" : "Deletes all leaderboard V2 data, i.e. reset the leaderboard V2.",
+        "summary" : "Reset user leaderboard data",
         "description" : "Deletes all leaderboard V2 data, i.e. reset the leaderboard V2.",
         "externalDocs" : {
           "description" : "SCILL API Reference",
@@ -3466,10 +3466,10 @@
       }
     },
     "/api/v1/reset-leaderboard/{memberType}/{appId}/{memberId}" : {
-      "description" : "Reset user leaderboard data",
+      "description" : "Delete all leaderboard data, i.e. reset the leaderboard for the specified member.",
       "delete" : {
         "tags" : [ "leaderboards" ],
-        "summary" : "Delete all leaderboard data, i.e. reset the leaderboard for the specified member.",
+        "summary" : "Reset user leaderboard data",
         "description" : "Delete all leaderboard data, i.e. reset the leaderboard for the specified member.",
         "externalDocs" : {
           "description" : "SCILL API Reference",
