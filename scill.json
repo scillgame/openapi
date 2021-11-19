@@ -2827,7 +2827,7 @@
       } ]
     },
     "/api/v2/leaderboards-reset/{appId}/{leaderboardId}" : {
-      "description" : "Deletes all leaderboard V2 data, i.e. reset the leaderboard V2.",
+      "description" : "Reset user leaderboard data",
       "delete" : {
         "tags" : [ "leaderboardsV2" ],
         "summary" : "Deletes all leaderboard V2 data, i.e. reset the leaderboard V2.",
@@ -3466,7 +3466,7 @@
       }
     },
     "/api/v1/reset-leaderboard/{memberType}/{appId}/{memberId}" : {
-      "description" : "Delete all leaderboard data, i.e. reset the leaderboard for the specified member.",
+      "description" : "Reset user leaderboard data",
       "delete" : {
         "tags" : [ "leaderboards" ],
         "summary" : "Delete all leaderboard data, i.e. reset the leaderboard for the specified member.",
