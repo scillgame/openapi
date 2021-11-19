@@ -1633,7 +1633,7 @@ paths:
         url: https://ls-staging.scillgame.com
       - description: Dev URL
         url: https://ls-dev.scillgame.com
-    description: Deletes all leaderboard V2 data, i.e. reset the leaderboard V2.
+    description: Reset user leaderboard data
     delete:
       tags: [
         "leaderboardsV2"  
@@ -1992,7 +1992,7 @@ paths:
         url: https://ls-staging.scillgame.com
       - description: Dev URL
         url: https://ls-dev.scillgame.com
-    description: Delete all leaderboard data, i.e. reset the leaderboard for the specified member.
+    description: Reset user leaderboard data
     delete:
       tags: [
         "leaderboards"  
