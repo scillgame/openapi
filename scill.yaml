@@ -2246,10 +2246,7 @@ components:
           example: true
           description: Determines the results sort order. If true, the order is ascending, otherwise, it's descending.  
         leaderboard_member:
-          type: object
-          description: Returns the LeaderboardMember object containing user ranking information
-          items:
-            $ref: '#/components/schemas/LeaderboardV2Member'
+          $ref: '#/components/schemas/LeaderboardV2Member'
     LeaderboardV2MemberTypeRanking:
       type: object
       description: You get this object if you query the leaderboard ranking for a specific user. Only the requested user will be returned.
