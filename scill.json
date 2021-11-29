@@ -3827,11 +3827,7 @@
             "example" : true
           },
           "leaderboard_member" : {
-            "type" : "array",
-            "description" : "Returns the LeaderboardMember object containing user ranking information",
-            "items" : {
-              "$ref" : "#/components/schemas/LeaderboardV2Member"
-            }
+            "$ref" : "#/components/schemas/LeaderboardV2Member"
           }
         },
         "description" : "The Leaderboard object contains information about the leaderboard itself like the name and the id"
